@@ -1,0 +1,212 @@
+数据存储	HDFS
+数据分析	MapReduce
+资源调度	Yarm
+
+历史进程
+	Hadoop1.0
+		HDFS和MapReduce
+			HDFS  分布式存储系统
+				NameNode和DataNode
+			MapReduce  分布式计算框架
+				JobTracker和TaskTracker
+				JobTracker负责资源管理和作业控制
+				TaskTracker负责接收JobTracker的命令并执行
+	Hadoop2.0
+		提出HDFS Federation，解决只有一个NameNode的问题
+		Yarn的出现，分离资源管理和作业控制
+		
+
+
+HDFS
+MapReduce
+Yarm	master  Nodeworker
+
+ hadoop 是没有当前路径的概念 必须全路径
+ 当运行成功的时候 生成三个文件： SUCCESS（运行成功提示）  _logs（日记文件）  part-r-00000（结果）
+ HDFS 设计的目标和理念
+
+  流式数据访问，即数据批量读取而非随机读写 （他不是一个oltp系统--ps 随机存取）
+        大规模数据集
+  程序采用 “数据就近” 原则分配节点执行
+简单一致性模型。为了降低系统复杂度，对文件采用一次写多次度的逻辑设计，就是文件已经写入，关闭，就再也不能修改（比如日记分析）
+namenode  存放元数据（命名空间 文件和数据是怎么对应的  怎么找到数据等等）
+        元数据是放在内存的 
+记录每个文件数据块在各个datanode 上的位置和副本信息
+        管理文件系统的命名空间
+        协调客服端对文件访问
+        使用事务日志 记录hdfs元数据的变化。使用映像文件存储文件系统的命名空间，包括文件映射 文件属性等     
+
+
+ Hadoop
+	NameNode
+	DataNode
+	Secondary NameNode
+	JobTracker		任务调度
+	TaskTracker		任务运行
+ 
+ Hdfs    分布式文件管理			NameNode和DataNode
+		特点
+			分布式存储
+			数据冗余
+			可线性增长
+		设计理念
+			硬件错误时常态，所以需要冗余
+ Yarn    资源的管理和调度				
+			ResourceManager
+				Scheduler
+				ApplicationsManager
+			NodeManager-->节点的资源和任务管理
+			ApplicationMaster-->用户提交的应用程序，管理应用程序的状态
+			Container-->资源抽象，内存资源和CPU资源
+			
+			运行在YARN上的框架，包括MapReduce-On-YARN, Spark-On-YARN, Storm-On-YARN和Tez-On-YARN
+Spark    一种计算框架
+			Dirver
+			ClusterManager
+			DAGScheduler
+			TaskScheduler
+ 
+ MapReduce 在 YARN 上的执行流程
+ 客户端提交job给ResourceManager
+ ResourceManager接受任务并且指定NodeManager启动一个Container运行
+ ApplicationManager来管理这个job
+ ApplicationManager运行后向ResourceManager申请资源
+ ResourceManager分配资源，在NodeManager上开启多个Container来运行job
+ 
+	Map和Reduce
+	
+ 
+ 
+ 
+ 
+ 
+ 
+ 合并（Combine）和归并（Merge）的区别： 
+两个键值对<“a”,1>和<“a”,1>，如果合并，会得到<“a”,2>，如果归并，会得到<“a”,<1,1>>
+ 
+ 
+ 
+ 
+ 
+ Spark
+	宽依赖和窄依赖
+	窄依赖是指前一个rdd计算出一个唯一的rdd
+	宽依赖是指多个rdd生成一个或多个rdd
+job和stage
+更具action区分job
+根据宽窄区分stage
+ 
+ 
+ spark的运行模式
+ 
+	本地
+	Standlone	利用spark自带的资源管理器和调度器运行，采用Master/Slaves，可引入Zookper实现HA
+	Hadoop Yarn
+ 
+ Application   Job   Stage   TaskSet   Task
+            1~N   1~N      1        1~N
+ 
+ 分区Partition
+ RDD数据太大需要分区
+ 三种分区方式
+	HashParititoner		partition = key.hashCode () % numPartitions
+	RangePartitioner
+	CustomPartitioner
+ 
+HDFS的文件分块
+块是分布式文件存储的最小单元
+每块默认128M
+
+hadoop的InputSplit和InputFormat
+FileInputFormat默认为文件在HDFS上的每一个Block生成一个对应的FileSplit。那么自然，FileSplit.start就是对应Block在文件中的Offset、FileSplit.length就是对应Block的Length、FileSplit.hosts就是对应Block的Location。	
+但是可以设置“mapred.min.split.size”参数，使得Split的大小大于一个Block，这时候FileInputFormat会将连续的若干个Block分在一个Split中、也可能会将一个Block分别划在不同的Split中（但是前提是一个Split必须在一个文件中）。Split的Start、Length都好说，都是划分前就定好的。而Split的Location就需要对所有划在其中的Block的Location进行整合，尽量寻找它们共有的Location。而这些Block很可能并没有共同的Location，那么就需要找一个距离这些Block最近的Location作为Split的Location
+
+
+
+Worker Node  物理节点
+Executor     物理节点的执行进程
+Jobs    由action除法会生成一个job   提交给DAGScheduler  分解成stage
+Stage   有DAGScheduler分解，有一个TaskSet 
+Task:被送到executor上的工作单元，task简单的说就是在一个数据partition上的单个数据处理流程。
+
+
+spring.jpa.properties.hibernate.hbm2ddl.auto ddl自动操作类型
+
+create
+update
+
+remark hibernate jpa auto
+
+
+spark运行模式
+	本地单机	local[n]模式	多个线程模拟分布式运算
+	spark-submit
+ 
+ 
+ 
+ hdfs文件只能追加不能修改
+ 
+ 
+命名服务
+	是指通过制定的名字来获取资源或者服务的地址，提供者的信息
+	
+
+
+Zookeeper
+	是一个典型的分布式数据一致性的解决方案
+	保证如下分布式一致性特性
+		顺序一致性
+		原子性
+		单一视图
+		可靠性
+		实时性
+	设计目标
+		致力于提供一个高性能，高可靠，且具有严格的顺序访问控制的分布式协调服务
+			
+
+			
+			分布式
+			
+			两阶段提交
+			在分布式下，每个节点对自己提交的事务具有明确的结果
+			但是如果事务发生在其他节点则无法知道具体执行结果，也就无法
+			
+			
+在一个分布式数据库系统中，如果各节点的初始状态一致，每个节点都执行相同的操作序列，那么他们最后能得到一个一致的状态。为保证每个节点执行相同的命令序列，需要在每一条指令上执行一个“一致性算法”以保证每个节点看到的指令一致
+ 
+
+ 
+ 
+ partition
+
+1 rdd存储机制类似hdfs，分布式存储
+2 hdfs被切分成多个block（默认128M）进行存储，rdd被切分为多个partition进行存储
+3 不同的partition可能在不同的节点上
+4 再spark读取hdfs的场景下，spark把hdfs的block读到内存就会抽象为spark的partition
+5 将RDD持久化到hdfs上，RDD的每个partition就会存成一个文件，如果文件小于128M，就可以理解为一个partition对应hdfs的一个block。反之，如果大于128M，就会被且分为多个block，这样，一个partition就会对应多个block
+ 
+ 
+ 分布式系统有很多问题 其中有两个
+1. Coordination
+2. Resource Management
+
+Zookeeper偏重解决的是前者
+Yarn偏重解决的是后者
+
+
+Yarn的相关概念
+	ResourceManager
+	NodeManager
+	ApplicationMaster		抽象的是我们提交的应用程序
+	Container				抽象的是资源
+	
+	
+Spark相关概念
+	RDD
+	task,stage,job
+	DAG
+	Driver
+	Cluster Manager
+	Worker Node
+	Executor		运行在工作节点的一个进程
+	Application		用户编写的Spark应用程序

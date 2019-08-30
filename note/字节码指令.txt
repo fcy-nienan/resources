@@ -1,0 +1,64 @@
+aconst_null  pushes a null object reference onto the stack
+bipush byte1
+sipush byte1 byte2
+
+
+加法 iadd ladd fadd dadd
+减法 sub
+乘法 mul
+除法 div
+求余 rem
+取反 meg
+位移 shl shr ushr
+按位或 ior lor
+按位与 iand land
+按位异或 ixor lxor
+自增 iinc
+比较 lcmp dcmp fcmp
+只有在除法指令（idiv,ldiv)和求余指令（irem,lrem)当出现除数为零时会导致虚拟机抛出AirtmeticException异常，其余整形和浮点型运算场景都不会抛出异常
+
+类型转换指令
+I2B  int to byte
+I2C  int to char
+对象创建于访问
+new 
+newarray anewarray  multianewarray
+getfield putfield getstatic putstatic
+baload caload saload iaload faload daload aaload
+bastore castore
+arraylength
+instanceof checkcase
+
+athrow异常抛出指令
+
+monitorenter
+monitorexit
+
+
+	
+java字节码指令
+
+常量入栈指令
+	const一类
+	iconst_0	iconst_1	fconst_0	fconst_1	aconst_null		iconst_m1
+	bipush	value
+	sipush value
+	ldc
+	ldc_w
+	ldc2_w
+加载指令，将局部变量表的值加载到操作数栈中
+	aload index
+	aload_0
+	aload_1
+	iload index
+	iload_0
+	iload_1
+	aaload
+	iaload
+	laload
+	faload
+将栈值保存到局部变量表中
+	astore index
+	astore_0
+	istore index
+	istore_0

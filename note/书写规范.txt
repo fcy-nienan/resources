@@ -1,0 +1,1 @@
+WARNING: /base/bigData/hadoop/logs does not exist. Creating

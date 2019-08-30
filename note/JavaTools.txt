@@ -1,0 +1,83 @@
+查看字节码
+	javap -c test	查看Java的字节码
+查看汇编
+	将hsdis.dll放到：jre安装目录\bin\server
+	java -XX:+UnlockDiagnosticVMOptions -XX:+PrintAssembly -XX:CompileCommand=compileonly,*ThreadAssembly.tttt 
+	
+	-XX:CompileCommand=print,*MyClass.myMethod prints assembly for just one method
+	-XX:CompileCommand=option,*MyClass.myMethod,PrintOptoAssembly (debug build only) produces the old print command output
+	-XX:CompileCommand=option,*MyClass.myMethod,PrintNMethods produces method dumps
+
+	
+	
+	
+	java -XX:+UnlockDiagnosticVMOptions -XX:+PrintAssembly -XX:CompileCommand=compileonly,*TestVolatile1.getInstance TestVolatile1
+ 
+	java -XX:+UnlockDiagnosticVMOptions -XX:+PrintAssembly -XX:CompileCommand=print,*TestVolatile1.getInstance  TestVolatile1
+
+	
+	
+开启断言
+	-ea
+	
+	
+带包编译
+	javac -Djava.ext.dirs=H:\lib springtest.java   编译时添加指定jar包
+带包运行
+	java -classpath hello.jar myapp
+查看运行时数据hsdb
+	java -cp %JAVA_HOME%/lib/sa-jdi.jar sun.jvm.hotspot.HSDB
+	查询对象语言	select a from java.lang.String a
+	
+	
+	
+调试类
+	jdb -XX:+UseSerialGC -Xmx10m
+	stop in son.show
+	run ArrayTest
+window下查找文件
+	for /r testdir %i in (*) do @echo %i 列举testdir目录及所有子目录的所有文件
+	for /r testdir %i in (*.txt,*.jpg,*.java) do @echo %i 寻找txt,jpg,java文件
+window下查找字符串
+	netstat -ano | find "8080"
+反编译
+	jad 将一个class文件反编译为Java文件
+	-s 扩展名
+	-d 生成文件目录
+	-8 utf-8编码
+	-o 忽略确认(omit confirmation)
+打包
+	jar 将一个或多个class文件组织成.jar文件格式
+	jar cvf hello.jar *.class
+	jar cvfm hello.jar MANIFEST.MF *.class(自带MANIFEST.MF文件打包)
+	Main-Class: makepojo带包运行(在MANIFEST.MF文件中添加)
+	java -jar hello.jar(运行jar)
+打开任意文件夹后，在空白处按住shift再按右键就可以选择  在此处打开命令窗口
+Class-Path: FirstApplet.jar
+Class-path: SecondApplet.jar
+Java调用类的顺序：java\lib\ext中的类--->Manifest.mf中指定的类-->当前目录中的类-->set CLASSPATH中指定的类
+MANIFEST文件编写规则
+	第一行不能有空行,行与行间不能有空行,行尾不能有空格
+	最后一行一定是空行
+	key: value分号后面有一个空格
+windows下查找字符
+netstat -ano | findstr "8080"
+类似于Linux下的grep
+
+
+-XX:+PrintGC 输出GC日志
+-XX:+PrintGCDetails 输出GC的详细日志
+-XX:+PrintGCTimeStamps 输出GC的时间戳（以基准时间的形式）
+-XX:+PrintGCDateStamps 输出GC的时间戳（以日期的形式，如 2013-05-04T21:53:59.234+0800）
+-XX:+PrintHeapAtGC 在进行GC的前后打印出堆的信息
+-Xloggc:../logs/gc.log 日志文件的输出路径
+
+
+
+
+
+java运行参数
+
+java -verbose:class			查看类加载情况
+java -verbose:gc			查看GC运行情况
+java -verbose:jni			查看JNI运行情况

@@ -1,0 +1,173 @@
+	1.num-executors		executor的数量
+　　2.executor-memory	executor的内存
+　　3.executor-cores	executor中task的数量
+　　4.driver-memory		driver端的内存，如果是collect一类的action则需要调大点
+　　5.spark.default.parallelism
+　　6.spark.storage.memoryFraction
+　　7.spark.shuffle.memoryFraction
+
+driver  worker  executor  job  stage  task
+每个Worker上存在一个或多个CoarseGrainedExecutorBackend进程，每个进程包含一个Executor对象，该对象持有一个线程池，每个线程池可以执行一个Task
+
+  （5+4）/9:
+
+  9:当前stage的task的数量，5：已完成的task数量，4：等待执行的task数量。
+
+RDD分为两种操作
+transfer和action
+转换和具体的操作
+
+shuffle操作
+shuffle是Spark将多个分区的数据重新分组重新分布数据的机制。shuffle是一个复杂且代价较高的操作，它需要完成将数据在executor和机器节点之间进行复制的工作
+
+在Yarn的NodeManager节点上启动一个map task或者reduce task，在物理上启动的是一个jvm进程；而Spark的task是Executor进程中的一个线程。
+
+job,stage,task
+job是我们提交的应用程序
+stage是根据我们提交的程序中的宽窄依赖划分的
+task是根据输入数据的分区数指定的
+
+多个不同stage之间可以同时执行吗?
+不可以,stage之间是有执行顺序的,只有上一个执行完了才能执行下一个
+
+
+
+select * from a union select * from b;
+去重的并集
+select * from a union all select * from b;
+没去重的并集
+select * from a except select * from b;
+差集
+
+
+
+union	并集(不去重)
+distinct	去重	(k,v),去重时相同的key不同的value是不同的数据,只有key和value都相同才去掉
+map			映射
+filter		过滤		rdd1.filter(_._2>2)  		rdd.filter(x => x._2==2)
+
+join		内连接
+for(t:data1){
+	for(s:data2){
+		if(t.k==s.k){
+			t.k,(t.v,s.v)
+		}
+	}
+}
+leftOuterJoin		左外连接
+rightOuterJoin		又外连接
+
+groupBy(Function)
+按照给定的函数进行分组
+groupBy(_%2)按照模2的值进行分组,所以只有两组,一组的值为0,另一个为1
+groupByKey
+	for(s:data){
+		if(map[s.key]!=null){
+			map[s.key]=(map[s.key],s.value)
+		}else{
+			map[s.key]=(map[s.key])
+		}
+	}
+intersection		交集
+cogroup		两个数据共同的分组
+		先把两个数据集的所有key去重得到不同的值
+		在每一个不同的值后面加上帝一个数据集中和他相同的值
+		在第二个数据及中加上和他讲通的值
+		rdd1(List((tom,1),(jerry,2),(jerry,3),(shuke,4)
+		rdd2(List((tom,1),(jerry,4),(kitty,5))
+		rdd1.cogroup(rdd2)
+		
+		tom,jerry,shuke,kitty
+		
+		tom,(1),(1)
+		jerry,(2,3),(4)
+		shuke,(4),()
+		kitty,(),(5)
+		
+		
+mapValues		对value进行map操作不对key操作
+reduce		reduce将RDD中元素前两个传给输入函数，产生一个新的return值，新产生的return值与RDD中下一个元素（第三个元素）组成两个元素，再被传给输入函数，直到最后只有一个值为止。
+Cartesian笛卡尔积
+
+
+
+1、Except返回两个结果集的差（即从左查询中返回右查询没有找到的所有非重复值）。
+Returns a new Dataset containing rows in this Dataset but not in another Dataset.
+
+
+yarn application -list
+
+
+
+
+
+
+Intel(R) Core(TM) i5-5200U CPU @ 2.20GHz
+
+电脑物理CPU个数		1
+每个CPU的核数		2
+核只不支持超线程	2
+
+处理器数量				2
+每个处理器的内核数量	2
+
+
+
+centos是基于redHat的
+
+
+tuple-elements are not access like x(0) but x._1 etc
+
+this should work
+
+
+一个程序有多个job
+一个job有多个stage
+一个stage有多个task
+
+总task数量=jobNum*stageNum*taskNum;就是所有task相加的数量
+
+
+RDD
+属性
+a list of partitions
+a function for computing each split
+a list of dependencies on other rdds
+optionally a partitioner for key-value rdds
+optionally a list of preferred location to compute each slit on
+分区
+算子
+父依赖
+分区器
+计算优先位置
+
+
+
+
+现在回头看，RDD本身就是一个Berkeley的博士们在写论文时，抽象出的概念，其本质与Hadoop MapReduce处理时输入输出的key-value，Flink的dataset没有本质区别。处理时，任然使用iterator一边载入部分数据，一边执行运算（每个partition的实现内部实际就是一个iterator），没必要纠结这个概念
+
+
+
+
+RDD是最早的概念
+
+DataFrame是spark1.3之后提出的概念
+
+DataSet是spark1.6之后提出的概念
+
+
+DataFrame转换为RDD
+
+RDD转换为DataFrame
+	val df=deptRDD.toDF();
+	df.createOrReplaceTempView("dept");
+	spark.sql("select * from dept").show();
+
+
+explode是行转列
+collect_list是列转行
+collect_set去重
+
+select sub_company,explode(split(sub_company_name,"分")) from one;
+
+select collect_set(sub_company)[0],collect_list(sup_company)[2] from one group by(sub_company);

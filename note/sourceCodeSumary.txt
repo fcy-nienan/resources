@@ -1,0 +1,6 @@
+除了一些基础的bean类，在所有类中都添加一个static的日志对象
+
+ if (RpcProgramNfs3.LOG.isDebugEnabled()) {
+      RpcProgramNfs3.LOG.debug(WRITE_RPC_END + xid);
+    }
+日志级别的控制还真是通过这种if,else控制的

@@ -1,0 +1,338 @@
+清空文件
+cat /dev/null > wordcount
+:>wordcount
+
+上一条命令是否执行成功 $?
+
+0   标准输入
+1   标准输出
+2   错误输出
+ls a.txt 1>success.txt 2>error.txt  将标准输出输出到success.txt文件,标准错误输出到error.txt
+其中1可以省略,所以可以写成 ls a.txt > success.txt 2>error.txt
+
+ls a.txt b.txt 1>success.txt 2>&1 将标准错误和标准输出输出到success.txt文件
+如果写成了
+ls a.txt b.txt 2>&1 2>success.txt   则会将标准错误输出到控制台上
+
+获取上一条命令执行结果 dir=`pwd`          或者       dir=$(pwd)
+
+free -h -s 3     每3秒显示内存信息
+
+tr -s ' ' 将 将重复的空格以一个空格显示,tr -s 't' 将重复的t以一个t显示
+cut -d' ' -f 1   以空格作为分隔符并且去第一列
+
+
+
+sync 命令将所有未写的系统缓冲区写到磁盘中，包含已修改的 i-node、已延迟的块 I/O 和读写映射文件)
+
+
+
+
+其实 free 命令中的信息都来自于 /proc/meminfo 文件
+
+
+
+
+free命令详解
+
+              total        used        free      shared  buff/cache   available
+Mem:           972M        437M        409M        7.6M        125M        379M
+Swap:          2.0G        264K        2.0G
+
+free命令的显示
+
+free表示真正空闲的内存
+echo 1 > /proc/sys/vm/drop_caches当然，这个文件可以设置的值分别为1、2、3。它们所表示的含义为：echo 1 > /proc/sys/vm/drop_caches：表示清除 page cache。echo 2 > /proc/sys/vm/drop_caches：表示清除回收 slab 分配器中的对象（包括目录项缓存和 inode 缓存）。slab 分配器是内核中管理内存的一种机制，其中很多缓存数据实现都是用的 page cache。echo 3 > /proc/sys/vm/drop_caches：表示清除 page cache 和 slab 分配器中的缓存对象。
+
+buff/cache
+A buffer is something that has yet to be "written" to disk. A cache is something that has been "read" from the disk and 
+stored for later use.
+	buff是缓冲,还未写入到磁盘的脏数据
+	cache是方便读取
+	
+	
+ps命令
+查看当前系统进程的uid,pid,stat,pri, 以uid号排序.
+ps -eo pid,stat,pri,uid –sort uid
+
+查看当前系统进程的user,pid,stat,rss,args, 以rss排序.
+ps -eo user,pid,stat,rss,args –sort rss
+
+
+
+
+
+
+
+Inode节点
+ 磁盘分为许多个INode节点
+ 每个iNode节点都有编号
+ INode节点信息
+ stat查看文件的INode信息
+	File		'Dockerfile'		文件名
+	Size		'422'				文件大小
+	Blocks		'8'					文件块
+	IO Block	'4096'				
+	Device		'fd01h/64769d'		设备
+	Inode		2108221				Inode号
+	Links		1					链接数
+	Access		(0644/-rw-r--r--)	访问权限
+	Uid			(0/root)			用户id
+	Gid			(0/root)			组id
+	Access		2018-11-22 21:45:09	上次访问时间
+	Modify							上次修改时间
+	Change							元数据的修改时间
+	Birth							创建时间
+	
+目录也是一种文件,结构简单,就是一系列目录项列表,每个目录项由两部分组成
+	所包含文件的文件名
+	改文件名对于的inode号码
+	
+硬连接
+	在inode节点的链接上加一,然后以另一个文件名访问该节点的数据,该该文件的内容修改会影响所有的文件名,但是删除一个文件名,并不一定会删除该文件,只是把该inode节点的链接数减一,如果该inode节点的链接数为0,则系统会回收该节点,但是并不会清楚该节点的数据,只有当其他数据需要存储在该节点的时候这里的数据才会被覆盖掉
+	
+	目录文件的链接数
+		创建一个目录的时候,会默认生成两个目录项, .和..,
+		前者的inode就是当前目录文件的inode号码
+		后者的inode就是当前目录的父目录的inode号码
+		等同于硬连接
+		所以一个目录的硬链接总数等于其子目录项加上2
+		
+软链接就是文件的内容是是另一个文件的路径,相当于windows下的快捷方式
+
+系统indoe是有限的,所以可能系统空间还够但不能存放数据,
+文件夹太多了,每创建一个文件都需要一个inode节点
+由于每个文件都必须有一个inode，因此有可能发生inode已经用光，但是硬盘还未存满的情况。这时，就无法在硬盘上创建新文件。
+
+
+
+
+
+
+
+
+
+#先检查是否安装了iptables
+service iptables status
+#安装iptables
+yum install -y iptables
+#升级iptables
+yum update iptables 
+#安装iptables-services
+yum install iptables-services
+
+yum remove mysql*
+rpm -qa|grep -i mysql   查找系统的有关于mysql的文件
+
+rpm -e -nodeps 包名删除mysql有关软件
+ rpm -qa|grep -i mysql来确认系统中是否还含有mysql相关的文件
+
+rpm -ql php71-php-fpm-7.1.2-1.el6.remi.x86_64    yum 安装的程序 安装到哪里了？
+
+
+
+#停止firewalld服务
+systemctl stop firewalld
+#禁用firewalld服务
+systemctl mask firewalld
+
+
+#查看iptables现有规则
+iptables -L -n
+#先允许所有,不然有可能会杯具
+iptables -P INPUT ACCEPT
+#清空所有默认规则
+iptables -F
+#清空所有自定义规则
+iptables -X
+#所有计数器归0
+iptables -Z
+#允许来自于lo接口的数据包(本地访问)
+iptables -A INPUT -i lo -j ACCEPT
+#开放22端口
+iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+#开放21端口(FTP)
+iptables -A INPUT -p tcp --dport 21 -j ACCEPT
+#开放80端口(HTTP)
+iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+#开放443端口(HTTPS)
+iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+#允许ping
+iptables -A INPUT -p icmp --icmp-type 8 -j ACCEPT
+#允许接受本机请求之后的返回数据 RELATED,是为FTP设置的
+iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+#其他入站一律丢弃
+iptables -P INPUT DROP
+#所有出站一律绿灯
+iptables -P OUTPUT ACCEPT
+#所有转发一律丢弃
+iptables -P FORWARD DROP
+
+
+#保存上述规则
+service iptables save
+
+
+
+#注册iptables服务
+#相当于以前的chkconfig iptables on
+systemctl enable iptables.service
+#开启服务
+systemctl start iptables.service
+#查看状态
+systemctl status iptables.service
+
+
+安装文件传输命令lrzsz
+yum install -y lrzsz
+使用该命令
+直接键入rz则会弹出一个文件窗口,然后选择需要传输的文件
+
+mysql的连接方式有两种：
+
+1.tcp/ip方式
+
+先说说这种方式，这个方式是在tcp/ip上建立一个网络连接请求，即MySQL服务器和客户端不再同一个服务器上，需要通过网络（IP）形式去连接。但是这种连接需要mysql服务器给这台客户端IP进行授权，否则不可以连接。
+
+如mysql服务器是192.168.10.230，客户端IP是192.168.10.220
+
+授权：grant all on *.* to 'root'@'192.168.10.220' identified by '123456';
+
+连接：mysql -uroot -h192.168.2.230 -p ? ? ? ? ? ? ##-h是指定连接服务器
+
+这种方式是不需要在客户端安装mysql的，即mysql的服务器安装完成后，就默认建立了一个和任何客户端进行连接的通道。
+
+2.socket方式
+
+这种方式必须是客户端和mysql服务器在同一台服务器上，使用localhost的方式去连接，这样就会用到套接字文件socket，即主机名是localhost的服务器，客户端通过套接字文件mysql.sock文件连接到服务器，如果这个文件删除就不能连接。
+
+
+mysql设置远程登录，修改host字段为'%'
+
+centos7安装mysql
+直接用yum -y install mysql mysql-server会出现No package mysql-server available错误
+可以先键入下面两个命令
+	wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
+	rpm -ivh mysql-community-release-el7-5.noarch.rpm
+然后在安装mysql
+	yum -y install mysql mysql-server
+
+开启mysql 
+	systemctl start mysqld
+进入mysql
+	mysql -uroot
+改密码
+	set password for root@localhost=password('123');
+	mysqldadmin -uroot -p123456 password 123;
+	update user set password=password('123') where user='root' and host='localhost';
+	flush privileges;
+忘记密码
+	关闭mysql
+	进入mysql的bin目录
+	打开cmd
+	键入 mysqld --skip-grant-tables,意思是跳过权限认证
+	然后新开一个cmd
+	然后进入mysql修改密码
+	最后需要刷新权限:flush privileges;
+mysql的默认配置文件
+	F:\mysql\bin\mysqld --defaults-file="F:\mysql\my-default.ini" MySQL
+	在注册表中修改ImagePage的值为以上值
+	最后的MYSQL是服务名称
+	
+cmd链接远程数据库    mysql -uroot -proot -h120.79.158.25 -P3306 -Ddatabasename
+		P,D要大写
+mysql导出SQL文件(将数据库导出为SQL文件)
+		mysqldump -uroot -p shopping > shop.sql
+1.将数据库mydb导出到e:\mysql\mydb.sql文件中：
+打开开始->运行->输入cmd    进入命令行模式
+c:\>mysqldump -h localhost -u root -p mydb >e:\mysql\mydb.sql
+然后输入密码，等待一会导出就成功了，可以到目标文件中检查是否成功。
+2.将数据库mydb中的mytable导出到e:\mysql\mytable.sql文件中：
+c:\>mysqldump -h localhost -u root -p mydb mytable>e:\mysql\mytable.sql
+3.将数据库mydb的结构导出到e:\mysql\mydb_stru.sql文件中：
+c:\>mysqldump -h localhost -u root -p mydb --add-drop-table >e:\mysql\mydb_stru.sql
+四.从外部文件导入数据到数据库中：
+从e:\mysql\mydb2.sql中将文件中的SQL语句导入数据库中：
+1.从命令行进入mysql，然后用命令CREATE DATABASE mydb2;创建数据库mydb2。
+2.退出mysql 可以输入命令exit；或者quit；
+3.在CMD中输入下列命令：
+c:\>mysql -h localhost -u root -p mydb2 < e:\mysql\mydb2.sql
+然后输入密码，就OK了。
+	
+centos安装jdk
+获取tar包
+wget http://download.oracle.com/otn-pub/java/jdk/8u161-b12/2f38c3b165be4555a1fa6e98c45e0808/jdk-8u161-linux-x64.tar.gz?AuthParam=1516541774_9b59718e04ebc578f776a38892b0b6f4
+解压
+配置环境变量
+
+
+	
+centos安装tomcat
+获取tar包
+wget http://mirrors.hust.edu.cn/apache/tomcat/tomcat-8/v8.5.24/bin/apache-tomcat-8.5.24.tar.gz
+tar -zxvf tomcat.tar
+配置tomcat为服务
+在tomcat的bin目录下的catalina.sh文件中添加一下信息
+	#chkconfig:2345 10 90(三个数字依次为服务运行级别,启动优先级,停止优先级)
+	#description:Tomcat service(服务的描述,规定的,要不然会出现添加服务错误)
+	JAVA_HOME=/***/***(Java的安装目录)
+	CATALINA_HOME=/***/***(tomcat的安装目录)
+将catalian.sh文件修改为tomcat并放入/etc/init.d目录下
+	mv catalina.sh /etc/init.d
+	mv catalina.sh tomcat
+修改权限
+	chmod 755 tomcat
+添加为系统服务
+	chkconfig --add tomcat
+查看系统服务
+	chkconfig --list 
+	
+	
+开机自启动
+	将shell脚本的路径添加到/etc/rc.local文件中
+	
+	
+	
+	
+	
+	
+
+netstat -tnl   真的
+
+测试端口是否开放
+telnet ip port
+curl ip:port
+wget ip:port
+
+查看所有tcp端口
+netstat -ntlp
+
+
+wireshark抓取本机回环数据
+
+net start npf
+route add 192.168.43.176 mask 255.255.255.255 192.168.43.1  metric 1
+打开wireshark选择本地回环网卡
+
+切分大文件
+split -l 100 bigfile prefix
+split -b 10m bigfile prefix
+
+
+
+git remote查看当前远程仓库
+git remote add test git://github.com/wingrai/test.git添加远程仓库
+git config --list查看配置信息
+git config --global user.name "name"配置用户名
+git config --global user.email 807715333@qq.com配置邮箱
+
+git add .
+git checkout .
+git commit -m 'msg'
+git branch -a
+git checkout branchName
+git push origin localName:remoteName	提交本地分支到原创分支
+git fetch origin master:br3				将远程的master分支拉下来并在本地创建br3分支
+git merge br3							将br3分支与本地分支合并(最新的是br3分支)
+git diff br3    						查看当前分支与br3分支有何不同
+git branch -d br3						删除本地br3分支

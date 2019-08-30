@@ -1,0 +1,9 @@
+匹配img标签:
+<img[\w\W]*?src=[\"|\']?([\w\W]*?)/>
+匹配img标签中的jpg和png图片
+<img[\w\W]*?src=[\"|\']?([\w\W]*?)(jpg|png)[\w\W]*?/>
+
+
+<img src="word/media/image3.png" width="415.3pt" height="227.85pt"/>
+
+提取src的属性word/media/image3.png

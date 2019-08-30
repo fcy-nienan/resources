@@ -1,0 +1,43 @@
+客户端 RM  NM  AM  Web-UI
+客户端--RM
+RM--NM
+RM--AM
+Web-UI
+
+客户端向RM提交任务
+客户端杀死任务
+NM向RM汇报心跳,领取任务
+AM向RM申请资源,释放资源
+AM在NM上启动Container
+
+yarn.resourcemanager.address
+yarn.resourcemanager.scheduler.address
+yarn.resourcemanager.resource-tracker.address
+yarn.resourcemanager.admin.address
+yarn.resourcemanager.webapp.address
+
+资源调度:
+提交给yarn的任务需要带有该任务所需要内存的参数,yarn只负责资源分配,有就给,没有就不给
+yarn.resourcemanager.scheduler.class
+三种调度器，先来先到，
+yarn.resourcemanager.resource-tracker.client.thread-count
+yarn.resourcemanager.scheduler.client.thread-count
+yarn.scheduler.minimum-allocation-mb/ yarn.scheduler.maximum-allocation-mb
+yarn.scheduler.minimum-allocation-vcores / yarn.scheduler.maximum-allocation-vcores
+yarn.resourcemanager.nodes.include-path /yarn.resourcemanager.nodes.exclude-path
+yarn.resourcemanager.nodemanagers.heartbeat-interval-ms
+yarn.nodemanager.resource.memory-mb
+yarn.nodemanager.aux-services
+
+
+yarn.scheduler.minimum-allocation-mb
+yarn.scheduler.maximum-allocation-mb
+yarn.nodemanager.resource.memory-mb
+yarn.nodemanager.vmem-pmem-ratio
+yarn.scheduler.increment-allocation-mb
+mapreduce.map.memory.mb
+mapreduce.reduce.memory.mb
+mapreduce.map.java.opts
+mapreduce.reduce.java.opts
+map任务的内存
+reduce任务的内存
