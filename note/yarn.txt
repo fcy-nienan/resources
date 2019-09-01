@@ -39,5 +39,20 @@ mapreduce.map.memory.mb
 mapreduce.reduce.memory.mb
 mapreduce.map.java.opts
 mapreduce.reduce.java.opts
+
 map任务的内存
 reduce任务的内存
+机器分配给Yarn管理的内存
+分配给容器的最小内存
+分配给容器的最大内存
+Java参数中配的最大堆内存
+
+Aggregate Resource Allocation:  28345 MB-seconds, 39 vcore-seconds
+代表job执行期间总共消耗的内存和总共消耗的虚拟核
+执行的总秒数*每秒消耗的内存
+
+mapreduce的三种运行方式
+1、windows（linux）本地调试运行，需要本地hadoop环境支持
+2、本地编译成jar包，手动发送到hadoop集群上用hadoop jar或者yarn jar方式运行。
+3、本地编译环境在IDE里直接提交到集群上运行，实际上这种方式就是第二种方式的变种。
+

@@ -41,3 +41,4 @@
 
 vim搜索高亮 set hlsearch
 
+::1            localhost

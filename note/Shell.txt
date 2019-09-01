@@ -336,3 +336,7 @@ git fetch origin master:br3				将远程的master分支拉下来并在本地创�
 git merge br3							将br3分支与本地分支合并(最新的是br3分支)
 git diff br3    						查看当前分支与br3分支有何不同
 git branch -d br3						删除本地br3分支
+
+查看Linux虚拟机内存和处理器信息
+cat /proc/cpuinfo
+cat /proc/meminfo
