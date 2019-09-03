@@ -56,3 +56,7 @@ jinfo -flag MaxHeapSize pid
 jinfo -flags pid
 
 jstat -gc 13744
+
+java的getProperties和getEnv
+前者是获取Java的系统变量
+后者是获取操作系统的变量,比如path变量
