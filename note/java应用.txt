@@ -60,3 +60,13 @@ jstat -gc 13744
 java的getProperties和getEnv
 前者是获取Java的系统变量
 后者是获取操作系统的变量,比如path变量
+
+
+java的编码格式
+
+编译时指定编码格式
+javac -encoding utf8 test.java
+运行时指定编码格式(同时这个编码格式也是在程序中使用System.getProperty("file.encoding")获取的值
+java -Dfile.encoding=utf-8 test
+以上两种的默认值都是操作系统的默认值
+
