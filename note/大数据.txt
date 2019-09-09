@@ -1,20 +1,20 @@
-1.��A�����ɹ�Կ˽Կ�� 
-2.����Կ������server B��Ҫ��������authorized_keys(��Ӣ������֪��������) 
-3.Server A��Server B����һ���������� 
-4.Server B�õ�Server A����Ϣ����authorized_key�в��ң��������Ӧ���û�����IP�����������һ���ַ���������Server A�Ĺ�Կ���ܣ����͸�Server A�� 
-5.Server A�õ�Server B��������Ϣ��ʹ��˽Կ���н��ܣ�Ȼ�󽫽��ܺ���ַ������͸�Server B��Server B���к����ɵĶԱȣ����һ�£����������¼��
+1.在A上生成公钥私钥。 
+2.将公钥拷贝给server B，要重命名成authorized_keys(从英文名就知道含义了) 
+3.Server A向Server B发送一个连接请求。 
+4.Server B得到Server A的信息后，在authorized_key中查找，如果有相应的用户名和IP，则随机生成一个字符串，并用Server A的公钥加密，发送给Server A。 
+5.Server A得到Server B发来的消息后，使用私钥进行解密，然后将解密后的字符串发送给Server B。Server B进行和生成的对比，如果一致，则允许免登录。
 
 
-authorized_keys�ļ��д洢�ű���ϵͳ��������Զ�˼����ϵͳssh�������½���˺���Ϣ��Ҳ����Զ�˵ļ��������ͨ��ʲô�˺ż���ַ����Ҫ��������ȿ���Զ�̵�½��ϵͳ��
+authorized_keys文件中存储着本地系统可以允许远端计算机系统ssh免密码登陆的账号信息。也就是远端的计算机可以通过什么账号及地址不需要输入密码既可以远程登陆本系统。
 
 
 
-hdfs��װ���нڵ������ͬһĿ¼
+hdfs安装所有节点必须在同一目录
 
-truncate -s 0 filename   ����ļ�
+truncate -s 0 filename   清空文件
 
 
-�칫��������:4E6B36A07DC2E5F57B0E724AAB
+办公网络密码:4E6B36A07DC2E5F57B0E724AAB
 
 
 
@@ -34,7 +34,7 @@ ERROR: but there is no HDFS_SECONDARYNAMENODE_USER defined. Aborting operation.
 
 
 
-��start-dfs.sh��stop-dfs.sh�����ļ������������²���
+将start-dfs.sh，stop-dfs.sh两个文件顶部添加以下参数
 
 HDFS_DATANODE_USER=root
 HDFS_DATANODE_SECURE_USER=hdfs
@@ -43,7 +43,7 @@ HDFS_SECONDARYNAMENODE_USER=root
 
 
 
-hdfs3.0�汾������slaves�ļ��ˣ�����workers�ļ�
+hdfs3.0版本不在是slaves文件了，而是workers文件
 
 
 
@@ -53,12 +53,12 @@ hdfs3.0�汾������slaves�ļ��ˣ�����workers�ļ�
 
 
 
-���ļ���С��ѯ
-һ���ļ����ϴ���hdfs��ʱָ�����Ǽ����������Ǽ������Ժ����޸��˸����������Ѿ��ϴ��˵��ļ�Ҳ���������á��������ϴ��ļ���ͬʱָ�������ĸ�����
-�����ֻ��3��datanode��������ȴָ��������Ϊ4���ǲ�����Ч�ģ���Ϊÿ��datanode��ֻ�ܴ��һ������
+按文件大小查询
+一个文件，上传到hdfs上时指定的是几个副本就是几个。以后你修改了副本数，对已经上传了的文件也不会起作用。可以再上传文件的同时指定创建的副本数
+如果你只有3个datanode，但是你却指定副本数为4，是不会生效的，因为每个datanode上只能存放一个副本
 
-hadoop3.0�汾�޸��˸�����������Ҳֱ����Ч��
-hadoop3.0�汾NameNode��hdfs-site.xml�п��С�����ú�DataNode�����ò�һ���������������Ұ���NameNode��������Ч
+hadoop3.0版本修改了副本数不重启也直接生效了
+hadoop3.0版本NameNode的hdfs-site.xml中块大小的配置和DataNode的配置不一样，正常工作并且按照NameNode的配置生效
 
 http://139.217.232.100:9870/dfshealth.html#tab-datanode
 
@@ -66,8 +66,8 @@ http://139.217.232.100:9870/dfshealth.html#tab-datanode
 
 
 
-hadoop fsck / -files�鿴�����ļ�����Ϣ
+hadoop fsck / -files查看所有文件的信息
 
-hadoop fsck / -files -blocks -locations -racks			�ļ���Ϣ������Ϣ��λ����Ϣ��������Ϣ
+hadoop fsck / -files -blocks -locations -racks			文件信息，块信息，位置信息，机架信息
 
--list-corruptfileblocks		�г��𻵵Ŀ���Ϣ
+-list-corruptfileblocks		列出损坏的块信息
