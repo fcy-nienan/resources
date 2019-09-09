@@ -71,10 +71,19 @@ netstat -ano | findstr "8080"
 -XX:+PrintGCDateStamps 输出GC的时间戳（以日期的形式，如 2013-05-04T21:53:59.234+0800）
 -XX:+PrintHeapAtGC 在进行GC的前后打印出堆的信息
 -Xloggc:../logs/gc.log 日志文件的输出路径
+-XX:-PrintConcurrentLocks
+-XX:NewRatio=比率
+  年轻代和老年代的比例。
+[GC (Allocation Failure)
+[PSYoungGen: 5632K->512K(6144K)]    回收前新生代空间大小-->回收后新生代空间大小
+12193K->12217K(19968K), 0.0313625 secs]     回收前堆空间大小-->回收后堆空间大小
+[Times: user=0.13 sys=0.00, real=0.03 secs]     用户耗时--系统耗时--实际耗时
 
-
-
-
+GC日志中的PSYoungGen（PS是指Parallel Scavenge）为Eden+FromSpace，
+而整个YoungGeneration为Eden+FromSpace+ToSpace。
+我们设置的新生代大小为10240K，这包括9216K大小的PSYoungGen和1024K大小的ToSpace。
+其中，PSYoungGen中的Eden:FromSpace为8:1，
+这包括8192K的Eden和1024K的FromSpace。
 
 java运行参数
 
