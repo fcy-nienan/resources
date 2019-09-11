@@ -15,8 +15,15 @@ ls a.txt b.txt 1>success.txt 2>&1 将标准错误和标准输出输出到success
 ls a.txt b.txt 2>&1 2>success.txt   则会将标准错误输出到控制台上
 
 获取上一条命令执行结果 dir=`pwd`          或者       dir=$(pwd)
-
+启示
 free -h -s 3     每3秒显示内存信息
+cat -v filename
+-eq     ==
+-ne     !=
+-gt     >
+-lt     <
+-ge     >=
+-le     <=
 
 tr -s ' ' 将 将重复的空格以一个空格显示,tr -s 't' 将重复的t以一个t显示
 cut -d' ' -f 1   以空格作为分隔符并且去第一列

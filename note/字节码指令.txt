@@ -3,24 +3,24 @@ bipush byte1
 sipush byte1 byte2
 
 
-¼Ó·¨ iadd ladd fadd dadd
-¼õ·¨ sub
-³Ë·¨ mul
-³ı·¨ div
-ÇóÓà rem
-È¡·´ meg
-Î»ÒÆ shl shr ushr
-°´Î»»ò ior lor
-°´Î»Óë iand land
-°´Î»Òì»ò ixor lxor
-×ÔÔö iinc
-±È½Ï lcmp dcmp fcmp
-Ö»ÓĞÔÚ³ı·¨Ö¸Áî£¨idiv,ldiv)ºÍÇóÓàÖ¸Áî£¨irem,lrem)µ±³öÏÖ³ıÊıÎªÁãÊ±»áµ¼ÖÂĞéÄâ»úÅ×³öAirtmeticExceptionÒì³££¬ÆäÓàÕûĞÎºÍ¸¡µãĞÍÔËËã³¡¾°¶¼²»»áÅ×³öÒì³£
+åŠ æ³• iadd ladd fadd dadd
+å‡æ³• sub
+ä¹˜æ³• mul
+é™¤æ³• div
+æ±‚ä½™ rem
+å–å meg
+ä½ç§» shl shr ushr
+æŒ‰ä½æˆ– ior lor
+æŒ‰ä½ä¸ iand land
+æŒ‰ä½å¼‚æˆ– ixor lxor
+è‡ªå¢ iinc
+æ¯”è¾ƒ lcmp dcmp fcmp
+åªæœ‰åœ¨é™¤æ³•æŒ‡ä»¤ï¼ˆidiv,ldiv)å’Œæ±‚ä½™æŒ‡ä»¤ï¼ˆirem,lrem)å½“å‡ºç°é™¤æ•°ä¸ºé›¶æ—¶ä¼šå¯¼è‡´è™šæ‹ŸæœºæŠ›å‡ºAirtmeticExceptionå¼‚å¸¸ï¼Œå…¶ä½™æ•´å½¢å’Œæµ®ç‚¹å‹è¿ç®—åœºæ™¯éƒ½ä¸ä¼šæŠ›å‡ºå¼‚å¸¸
 
-ÀàĞÍ×ª»»Ö¸Áî
+ç±»å‹è½¬æ¢æŒ‡ä»¤
 I2B  int to byte
 I2C  int to char
-¶ÔÏó´´½¨ÓÚ·ÃÎÊ
+å¯¹è±¡åˆ›å»ºäºè®¿é—®
 new 
 newarray anewarray  multianewarray
 getfield putfield getstatic putstatic
@@ -29,24 +29,24 @@ bastore castore
 arraylength
 instanceof checkcase
 
-athrowÒì³£Å×³öÖ¸Áî
+athrowå¼‚å¸¸æŠ›å‡ºæŒ‡ä»¤
 
 monitorenter
 monitorexit
 
 
 	
-java×Ö½ÚÂëÖ¸Áî
+javaå­—èŠ‚ç æŒ‡ä»¤
 
-³£Á¿ÈëÕ»Ö¸Áî
-	constÒ»Àà
+å¸¸é‡å…¥æ ˆæŒ‡ä»¤
+	constä¸€ç±»
 	iconst_0	iconst_1	fconst_0	fconst_1	aconst_null		iconst_m1
 	bipush	value
 	sipush value
 	ldc
 	ldc_w
 	ldc2_w
-¼ÓÔØÖ¸Áî£¬½«¾Ö²¿±äÁ¿±íµÄÖµ¼ÓÔØµ½²Ù×÷ÊıÕ»ÖĞ
+åŠ è½½æŒ‡ä»¤ï¼Œå°†å±€éƒ¨å˜é‡è¡¨çš„å€¼åŠ è½½åˆ°æ“ä½œæ•°æ ˆä¸­
 	aload index
 	aload_0
 	aload_1
@@ -57,7 +57,7 @@ java×Ö½ÚÂëÖ¸Áî
 	iaload
 	laload
 	faload
-½«Õ»Öµ±£´æµ½¾Ö²¿±äÁ¿±íÖĞ
+å°†æ ˆå€¼ä¿å­˜åˆ°å±€éƒ¨å˜é‡è¡¨ä¸­
 	astore index
 	astore_0
 	istore index

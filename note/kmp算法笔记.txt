@@ -32,7 +32,7 @@ public static int kmp(String src,String dst){
 
 
 
-k=next[k-1]¸ÃÐÐ´úÂë½âÊÍ?
-×ÔÉí½á¹¹ÖØ¸´Õ¹¿ª
+k=next[k-1]è¯¥è¡Œä»£ç è§£é‡Š?
+è‡ªèº«ç»“æž„é‡å¤å±•å¼€
 
-ÔÚÇó½ânextÊý×éµÄ¹ý³ÌÖÐÒ²Ê¹ÓÃÁËkmpÊý×é,ËùÒÔ¿´ÆðÀ´Á½¶Î´úÂë²ÅÏàËÆ
+åœ¨æ±‚è§£nextæ•°ç»„çš„è¿‡ç¨‹ä¸­ä¹Ÿä½¿ç”¨äº†kmpæ•°ç»„,æ‰€ä»¥çœ‹èµ·æ¥ä¸¤æ®µä»£ç æ‰ç›¸ä¼¼

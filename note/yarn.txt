@@ -1,14 +1,14 @@
-¿Í»§¶Ë RM  NM  AM  Web-UI
-¿Í»§¶Ë--RM
+å®¢æˆ·ç«¯ RM  NM  AM  Web-UI
+å®¢æˆ·ç«¯--RM
 RM--NM
 RM--AM
 Web-UI
 
-¿Í»§¶ËÏòRMÌá½»ÈÎÎñ
-¿Í»§¶ËÉ±ËÀÈÎÎñ
-NMÏòRM»ã±¨ĞÄÌø,ÁìÈ¡ÈÎÎñ
-AMÏòRMÉêÇë×ÊÔ´,ÊÍ·Å×ÊÔ´
-AMÔÚNMÉÏÆô¶¯Container
+å®¢æˆ·ç«¯å‘RMæäº¤ä»»åŠ¡
+å®¢æˆ·ç«¯æ€æ­»ä»»åŠ¡
+NMå‘RMæ±‡æŠ¥å¿ƒè·³,é¢†å–ä»»åŠ¡
+AMå‘RMç”³è¯·èµ„æº,é‡Šæ”¾èµ„æº
+AMåœ¨NMä¸Šå¯åŠ¨Container
 
 yarn.resourcemanager.address
 yarn.resourcemanager.scheduler.address
@@ -16,10 +16,10 @@ yarn.resourcemanager.resource-tracker.address
 yarn.resourcemanager.admin.address
 yarn.resourcemanager.webapp.address
 
-×ÊÔ´µ÷¶È:
-Ìá½»¸øyarnµÄÈÎÎñĞèÒª´øÓĞ¸ÃÈÎÎñËùĞèÒªÄÚ´æµÄ²ÎÊı,yarnÖ»¸ºÔğ×ÊÔ´·ÖÅä,ÓĞ¾Í¸ø,Ã»ÓĞ¾Í²»¸ø
+èµ„æºè°ƒåº¦:
+æäº¤ç»™yarnçš„ä»»åŠ¡éœ€è¦å¸¦æœ‰è¯¥ä»»åŠ¡æ‰€éœ€è¦å†…å­˜çš„å‚æ•°,yarnåªè´Ÿè´£èµ„æºåˆ†é…,æœ‰å°±ç»™,æ²¡æœ‰å°±ä¸ç»™
 yarn.resourcemanager.scheduler.class
-ÈıÖÖµ÷¶ÈÆ÷£¬ÏÈÀ´ÏÈµ½£¬
+ä¸‰ç§è°ƒåº¦å™¨ï¼Œå…ˆæ¥å…ˆåˆ°ï¼Œ
 yarn.resourcemanager.resource-tracker.client.thread-count
 yarn.resourcemanager.scheduler.client.thread-count
 yarn.scheduler.minimum-allocation-mb/ yarn.scheduler.maximum-allocation-mb
@@ -40,19 +40,19 @@ mapreduce.reduce.memory.mb
 mapreduce.map.java.opts
 mapreduce.reduce.java.opts
 
-mapÈÎÎñµÄÄÚ´æ
-reduceÈÎÎñµÄÄÚ´æ
-»úÆ÷·ÖÅä¸øYarn¹ÜÀíµÄÄÚ´æ
-·ÖÅä¸øÈİÆ÷µÄ×îĞ¡ÄÚ´æ
-·ÖÅä¸øÈİÆ÷µÄ×î´óÄÚ´æ
-Java²ÎÊıÖĞÅäµÄ×î´ó¶ÑÄÚ´æ
+mapä»»åŠ¡çš„å†…å­˜
+reduceä»»åŠ¡çš„å†…å­˜
+æœºå™¨åˆ†é…ç»™Yarnç®¡ç†çš„å†…å­˜
+åˆ†é…ç»™å®¹å™¨çš„æœ€å°å†…å­˜
+åˆ†é…ç»™å®¹å™¨çš„æœ€å¤§å†…å­˜
+Javaå‚æ•°ä¸­é…çš„æœ€å¤§å †å†…å­˜
 
 Aggregate Resource Allocation:  28345 MB-seconds, 39 vcore-seconds
-´ú±íjobÖ´ĞĞÆÚ¼ä×Ü¹²ÏûºÄµÄÄÚ´æºÍ×Ü¹²ÏûºÄµÄĞéÄâºË
-Ö´ĞĞµÄ×ÜÃëÊı*Ã¿ÃëÏûºÄµÄÄÚ´æ
+ä»£è¡¨jobæ‰§è¡ŒæœŸé—´æ€»å…±æ¶ˆè€—çš„å†…å­˜å’Œæ€»å…±æ¶ˆè€—çš„è™šæ‹Ÿæ ¸
+æ‰§è¡Œçš„æ€»ç§’æ•°*æ¯ç§’æ¶ˆè€—çš„å†…å­˜
 
-mapreduceµÄÈıÖÖÔËĞĞ·½Ê½
-1¡¢windows£¨linux£©±¾µØµ÷ÊÔÔËĞĞ£¬ĞèÒª±¾µØhadoop»·¾³Ö§³Ö
-2¡¢±¾µØ±àÒë³Éjar°ü£¬ÊÖ¶¯·¢ËÍµ½hadoop¼¯ÈºÉÏÓÃhadoop jar»òÕßyarn jar·½Ê½ÔËĞĞ¡£
-3¡¢±¾µØ±àÒë»·¾³ÔÚIDEÀïÖ±½ÓÌá½»µ½¼¯ÈºÉÏÔËĞĞ£¬Êµ¼ÊÉÏÕâÖÖ·½Ê½¾ÍÊÇµÚ¶şÖÖ·½Ê½µÄ±äÖÖ¡£
+mapreduceçš„ä¸‰ç§è¿è¡Œæ–¹å¼
+1ã€windowsï¼ˆlinuxï¼‰æœ¬åœ°è°ƒè¯•è¿è¡Œï¼Œéœ€è¦æœ¬åœ°hadoopç¯å¢ƒæ”¯æŒ
+2ã€æœ¬åœ°ç¼–è¯‘æˆjaråŒ…ï¼Œæ‰‹åŠ¨å‘é€åˆ°hadoopé›†ç¾¤ä¸Šç”¨hadoop jaræˆ–è€…yarn jaræ–¹å¼è¿è¡Œã€‚
+3ã€æœ¬åœ°ç¼–è¯‘ç¯å¢ƒåœ¨IDEé‡Œç›´æ¥æäº¤åˆ°é›†ç¾¤ä¸Šè¿è¡Œï¼Œå®é™…ä¸Šè¿™ç§æ–¹å¼å°±æ˜¯ç¬¬äºŒç§æ–¹å¼çš„å˜ç§ã€‚
 
