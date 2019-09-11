@@ -90,3 +90,36 @@ java运行参数
 java -verbose:class			查看类加载情况
 java -verbose:gc			查看GC运行情况
 java -verbose:jni			查看JNI运行情况
+
+-javaagent  符合规范的写一些在主方法之前运行的代码
+-Xms
+-Xmx
+-Xss
+-XX:NewSize             新生代初始值
+-XX:MaxNewSize          新生代最大值
+-XX:PermSize            方法区初始值
+-XX:MaxPermSize         方法区最大值
+-XX:SurvivorRatio=8     Eden区和Survivor的比值8:1:1
+-XX:NewRatio=4          新生代与老年代1:4
+OldSize
+-XX:MaxTenuringThreshold垃圾对象的最大年龄
+-XX:PretenureSizeThreshold对象超过多大直接进老年代
+
+Java有四种类型的垃圾回收器：
+
+串行垃圾回收器（Serial Garbage Collector）
+并行垃圾回收器（Parallel Garbage Collector）
+并发标记扫描垃圾回收器（CMS Garbage Collector）
+G1垃圾回收器（G1 Garbage Collector）
+-XX:+UseSerialGC	串行垃圾回收器
+-XX:+UseParallelGC	并行垃圾回收器
+-XX:+UseConcMarkSweepGC	并发标记扫描垃圾回收器
+-XX:ParallelCMSThreads=	并发标记扫描垃圾回收器 =为使用的线程数量
+-XX:+UseG1GC	G1垃圾回收器
+
+找到存活的对象GCRoot
+复制算法    内存分为两块,将存活的对象移动到另一块内存区域
+标记清除    标记存活的对象,将其他内存区域清空并回收
+标记整理    标记存货的对象,将存活的对象向一边移动
+
+
