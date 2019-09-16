@@ -64,6 +64,10 @@ windows下查找字符
 netstat -ano | findstr "8080"
 类似于Linux下的grep
 
+this.class.getResourcesAsStream(path);
+如果path是以/开头,则是以类路径的绝对路径
+如果只是要给文件名,则是当前类的class文件所在目录下
+
 
 -XX:+PrintGC 输出GC日志
 -XX:+PrintGCDetails 输出GC的详细日志
