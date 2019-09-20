@@ -70,3 +70,5 @@ javac -encoding utf8 test.java
 java -Dfile.encoding=utf-8 test
 以上两种的默认值都是操作系统的默认值
 
+Java开启断言 -ea
+关闭断言     -da
