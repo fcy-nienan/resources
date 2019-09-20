@@ -1,0 +1,11 @@
+relinquishes    放弃
+proceed         继续
+    The awakened threads will not be able to proceed until the current
+    thread relinquishes the lock on this object
+in the usual manner  以通常的方式
+    The awakened threads will compete in the usual manner with any other threads that might
+    be actively competing to synchronize on this object
+ReleaseJavaMonitorsClosure
+Compute string similarity based on Dice's coefficient
+formual  公式
+temporary  暂时

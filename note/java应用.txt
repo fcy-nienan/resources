@@ -70,3 +70,9 @@ javac -encoding utf8 test.java
 java -Dfile.encoding=utf-8 test
 以上两种的默认值都是操作系统的默认值
 
+同一个类中的static方法可以访问当前类的私有成员变量(new了该对象之后可以直接访问该对象的私有变量)
+
+ArrayList
+new一个空的时候时一个默认的静态数组,所有共享
+第一次add的时候容量变为10(默认容量)
+

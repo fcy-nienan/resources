@@ -126,4 +126,5 @@ G1垃圾回收器（G1 Garbage Collector）
 标记清除    标记存活的对象,将其他内存区域清空并回收
 标记整理    标记存货的对象,将存活的对象向一边移动
 
-
+false sharing 伪共享
+cache_alignment  cpu缓存行大小
