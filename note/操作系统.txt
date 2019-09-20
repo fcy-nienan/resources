@@ -4,3 +4,13 @@
 	驻留内存
 	页表
 	缺页异常
+
+为啥用户态和内核态切换比较高？
+需要切换堆栈,保留和恢复现场
+
+
+从系统架构来看，目前的商用服务器大体可以分为三类，
+即对称多处理器结构 (SMP ： Symmetric Multi-Processor) ，
+非一致存储访问结构 (NUMA ： Non-Uniform Memory Access) ，
+以及海量并行处理结构 (MPP ： Massive Parallel Processing)
+查看相关信息   uname -v

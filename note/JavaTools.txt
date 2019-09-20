@@ -64,6 +64,10 @@ windows下查找字符
 netstat -ano | findstr "8080"
 类似于Linux下的grep
 
+this.class.getResourcesAsStream(path);
+如果path是以/开头,则是以类路径的绝对路径
+如果只是要给文件名,则是当前类的class文件所在目录下
+
 
 -XX:+PrintGC 输出GC日志
 -XX:+PrintGCDetails 输出GC的详细日志
@@ -122,4 +126,5 @@ G1垃圾回收器（G1 Garbage Collector）
 标记清除    标记存活的对象,将其他内存区域清空并回收
 标记整理    标记存货的对象,将存活的对象向一边移动
 
-
+false sharing 伪共享
+cache_alignment  cpu缓存行大小

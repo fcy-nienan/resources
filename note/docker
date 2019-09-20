@@ -1,0 +1,6 @@
+docker attach container_id
+docker rm
+docker rmi
+docker ps
+docker images
+docker ps -a
