@@ -44,3 +44,6 @@ public void run() {
             if (s >= INTERRUPTING)
                 handlePossibleCancellationInterrupt(s);
         }
+
+code message success data
+代码  信息  成功或者失败  数据
