@@ -12,9 +12,49 @@ ps -eo pid,stat,pri,uid –sort uid
 查看当前系统进程的user,pid,stat,rss,args, 以rss排序.
 ps -eo user,pid,stat,rss,args –sort rss
 ps aux
+vim查找上一个N,查找下一个n
+查看磁盘空间df -h
+查看当前目录空间占用空间大小 du -h --max-depth=0
+删除特定文件 rm -rf A-[0-9][0-9][0-9].zip
 
-
-
+shell循环
+    for((i=0;i<10;i++))
+    do
+    echo $i
+    done
+shell函数
+    cutDemo(){
+            ls | cut -b 3-5
+            ls | cut -b -3
+            ls | cut -b -3,3-
+    }
+    echo 'execute cutDemo function...'
+    cutDemo
+    echo 'cutDemo function finished...'
+shell双引号和单引号
+    [root@fcy shell]# name=fcy
+    [root@fcy shell]# echo 'hello $name'
+    hello $name
+    [root@fcy shell]# echo "hello $name"
+    hello fc
+    双引号中变量输出值,单引号中变量名无效
+shell数组
+    array=(1 2 3 4 5 6 7 8)
+    输出第一个元素
+    echo ${array[0]}
+    输出所有元素
+    echo ${array[*]}
+    echo ${array[@]}
+    输出数组长度
+    echo ${#array[*]}
+    echo ${#array[@]}
+查找特定文件并删除
+    格式:find   path   -option   [   -print ]   [ -exec   -ok   command ]   {} \;
+    find ./ -mtime +32 -name *.java -exec rm -rf {}
+shell文件的三个时间
+    atime   最后访问时间
+    ctime   最后变更时间(文件属性)
+    mtime   最后修改时间
 0   标准输入
 1   标准输出
 2   错误输出
