@@ -1,0 +1,17 @@
+
+git remote查看当前远程仓库
+git remote add test git://github.com/wingrai/test.git添加远程仓库
+git config --list查看配置信息
+git config --global user.name "name"配置用户名
+git config --global user.email 807715333@qq.com配置邮箱
+
+git add .
+git checkout .
+git commit -m 'msg'
+git branch -a
+git checkout branchName
+git push origin localName:remoteName	提交本地分支到原创分支
+git fetch origin master:br3				将远程的master分支拉下来并在本地创建br3分支
+git merge br3							将br3分支与本地分支合并(最新的是br3分支)
+git diff br3    						查看当前分支与br3分支有何不同
+git branch -d br3						删除本地br3分支

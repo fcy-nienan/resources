@@ -16,7 +16,12 @@ vim查找上一个N,查找下一个n
 查看磁盘空间df -h
 查看当前目录空间占用空间大小 du -h --max-depth=0
 删除特定文件 rm -rf A-[0-9][0-9][0-9].zip
-
+切分大文件
+split -l 100 bigfile prefix
+split -b 10m bigfile prefix
+查看Linux虚拟机内存和处理器信息
+cat /proc/cpuinfo
+cat /proc/meminfo
 shell循环
     for((i=0;i<10;i++))
     do
@@ -72,6 +77,9 @@ ls a.txt b.txt 2>&1 2>success.txt   则会将标准错误输出到控制台上
 -lt     <
 -ge     >=
 -le     <=
+
+top -H -p <pid>查看指定进程的线程信息
+ps -T -p <pid>查看指定进程的所有线程
 
 sync 命令将所有未写的系统缓冲区写到磁盘中，包含已修改的 i-node、已延迟的块 I/O 和读写映射文件)
 
@@ -137,21 +145,18 @@ yum install -y lrzsz
 mysql的连接方式有两种：
 
 1.tcp/ip方式
-
-先说说这种方式，这个方式是在tcp/ip上建立一个网络连接请求，即MySQL服务器和客户端不再同一个服务器上，需要通过网络（IP）形式去连接。但是这种连接需要mysql服务器给这台客户端IP进行授权，否则不可以连接。
-
+先说说这种方式，这个方式是在tcp/ip上建立一个网络连接请求，
+即MySQL服务器和客户端不再同一个服务器上，需要通过网络（IP）形式去连接。
+但是这种连接需要mysql服务器给这台客户端IP进行授权，否则不可以连接。
 如mysql服务器是192.168.10.230，客户端IP是192.168.10.220
-
 授权：grant all on *.* to 'root'@'192.168.10.220' identified by '123456';
-
 连接：mysql -uroot -h192.168.2.230 -p ? ? ? ? ? ? ##-h是指定连接服务器
-
 这种方式是不需要在客户端安装mysql的，即mysql的服务器安装完成后，就默认建立了一个和任何客户端进行连接的通道。
-
 2.socket方式
-
-这种方式必须是客户端和mysql服务器在同一台服务器上，使用localhost的方式去连接，这样就会用到套接字文件socket，即主机名是localhost的服务器，客户端通过套接字文件mysql.sock文件连接到服务器，如果这个文件删除就不能连接。
-
+这种方式必须是客户端和mysql服务器在同一台服务器上，使用localhost的方式去连接，
+这样就会用到套接字文件socket，即主机名是localhost的服务器，
+客户端通过套接字文件mysql.sock文件连接到服务器，
+如果这个文件删除就不能连接。
 
 mysql设置远程登录，修改host字段为'%'
 
@@ -204,37 +209,14 @@ c:\>mysqldump -h localhost -u root -p mydb --add-drop-table >e:\mysql\mydb_stru.
 3.在CMD中输入下列命令：
 c:\>mysql -h localhost -u root -p mydb2 < e:\mysql\mydb2.sql
 然后输入密码，就OK了。
-	
-centos安装jdk
-获取tar包
-wget http://download.oracle.com/otn-pub/java/jdk/8u161-b12/2f38c3b165be4555a1fa6e98c45e0808/jdk-8u161-linux-x64.tar.gz?AuthParam=1516541774_9b59718e04ebc578f776a38892b0b6f4
-解压
-配置环境变量
-
-centos安装tomcat
-获取tar包
-wget http://mirrors.hust.edu.cn/apache/tomcat/tomcat-8/v8.5.24/bin/apache-tomcat-8.5.24.tar.gz
-tar -zxvf tomcat.tar
-配置tomcat为服务
-在tomcat的bin目录下的catalina.sh文件中添加一下信息
-	#chkconfig:2345 10 90(三个数字依次为服务运行级别,启动优先级,停止优先级)
-	#description:Tomcat service(服务的描述,规定的,要不然会出现添加服务错误)
-	JAVA_HOME=/***/***(Java的安装目录)
-	CATALINA_HOME=/***/***(tomcat的安装目录)
-将catalian.sh文件修改为tomcat并放入/etc/init.d目录下
-	mv catalina.sh /etc/init.d
-	mv catalina.sh tomcat
-修改权限
-	chmod 755 tomcat
-添加为系统服务
-	chkconfig --add tomcat
-查看系统服务
-	chkconfig --list 
 
 开机自启动
 	将shell脚本的路径添加到/etc/rc.local文件中
-
-netstat -tnl   真的
+服务相关目录
+    /etc/init.d/   chkconfig命令就是对其进行增删改查
+    chkconfig --list
+    chkconfig --add
+    chkconfig --del
 
 测试端口是否开放
 telnet ip port
@@ -249,29 +231,3 @@ net start npf
 route add 192.168.43.176 mask 255.255.255.255 192.168.43.1  metric 1
 打开wireshark选择本地回环网卡
 
-切分大文件
-split -l 100 bigfile prefix
-split -b 10m bigfile prefix
-
-
-
-git remote查看当前远程仓库
-git remote add test git://github.com/wingrai/test.git添加远程仓库
-git config --list查看配置信息
-git config --global user.name "name"配置用户名
-git config --global user.email 807715333@qq.com配置邮箱
-
-git add .
-git checkout .
-git commit -m 'msg'
-git branch -a
-git checkout branchName
-git push origin localName:remoteName	提交本地分支到原创分支
-git fetch origin master:br3				将远程的master分支拉下来并在本地创建br3分支
-git merge br3							将br3分支与本地分支合并(最新的是br3分支)
-git diff br3    						查看当前分支与br3分支有何不同
-git branch -d br3						删除本地br3分支
-
-查看Linux虚拟机内存和处理器信息
-cat /proc/cpuinfo
-cat /proc/meminfo

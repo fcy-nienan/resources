@@ -7,3 +7,10 @@
 <img src="word/media/image3.png" width="415.3pt" height="227.85pt"/>
 
 提取src的属性word/media/image3.png
+
+正向预查
+Exception(?=: 500 Internal Error)
+Exception(?!: 500 Internal Error)
+
+(?<=J)a     匹配J后面的a
+(?<!J)a     匹配不是J后面的a
