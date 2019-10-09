@@ -22,6 +22,34 @@ split -b 10m bigfile prefix
 查看Linux虚拟机内存和处理器信息
 cat /proc/cpuinfo
 cat /proc/meminfo
+find命令
+find . -type f -size -3k -exec ls -l {} \;
+find . -type f -size +3k -exec ls -l {} \;
+cat命令
+cat -v 显示特殊字符
+cat -n 显示行号
+tail命令
+tail -f file
+tail -10 file显示最后十行数据
+head命令
+head -10 file显示前10行数据
+tr命令
+tr a-z A-Z
+tr -s ' '压缩多个空格为一个空格
+tr -s ' ' '\n'先用换行符替换空格,然后再压缩连续的换行符
+Linux输出结果逆序
+ll -t | tac
+tail当前目录最新文件
+tail -f `ll -t | awk "NR==2" | tr -s ' ' | cut -d ' ' -f 9`
+awk "NR==2"输出第二行数据
+ll -t 按日期排序
+tr -s ' ' 压缩空格
+cut -d ' ' -f 9 以空格分割字符并且截取第九列
+sort命令
+sort -r逆序输出
+sort file 以ASCII排序
+sort -u 排序并去重
+sort -nk 2 -t: file  将文件每一行的内容以:分割,对第二列进行排序,以数字的形式
 shell循环
     for((i=0;i<10;i++))
     do
