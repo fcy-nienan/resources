@@ -7,49 +7,53 @@ free -h -s 3     每3秒显示内存信息
 显示文件的全部信息(可显示换行)cat -v filename
 tr -s ' ' 将 将重复的空格以一个空格显示,tr -s 't' 将重复的t以一个t显示
 cut -d' ' -f 1   以空格作为分隔符并且取第一列
-查看当前系统进程的uid,pid,stat,pri, 以uid号排序.
-ps -eo pid,stat,pri,uid –sort uid
-查看当前系统进程的user,pid,stat,rss,args, 以rss排序.
-ps -eo user,pid,stat,rss,args –sort rss
-ps aux
 vim查找上一个N,查找下一个n
 查看磁盘空间df -h
 查看当前目录空间占用空间大小 du -h --max-depth=0
 删除特定文件 rm -rf A-[0-9][0-9][0-9].zip
 切分大文件
-split -l 100 bigfile prefix
-split -b 10m bigfile prefix
+    split -l 100 bigfile prefix
+    split -b 10m bigfile prefix
 查看Linux虚拟机内存和处理器信息
-cat /proc/cpuinfo
-cat /proc/meminfo
+    cat /proc/cpuinfo
+    cat /proc/meminfo
 find命令
-find . -type f -size -3k -exec ls -l {} \;
-find . -type f -size +3k -exec ls -l {} \;
+    find . -type f -size -3k -exec ls -l {} \;  查找大小3k以内的文件并显示
+    find . -type f -size +3k -exec ls -l {} \;  查找大小3k以上的文件并显示
 cat命令
-cat -v 显示特殊字符
-cat -n 显示行号
+    cat -v 显示特殊字符
+    cat -n 显示行号
 tail命令
-tail -f file
-tail -10 file显示最后十行数据
+    tail -f file
+    tail -10 file显示最后十行数据
 head命令
-head -10 file显示前10行数据
+    head -10 file显示前10行数据
 tr命令
-tr a-z A-Z
-tr -s ' '压缩多个空格为一个空格
-tr -s ' ' '\n'先用换行符替换空格,然后再压缩连续的换行符
+    tr a-z A-Z
+    tr -s ' '压缩多个空格为一个空格
+    tr -s ' ' '\n'先用换行符替换空格,然后再压缩连续的换行符
 Linux输出结果逆序
-ll -t | tac
+    ll -t | tac
 tail当前目录最新文件
-tail -f `ll -t | awk "NR==2" | tr -s ' ' | cut -d ' ' -f 9`
-awk "NR==2"输出第二行数据
-ll -t 按日期排序
-tr -s ' ' 压缩空格
-cut -d ' ' -f 9 以空格分割字符并且截取第九列
+    tail -f `ll -t | awk "NR==2" | tr -s ' ' | cut -d ' ' -f 9`
+    awk "NR==2"输出第二行数据
+    ll -t 按日期排序
+    tr -s ' ' 压缩空格
+    cut -d ' ' -f 9 以空格分割字符并且截取第九列
 sort命令
-sort -r逆序输出
-sort file 以ASCII排序
-sort -u 排序并去重
-sort -nk 2 -t: file  将文件每一行的内容以:分割,对第二列进行排序,以数字的形式
+    sort -r逆序输出
+    sort file 以ASCII排序
+    sort -u 排序并去重
+    sort -nk 2 -t: file  将文件每一行的内容以:分割,对第二列进行排序,以数字的形式
+ps命令
+    ps aux
+    查看当前系统进程的uid,pid,stat,pri, 以uid号排序.
+    ps -eo pid,stat,pri,uid –sort uid
+    查看当前系统进程的user,pid,stat,rss,args, 以rss排序.
+    ps -eo user,pid,stat,rss,args –sort rss
+    ps aux
+netstat命令
+    netstat -ntlp
 shell循环
     for((i=0;i<10;i++))
     do
@@ -85,9 +89,10 @@ shell数组
     格式:find   path   -option   [   -print ]   [ -exec   -ok   command ]   {} \;
     find ./ -mtime +32 -name *.java -exec rm -rf {}
 shell文件的三个时间
-    atime   最后访问时间
-    ctime   最后变更时间(文件属性)
-    mtime   最后修改时间
+    atime(access time)   最后访问时间
+    ctime(change time)   最后变更时间(文件属性,文件的metadata被修改时)
+    mtime(modify time)   最后修改时间
+stat filename查看文件信息
 0   标准输入
 1   标准输出
 2   错误输出
@@ -250,10 +255,6 @@ c:\>mysql -h localhost -u root -p mydb2 < e:\mysql\mydb2.sql
 telnet ip port
 curl ip:port
 wget ip:port
-
-查看所有tcp端口
-netstat -ntlp
-
 wireshark抓取本机回环数据
 net start npf
 route add 192.168.43.176 mask 255.255.255.255 192.168.43.1  metric 1
