@@ -8,6 +8,7 @@ free -h -s 3     每3秒显示内存信息
 tr -s ' ' 将 将重复的空格以一个空格显示,tr -s 't' 将重复的t以一个t显示
 cut -d' ' -f 1   以空格作为分隔符并且取第一列
 vim查找上一个N,查找下一个n
+vim清空所有内容 dg
 查看磁盘空间df -h
 查看当前目录空间占用空间大小 du -h --max-depth=0
 删除特定文件 rm -rf A-[0-9][0-9][0-9].zip
@@ -54,6 +55,8 @@ ps命令
     ps aux
 netstat命令
     netstat -ntlp
+strace命令
+    strace -T -tt -e trace=all -p pid
 shell循环
     for((i=0;i<10;i++))
     do
