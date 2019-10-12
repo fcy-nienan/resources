@@ -128,3 +128,19 @@ G1垃圾回收器（G1 Garbage Collector）
 
 false sharing 伪共享
 cache_alignment  cpu缓存行大小
+
+System.out.println()使用了synchronized
+而日志logger.info()没使用synchronized
+但几次测试都是System.out.println()快
+
+Java中和c中使用\r控制字符会将光标移动到该行的起始位置,然后会清空改行,环境是
+    linux+c
+    windows10+java1.8
+\b会删除上一个字符,环境
+    linux+c
+    windows10+java1.8
+个人感觉是\b和\r是移动了文件指针到指定位置
+然后输出的也是开始和结束之间的内容
+其他index上还是有原来的内容,并没有被清楚掉
+
+

@@ -149,3 +149,15 @@ new一个空的时候时一个默认的静态数组,所有共享
 Runtime.getRuntime().exec()
 执行mv /home/* /home1/  发现无效
 执行mv /home/fcy1.zip /home1/ 发现执行成功
+
+权限修饰符
+private 只有本类可以访问
+default 本类,同包类
+protected 本类,同包类,子类
+public 所有
+
+内部类和静态内部类
+Outer out=new Outer();
+Object inner=out.new Inner();
+
+Object staticInner=new Outer.StaticInner();
