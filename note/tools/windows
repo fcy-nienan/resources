@@ -7,3 +7,7 @@ echo %timestamp% > D:\%timestamp%
 
 bat不显示窗口
 CreateObject("WScript.Shell").Run "cmd /c D:\ScheduledTask\shieldWIndows.bat",0
+
+参数  %1%   %2%
+
+call other.bat
