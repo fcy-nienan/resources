@@ -70,7 +70,18 @@ git commit后执行了git reset --hard HEAD~1回退到了上一个版本
 此时本地最新的代码丢失了
 可以通过git reflog查看历史操作系统
 然后通过git reset --hard versionID回退到最新的代码那次提交
-    版本1
-    版本2
-    版本3
 
+git有三个区域
+工作区
+暂存区
+历史版本
+
+我们是修改工作区的文件
+然后执行git add .后将其变更的文件加入到了暂存区
+然后执行git commit后将所有变更的文件加入到了实力版本  此时就是一个版本的快照
+
+执行git reset --hard versionId后重置HEAD指针并清空暂存区和工作区
+执行git reset --soft versionID后重置HEAD指针并保留暂存区和工作区
+执行git reset --mixed versionID后重置HEAD指针并清空暂存区保留工作区(默认选项)
+
+   sdf苏联空军副司令打开附件
