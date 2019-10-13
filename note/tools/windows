@@ -1,0 +1,9 @@
+Windows下定时任务
+cmd taskschd.msc
+
+set timestamp=%date:~0,4%%date:~5,2%%date:~8,2%0%time:~1,1%%time:~3,2%%time:~6,2%
+echo %timestamp%
+echo %timestamp% > D:\%timestamp%
+
+bat不显示窗口
+CreateObject("WScript.Shell").Run "cmd /c D:\ScheduledTask\shieldWIndows.bat",0
