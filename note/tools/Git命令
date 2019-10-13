@@ -65,6 +65,10 @@ git回退
     撤销暂存区内容
     撤销修改了的文件
     回退到之前提交的某个版本
-
+本地分支是最新的
+git commit后执行了git reset --hard HEAD~1回退到了上一个版本
+此时本地最新的代码丢失了
+可以通过git reflog查看历史操作系统
+然后通过git reset --hard versionID回退到最新的代码那次提交
     版本1
 
