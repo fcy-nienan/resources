@@ -9,3 +9,4 @@ git branch -d tmp
 git add .
 git commit -m '%commitMsg%'
 git push fcy wind:develop
+

@@ -42,3 +42,8 @@ The jhat command lets you to browse heap dumps with your favorite web browser.
  and Object Query Language (OQL). OQL is similar to SQL, except for querying heap dumps.
  Help on OQL is available from the OQL help page shown by the jhat command. With the default port,
  OQL help is available at http://localhost:7000/oqlhelp/
+
+ javah命令
+ 和jni有关,生成想要的jni头文件
+
+ jdb通过控制台调试程序

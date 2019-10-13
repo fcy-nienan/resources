@@ -57,6 +57,8 @@ ps命令
     ps aux
 netstat命令
     netstat -ntlp
+strings命令
+    在要给二进制文件中查找指定字符串
 strace命令
     strace -T -tt -e trace=all -p pid
 shell循环
