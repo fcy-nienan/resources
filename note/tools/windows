@@ -12,8 +12,5 @@ CreateObject("WScript.Shell").Run "cmd /c D:\ScheduledTask\shieldWIndows.bat",0
 
 call other.bat
 start other.bat
-当前遇到的问题
-    在一个文件中使用多次call发现只执行了第一个bat文件
-    而换成start则会开多个窗口执行多个bat文件
 call是同步调用,在一个cmd总执行
 start是开多个cmd执行
