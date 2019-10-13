@@ -18,9 +18,15 @@ transfer和action
 转换和具体的操作
 
 shuffle操作
-shuffle是Spark将多个分区的数据重新分组重新分布数据的机制。shuffle是一个复杂且代价较高的操作，它需要完成将数据在executor和机器节点之间进行复制的工作
+shuffle是Spark将多个分区的数据重新分组重新分布数据的机制。
+shuffle是一个复杂且代价较高的操作，它需要完成将数据在executor和机器节点之间进行复制的工作
 
-在Yarn的NodeManager节点上启动一个map task或者reduce task，在物理上启动的是一个jvm进程；而Spark的task是Executor进程中的一个线程。
+在Yarn的NodeManager节点上启动一个map task或者reduce task，
+在物理上启动的是一个jvm进程；而Spark的task是Executor进程中的一个线程。
+
+通过action出发job
+通过宽窄以来划分stage
+
 
 job,stage,task
 job是我们提交的应用程序
@@ -144,7 +150,10 @@ optionally a list of preferred location to compute each slit on
 
 
 
-现在回头看，RDD本身就是一个Berkeley的博士们在写论文时，抽象出的概念，其本质与Hadoop MapReduce处理时输入输出的key-value，Flink的dataset没有本质区别。处理时，任然使用iterator一边载入部分数据，一边执行运算（每个partition的实现内部实际就是一个iterator），没必要纠结这个概念
+现在回头看，RDD本身就是一个Berkeley的博士们在写论文时，抽象出的概念，
+其本质与Hadoop MapReduce处理时输入输出的key-value，Flink的dataset没有本质区别。
+处理时，任然使用iterator一边载入部分数据，
+一边执行运算（每个partition的实现内部实际就是一个iterator），没必要纠结这个概念
 
 
 
