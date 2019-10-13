@@ -1,0 +1,44 @@
+Java相关文档信息:https://docs.oracle.com/en/java/index.html
+jstack命令
+Prints Java thread stack traces for a Java process, core file, or remote debug server
+jstack pid -m   打印本地栈
+jstack pid -l   打印锁的额外信息,需要稍微长一点的时间
+jstack pid -f   强制打印(也许Java进行挂起了)
+
+jps命令
+jps -m      打印主函数
+jps -l      输出package或者jar完整名称
+jps -v      列出jvm参数
+jps -V      输出其他参数
+一般可以用jps -lvm
+
+jstat命令
+l  class (类加载器) 
+l  compiler (JIT) 
+l  gc (GC堆状态) 
+l  gccapacity (各区大小) 
+l  gccause (最近一次GC统计和原因) 
+l  gcnew (新区统计)
+l  gcnewcapacity (新区大小)
+l  gcold (老区统计)
+l  gcoldcapacity (老区大小)
+l  gcpermcapacity (永久区大小)
+l  gcutil (GC统计汇总)
+l  printcompilation (HotSpot编译统计)
+详细信息:https://docs.oracle.com/javase/1.5.0/docs/tooldocs/share/jstat.html#class_option
+
+jinfo命令
+打印Java运行时的相关环境信息Generates configuration information
+
+jmap命令
+Prints shared object memory maps or heap memory details for a process, core file, or remote debug server
+打印共享对象内存映射或者堆内存详细信息,核心文件,或者远程调试服务器
+
+jhat命令
+从一个dump文件获取信息并分析并可以通过web访问
+The jhat command parses a Java heap dump file and starts a web server.
+The jhat command lets you to browse heap dumps with your favorite web browser.
+ The jhat command supports predesigned queries such as show all instances of a known class MyClass,
+ and Object Query Language (OQL). OQL is similar to SQL, except for querying heap dumps.
+ Help on OQL is available from the OQL help page shown by the jhat command. With the default port,
+ OQL help is available at http://localhost:7000/oqlhelp/
