@@ -61,6 +61,17 @@ strings命令
     在要给二进制文件中查找指定字符串
 strace命令
     strace -T -tt -e trace=all -p pid
+read命令
+    cat file.txt | while read line
+    do
+        echo "$line"
+    done
+shell传递参数
+    $1 $2 $3
+shell截取字符串
+    ${string:start:len}
+    获取字符串长度
+    ${#string}
 shell循环
     for((i=0;i<10;i++))
     do
