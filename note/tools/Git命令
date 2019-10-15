@@ -91,3 +91,8 @@ git diff 命令
 git reset和git revert
 git reset是通过移动HEAD指针并删除落后的分支 向前移动
 git revert是通过新建要给新的分支           向后移动
+
+git中忽略指定文件夹或者文件
+在.gitignore文件中添加或者修改配置
+另外git只能对未追踪的文件进行忽略
+如果需要忽略已经追踪的文件则需要先删除再push将变更提交到远程仓库
