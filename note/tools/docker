@@ -4,3 +4,6 @@ docker rmi
 docker ps
 docker images
 docker ps -a
+
+docker run -it containerId /bin/bash    进入docker
+
