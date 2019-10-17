@@ -106,6 +106,9 @@ shell数组
 查找特定文件并删除
     格式:find   path   -option   [   -print ]   [ -exec   -ok   command ]   {} \;
     find ./ -mtime +32 -name *.java -exec rm -rf {}
+    find ./ -mtime -1 -name *.java -exec rm -rf {}
+    find ./ -mtime 1 -name *.java -exec rm -rf {}
+    find ./ -mtime +1 -name *.java -exec rm -rf {}
 shell文件的三个时间
     atime(access time)   最后访问时间
     ctime(change time)   最后变更时间(文件属性,文件的metadata被修改时)
