@@ -66,6 +66,25 @@ read命令
     do
         echo "$line"
     done
+nl命令
+    类似于cat+vim的set nu
+    输出文件并带上行号
+grep命令
+    grep -n                 输出时带上行号
+    grep -v                 反向选择
+    grep -i                 忽略大小写
+    nl data | grep 'go$'    输出以go开头的行
+    nl data | grep '^c++'   输出以c++开头的行
+sed命令
+    增删改查
+    在第几行增加数据
+    查找并更新
+    查找并删除
+    查找并增加
+    sed '/^\s*$/d' data     删除文件中的空行 ^表示文件开头,$表示文件结尾,\s表示空格,/d表示删除
+
+    sed -n 18p fileName 查看第18行数据
+    sed -n '1,8p' fileName 查看第1-8行数据
 shell传递参数
     $1 $2 $3
 shell截取字符串
