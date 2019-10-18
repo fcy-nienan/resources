@@ -48,7 +48,7 @@ git push origin --delete branchName     删除远程分支
 git push origin localName:newName       创建远程分支
 git push --set-upstream originName localName:remoteNamegit
 git push                                如果没指定originName则会在远程仓库创建一个和本地分支同名的分支
-
+git push -f fcy wind:develop            强行推送
 HEAD远程指针?
 git remote set-head origin master        将HEAD指针指向master分支
 git remote set-head origin -d            删除这个指针
