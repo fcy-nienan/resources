@@ -24,3 +24,8 @@ int x=129&0xff 其中的0xff是char类型
     如果将每个byte翻译成ASCII码就会乱码了
 
 String s=s+x 会被替换成 s = (new StringBuilder()).append(s).append(k).toString();这种形式
+
+getDeclaredFields()和getFields()
+前者获取本类的所有字段(包括private,protected,publicgit fetch fcy develop:tmp
+)
+后者获取本类以及父类的所有public字段
