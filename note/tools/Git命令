@@ -96,3 +96,17 @@ git中忽略指定文件夹或者文件
 在.gitignore文件中添加或者修改配置
 另外git只能对未追踪的文件进行忽略
 如果需要忽略已经追踪的文件则需要先删除再push将变更提交到远程仓库
+
+
+
+    1： cd 回车;进入当前用户目录下;
+　　2： vim .git-credentials (如果没有安装vim 用其它编辑器也可以或 sudo apt-get install vim 安装一个)
+　　3：按照以下格式输入内容：
+　　https://{username}：{password}@github.com
+　　其中username，password，github.com 都换成你自己的内容
+　　4：保存退出后执行下面命令
+　　git config --global credential.helper store
+　　执行完后
+　　/home/用户名/.gitconfig 会新增一项
+　　helper = store
+　　这是再执行git push/pull的时候就不会在要求你输入密码了。
