@@ -57,6 +57,7 @@ openjdk
 —— langtools：Java 语言工具
 —— nashorn：JVM 上的 JavaScript 运行时
 
+要查看Java类库中的一些本地方法 再openjdk/jdk/src/share/native目录中
 
 
 
