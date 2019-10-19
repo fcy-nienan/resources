@@ -144,3 +144,9 @@ Java中和c中使用\r控制字符会将光标移动到该行的起始位置,然
 其他index上还是有原来的内容,并没有被清楚掉
 
 
+查看Java最终运行的汇编代码
+    将hsdis-amd64.dll放在%JAVA_HOME%/jre/bin/server/目录下
+    然后在jvm启动参数中加入
+    -XX:+UnlockDiagnosticVMOptions -XX:+PrintAssembly
+
+
