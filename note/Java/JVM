@@ -6,3 +6,18 @@ javac将java代码翻译成虚拟机能识别得字节码
 Dalvik，ART是Android的两种运行环境，也可以叫做Android虚拟机 JIT，AOT是Android虚拟机采用的两种不同的编译策略
 jit即时编译技术
     在运行时将字节码翻译成机器码,并将缓存热点代码
+
+三种运行模式
+    -mixed mode         混杂模式
+    -compile mode       编译模式    启动费时，运行流畅
+    -interpreted mode   解释模式    启动快速，运行费时
+混杂模式中使用了C1和C2两种即时编译器
+    C1使用保守得优化模式
+    C2使用激进得优化模式
+
+
+-Xint   所有代码都解释执行
+-Xcomp
+
+有两个不同得即时编译器
+    -client 和 -server
