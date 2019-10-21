@@ -47,3 +47,10 @@ The jhat command lets you to browse heap dumps with your favorite web browser.
  和jni有关,生成想要的jni头文件
 
  jdb通过控制台调试程序
+
+ java查看字节码  javap -verbose className
+
+ 查看Java最终运行的汇编代码
+     将hsdis-amd64.dll放在%JAVA_HOME%/jre/bin/server/目录下
+     然后在jvm启动参数中加入
+     -XX:+UnlockDiagnosticVMOptions -XX:+PrintAssembly
