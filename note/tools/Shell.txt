@@ -59,8 +59,14 @@ netstat命令
     netstat -ntlp
 strings命令
     在要给二进制文件中查找指定字符串
-strace命令
+strace命令    跟踪程序运行时的系统调用
+    strace常用来跟踪进程执行时的系统调用和所接收的信号。
+    在Linux世界，进程不能直接访问硬件设备，当进程需要访问硬件设备(比如读取磁盘文件，接收网络数据等等)时，
+    必须由用户态模式切换至内核态模式，通 过系统调用访问硬件设备。
+    strace可以跟踪到一个进程产生的系统调用,包括参数，返回值，执行消耗的时间。
     strace -T -tt -e trace=all -p pid
+pmap命令
+    显示进程内存中的地址映射
 read命令
     cat file.txt | while read line
     do
@@ -95,6 +101,11 @@ shell循环
     for((i=0;i<10;i++))
     do
     echo $i
+    done
+
+    while [ true ]
+    do
+
     done
 shell函数
     cutDemo(){
@@ -152,6 +163,10 @@ ls a.txt b.txt 2>&1 2>success.txt   则会将标准错误输出到控制台上
 -le     <=
 
 top -H -p <pid>查看指定进程的线程信息
+    top中相关参数含义
+    VIRT    所有使用的未使用的内存总和
+    RES     实际使用的内存量
+    SHR     和其他进程共享的内存
 ps -T -p <pid>查看指定进程的所有线程
 
 sync 命令将所有未写的系统缓冲区写到磁盘中，包含已修改的 i-node、已延迟的块 I/O 和读写映射文件)
