@@ -13,3 +13,17 @@
 非一致存储访问结构 (NUMA ： Non-Uniform Memory Access) ，
 以及海量并行处理结构 (MPP ： Massive Parallel Processing)
 查看相关信息   uname -v
+
+CPU的缓存
+CPU的伪共享
+CPU的亲和性
+上下文切换
+
+大小端
+0x12345678数字
+大端存储
+低地址--------高地址
+12  34  56  78
+小端存储
+低地址--------高地址
+78  56  34  12

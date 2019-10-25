@@ -50,6 +50,8 @@ The jhat command lets you to browse heap dumps with your favorite web browser.
 
  java查看字节码  javap -verbose className
 
+-XX:+TraceClassLoading打印加载的类
+
  查看Java最终运行的汇编代码
      将hsdis-amd64.dll放在%JAVA_HOME%/jre/bin/server/目录下
      然后在jvm启动参数中加入
@@ -57,3 +59,6 @@ The jhat command lets you to browse heap dumps with your favorite web browser.
 
 生成JitWatch分析日志
 -XX:+UnlockDiagnosticVMOptions -XX:+PrintAssembly -XX:+LogCompilation -XX:LogFile=jit.log
+
+测试工具
+JMH(Java Microbenchmark Harness)

@@ -62,3 +62,52 @@ java字节码指令
 	astore_0
 	istore index
 	istore_0
+
+
+Class文件格式
+
+u1 u2 u3 u4代表一个字节两个字节三个字节四个字节
+文件内容采用大端存储
+常量池从1开始,至于为什么不从0开始是因为特定情况下不引用常量池的内容
+
+魔数(版本号)0XCAFEBABE
+常量池长度
+常量池
+access_flag
+this_class
+super_class
+接口表长度
+接口表
+字段表长度
+字段表
+方法表长度
+方法表
+
+java类型对于的class文件类型
+boolean             Z
+byte                B
+short               S
+int                 I
+long                J
+float               F
+double              D
+void                V
+引用                 String-->Ljava/lang/String;
+String method(String a,int b,long[] c,double[][] d,boolean e)
+(Ljava/lang/String;Z[S[[DZ)Ljava/lang/String;
+()I
+()Ljava/lang/String;
+([Ljava/lang/String;)V
+(JI)V
+(ZILjava/lang/String;II)Z
+
+()I	int getSize()
+()Ljava/lang/String;	String toString()
+([Ljava/lang/String;)V	void main(String[] args)
+()V	void wait()
+(JI)V	void wait(long timeout, int nanos)
+(ZILjava/lang/String;II)Z	boolean regionMatches(boolean ignoreCase, int toOffset, String other, int ooffset, int len)
+([BII)I	int read(byte[] b, int off, int len )
+()[[Ljava/lang/Object;	Object[][] getObjectArray()
+
+
