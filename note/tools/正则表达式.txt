@@ -11,6 +11,6 @@
 正向预查
 Exception(?=: 500 Internal Error)
 Exception(?!: 500 Internal Error)
-
+反向预查
 (?<=J)a     匹配J后面的a
 (?<!J)a     匹配不是J后面的a

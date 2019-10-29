@@ -67,14 +67,46 @@ strace命令    跟踪程序运行时的系统调用
     strace -T -tt -e trace=all -p pid
 pmap命令
     显示进程内存中的地址映射
+awk命令
+    awk '{print $1,$2}'  显示第一列和第二列
+    awk -F ':' '{print $1 $2}'  以':'做为分隔符
+    awk 'BEGIN{count=0;print "start count"}{count++;print $0}END{print "total user num is:" count}' /etc/passwd
+
+iostat命令
+    iostat -d 2 6    每隔两秒输出io信息,总共输出6次
+vmstat命令
+    vmstat -d 2 6    每隔两秒输出cpu信息,总共输出6此
+od命令
+    输出文件的二进制内容
+    od -to1 fileName    八进制(一字节作为一个单元)
+    od -to2 fileName    八进制(两字节作为一个单元)
+    od -td1 fileName    十进制(一字节作为一个单元)
+    od -td2 fileName    十进制(两字节作为一个单元)
+    od -tx1 fileName    十六进制(一字节作为一个单元)
+    od -tx2 fileName    十六进制(两字节作为一个单元)
+xxd命令
+    输出原始二进制信息(od命令可能和大小端字节序有关)
+    xdd fileName
 read命令
     cat file.txt | while read line
     do
         echo "$line"
     done
+shell同步和异步
+    sh start.sh &   异步运行
+    正常在shell中调用其他脚本是同步运行
+    使用wait可以等待其他shell脚本运行结束
 nl命令
     类似于cat+vim的set nu
     输出文件并带上行号
+shell中的特殊符号
+    $0	当前脚本的文件名
+    $n	传递给脚本或函数的参数。n 是一个数字，表示第几个参数。例如，第一个参数是$1，第二个参数是$2。
+    $#	传递给脚本或函数的参数个数。
+    $*	传递给脚本或函数的所有参数。
+    $@	传递给脚本或函数的所有参数。被双引号(" ")包含时，与 $* 稍有不同。
+    $?	上个命令的退出状态，或函数的返回值。
+    $$	当前Shell进程ID。对于 Shell 脚本，就是这些脚本所在的进程ID。
 grep命令
     grep -n                 输出时带上行号
     grep -v                 反向选择
@@ -154,6 +186,14 @@ ls a.txt b.txt 1>success.txt 2>&1 将标准错误和标准输出输出到success
 如果写成了
 ls a.txt b.txt 2>&1 2>success.txt   则会将标准错误输出到控制台上
 也就是从最靠近最终输入的写起
+
+shell控制语句
+    if [ $num -gt 1 ]
+    then
+
+    else
+
+    fi
 
 -eq     ==
 -ne     !=
