@@ -1,0 +1,1 @@
+mysql远程登录:mysql -u root -p -h 120.79.158.25 -P 3306
