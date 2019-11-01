@@ -7,3 +7,12 @@ change和modify
     change字段名
     modify字段类型
     alter是修正
+verification和validation
+    verification是验证
+    validation是确认
+    verification是看设计中是否按照规定来做
+    validation是看做出的产品是否符合客户的需求
+    verification -- Are we producing the product right?
+    validation   -- Are we producing the right product?
+    验证注重过程
+    确认注重结果

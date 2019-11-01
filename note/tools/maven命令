@@ -1,1 +1,22 @@
+maven的生命周期
+三套独立的生命周期
+clean,default,site
+clean生命周期
+    pre-clean   清理前的工作
+    clean       清理相关目录
+    post-clean  清理后的工作
+default生命周期
+    validate    valid the project is correct and the necessary information is avaiable
+    compile     compile the source code
+    test        run the all test
+    package     package it
+    integration-test    集成测试
+    verify      ensure the quality of the result of the integration-test of the project are met
+    install     install the package into the repository
+    deploy      copy the package to the remote repository for sharing with other developers or projects
+site生命周期
+    pre-site
+    site
+    post-site
 
+mvn dependency:tree 查看当前项目依赖
