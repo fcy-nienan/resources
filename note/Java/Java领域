@@ -31,3 +31,8 @@ getDeclaredFields()和getFields()
 前者获取本类的所有字段(包括private,protected,publicgit fetch fcy develop:tmp
 )
 后者获取本类以及父类的所有public字段
+
+File类的separator,separatorChar,pathSeparator,pathSeparatorChar
+separator是单个路径中不同父子目录中的分隔符,linux is '/' and windows is '\'
+pathSeparator是多个路径之间的分隔符,linux is ':' and windows is ';'
+至于后面的Char表示的是字符型,没有Char的是字符串型
