@@ -55,6 +55,7 @@ ps命令
     查看当前系统进程的user,pid,stat,rss,args, 以rss排序.
     ps -eo user,pid,stat,rss,args –sort rss
     ps aux
+    ps --forest     显示进程的父子关系
 netstat命令
     netstat -ntlp
 strings命令
