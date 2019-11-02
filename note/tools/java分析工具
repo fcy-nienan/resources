@@ -70,3 +70,8 @@ JMH(Java Microbenchmark Harness)
 -XX:+PrintGCDateStamps 输出GC的时间戳（以日期的形式，如 2013-05-04T21:53:59.234+0800）
 -XX:+PrintHeapAtGC 在进行GC的前后打印出堆的信息
 -Xloggc:../logs/gc.log 日志文件的输出路径
+
+jvm的相关参数
+jinfo中看到的参数时不能更改的file.encoding和sun.jnu.encoding这中可以通过System.getProperty获取的
+file.encoding affects the content of file;
+sun.jnu.encoding affects the name of file;
