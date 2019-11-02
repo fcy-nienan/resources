@@ -36,3 +36,6 @@ File类的separator,separatorChar,pathSeparator,pathSeparatorChar
 separator是单个路径中不同父子目录中的分隔符,linux is '/' and windows is '\'
 pathSeparator是多个路径之间的分隔符,linux is ':' and windows is ';'
 至于后面的Char表示的是字符型,没有Char的是字符串型
+
+如果没写构造函数那么会默认生成一个无参构造函数
+如果写了的话那么就会存在已经写了的构造函数,无参构造函数就会不存在
