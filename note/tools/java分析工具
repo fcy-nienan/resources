@@ -75,3 +75,7 @@ jvm的相关参数
 jinfo中看到的参数时不能更改的file.encoding和sun.jnu.encoding这中可以通过System.getProperty获取的
 file.encoding affects the content of file;
 sun.jnu.encoding affects the name of file;
+
+[GC (Allocation Failure) [PSYoungGen: 65024K->904K(75776K)] 65024K->912K(249344K), 0.0011644 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+Allocation Failure：表明本次引起GC的原因是因为在年轻代中没有足够的空间能够存储新的数据了。
+PSYoungGen:
