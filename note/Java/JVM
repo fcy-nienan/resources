@@ -21,3 +21,5 @@ jit即时编译技术
 
 有两个不同得即时编译器
     -client 和 -server
++:UseCompressedClassPointers
++:UseCompressedObjectOops
