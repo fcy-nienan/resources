@@ -21,17 +21,15 @@
     * Serial收集器的多线程版本,和ParNew不同的是该收集器能和CMS一起使用
 * Parallel Old收集器
     * 老年代的并行多线程串行收集器
-* SerialOld收集器
+* SerialOld收集器,老年代的串行单线程收集器
 * CMS收集器
-
 # 直接可选的垃圾收集器方案
->通过以上垃圾收集器不同的排列组合
-* -XX:+UseSerialGC：
-相当于”Serial” + “SerialOld”，这个方案直观上就应该是性能最差的，我的实验证明也确实如此；
-* -XX:+UseParallelGC：
-相当于” Parallel Scavenge” + “SerialOld”，也就是说，在young generation中是多线程处理，但是在tenured generation中则是单线程；
-* -XX:+UseParallelOldGC：
+**通过以上垃圾收集器常用的不同的排列组合**
+* -XX:+UseSerialGC
+相当于”Serial” + “SerialOld”
+* -XX:+UseParallelGC
+相当于” Parallel Scavenge” + “SerialOld”
+* -XX:+UseParallelOldGC
 相当于” Parallel Scavenge” + “ParallelOld”，都是多线程并行处理；
-* -XX:+UseConcMarkSweepGC：
-相当于"ParNew" + "CMS" + "Serial Old"，即在young generation中采用ParNew，多线程处理；在tenured generation中使用CMS，以求得到最低的暂停时间，但是，采用CMS有可能出现”Concurrent Mode Failure”（这个后面再说），如果出现了，就只能采用”SerialOld”模式了；
-    
+* -XX:+UseConcMarkSweepGC,相当于"ParNew" + "CMS" + "Serial Old"
+
