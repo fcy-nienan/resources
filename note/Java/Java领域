@@ -39,3 +39,8 @@ pathSeparator是多个路径之间的分隔符,linux is ':' and windows is ';'
 
 如果没写构造函数那么会默认生成一个无参构造函数
 如果写了的话那么就会存在已经写了的构造函数,无参构造函数就会不存在
+
+多个流的关闭顺序
+Closing the wrapper stream automatically closes the inner stream.
+    1--直接关闭最外面的流,他会自动关闭其他包装的流
+    2--从外层开始关,一直到最内层
