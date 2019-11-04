@@ -12,3 +12,4 @@
 + -XX:+PrintHeapAtGC 在进行GC的前后打印出堆的信息
 + -Xloggc:../logs/gc.log 日志文件的输出路径
 
+

@@ -7,3 +7,5 @@ docker ps -a
 docker rm $(docker ps -qa)
 docker run -it containerId /bin/bash    进入docker
 
+docker查看网络信息    docker inspect image_id | grep IPAddress
+

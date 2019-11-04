@@ -44,3 +44,168 @@ pathSeparator是多个路径之间的分隔符,linux is ':' and windows is ';'
 Closing the wrapper stream automatically closes the inner stream.
     1--直接关闭最外面的流,他会自动关闭其他包装的流
     2--从外层开始关,一直到最内层
+
+
+四个基本的注解
+@Target     标注该注解能注解在哪里(类上,方法上,字段上,方法参数上)
+@Retention  标注注解的生命周期(源码,编译时,运行时)
+@Document   标注注解是否能文档化
+@Inherited  标注注解是否能被继承
+
+NOTE:
+    注解时被动的元数据,永远不会产生主动的行为
+
+注解的处理
+运行时处理
+编译时处理
+
+
+生成的动态链接库文件名称前缀必须是”lib“，不然JNI无法解决
+Hotspot源码目录结构
+├─agent                            Serviceability Agent的客户端实现
+├─make                             用来build出HotSpot的各种配置文件
+├─src                              HotSpot VM的源代码
+│  ├─cpu                            CPU相关代码（汇编器、模板解释器、ad文件、部分runtime函数在这里实现）
+│  ├─os                             操作系相关代码
+│  ├─os_cpu                         操作系统+CPU的组合相关的代码
+│  └─share                          平台无关的共通代码
+│      ├─tools                        工具
+│      │  ├─hsdis                      反汇编插件
+│      │  ├─IdealGraphVisualizer       将server编译器的中间代码可视化的工具
+│      │  ├─launcher                   启动程序“java”
+│      │  ├─LogCompilation             将-XX:+LogCompilation输出的日志（hotspot.log）整理成更容易阅读的格式的工具
+│      │  └─ProjectCreator             生成Visual Studio的project文件的工具
+│      └─vm                           HotSpot VM的核心代码
+│          ├─adlc                       平台描述文件（上面的cpu或os_cpu里的*.ad文件）的编译器
+│          ├─asm                        汇编器接口
+│          ├─c1                         client编译器（又称“C1”）
+│          ├─ci                         动态编译器的公共服务/从动态编译器到VM的接口
+│          ├─classfile                  类文件的处理（包括类加载和系统符号表等）
+│          ├─code                       动态生成的代码的管理
+│          ├─compiler                   从VM调用动态编译器的接口
+│          ├─gc_implementation          GC的实现
+│          │  ├─concurrentMarkSweep      Concurrent Mark Sweep GC的实现
+│          │  ├─g1                       Garbage-First GC的实现（不使用老的分代式GC框架）
+│          │  ├─parallelScavenge         ParallelScavenge GC的实现（server VM默认，不使用老的分代式GC框架）
+│          │  ├─parNew                   ParNew GC的实现
+│          │  └─shared                   GC的共通实现
+│          ├─gc_interface               GC的接口
+│          ├─interpreter                解释器，包括“模板解释器”（官方版在用）和“C++解释器”（官方版不在用）
+│          ├─libadt                     一些抽象数据结构
+│          ├─memory                     内存管理相关（老的分代式GC框架也在这里）
+│          ├─oops                       HotSpot VM的对象系统的实现
+│          ├─opto                       server编译器（又称“C2”或“Opto”）
+│          ├─prims                      HotSpot VM的对外接口，包括部分标准库的native部分和JVMTI实现
+│          ├─runtime                    运行时支持库（包括线程管理、编译器调度、锁、反射等）
+│          ├─services                   主要是用来支持JMX之类的管理功能的接口
+│          ├─shark                      基于LLVM的JIT编译器（官方版里没有使用）
+│          └─utilities                  一些基本的工具类
+└─test                             单元测试
+
+
+
+
+
+openjdk
+—— corba：不流行的多语言、分布式通讯接口
+—— hotspot：Java 虚拟机
+—— jaxp：XML 处理
+—— jaxws：一组 XML web services 的 Java API
+—— jdk：java 开发工具包
+—— —— 针对操作系统的部分
+—— —— share：与平台无关的实现
+—— langtools：Java 语言工具
+—— nashorn：JVM 上的 JavaScript 运行时
+
+要查看Java类库中的一些本地方法 再openjdk/jdk/src/share/native目录中
+
+
+
+
+
+用c++编写的动态dll函数名称格式
+Java_java_io_FileInputStream_open(JNIEnv *env, jobject this, jstring path) {
+    fileOpen(env, this, path, fis_fd, O_RDONLY);
+}
+代表java.io.FileInputStream类中的open方法，第一个是固定的Java
+
+JNIEnv和jobject
+
+前者代表的是java的线程环境，通过该指针可以在c++层面进行java层面的操作，比如一下提供的一些函数
+JNIEnv类中有很多函数可以用：
+
+NewObject:创建Java类中的对象
+
+NewString:创建Java类中的String对象
+
+New<Type>Array:创建类型为Type的数组对象
+
+Get<Type>Field:获取类型为Type的字段
+
+Set<Type>Field:设置类型为Type的字段的值
+
+GetStatic<Type>Field:获取类型为Type的static的字段
+
+SetStatic<Type>Field:设置类型为Type的static的字段的值
+
+Call<Type>Method:调用返回类型为Type的方法
+
+CallStatic<Type>Method:调用返回值类型为Type的static方法
+
+jobject相当于java层面的this指针，代表的是当前对象实例，如果是本地方法的话代表的就是当前Class实例
+
+
+
+Java中和c中使用\r控制字符会将光标移动到该行的起始位置,然后会清空改行,环境是
+    linux+c
+    windows10+java1.8
+\b会删除上一个字符,环境
+    linux+c
+    windows10+java1.8
+个人感觉是\b和\r是移动了文件指针到指定位置
+然后输出的也是开始和结束之间的内容
+其他index上还是有原来的内容,并没有被清楚掉
+
+
+
+ArrayList
+    DEFAULT_CAPACITY=10
+    使用DEFAULTCAPACITY_EMPTY_ELEMENTDATA作为默认空数组
+    trimToSize 将当前数组的长度缩小到实际元素个数的大小
+    MAX_ARRAY_SIZE  和两个变量有关,newCapacity和minCapacity
+        if (newCapacity<minCapacity){
+            newCapacity=minCapacity;
+        }
+        if(newCapacity>MAX_ARRAY_SIZE){
+            newCapacity=minCapacity<MAX_ARRAY_SIZE?MAX_ARRAY_SIZE:Integer.MAX_VALUE;
+        }
+    contains通过equals比较
+    Iterator 内部类Itr  可以访问本类的私有数据
+    ListIterator 内部类ListItr extends Itr
+    subList方法返回的是SubList类,不是ArrayList(),并且数据还是原始的数据,并没有复制一份
+    Spliterator 并行迭代器?
+    sort方法需要传递要给比较器
+
+HashMap的比较方法
+    if (p.hash == hash &&
+       ((k = p.key) == key || (key != null && key.equals(k))))
+          e = p;
+    (哈希相同&&(引用相等||两边的equals方法返回的string相等))
+
+线程池的execute和submit方法
+    execute是具体实现类的方法并且返回值为void
+    submit是抽象线程类的方法并且通过FutureTask包装了并且返回了该对象然后可以通过该对象来控制该线程
+
+Random中的随机数种子在多线程环境下是可能相同的,所以可以使用ThreadLocalRandom
+ThreadLocalRandom是通过将各自的随机数种子放在Thread类中,然后每个线程使用自己的种子
+
+
+java的优雅退出
+    Runtime.getRuntime().addShutdownHook(t);加一个钩子
+    虚拟机响应两种退出
+    程序正常运行结束
+    用户按Ctrl+C
+    另外并不保证钩子函数能被正常运行,这通常发生在调用一个底层方法出问题,被Linux信号量杀死TerminateProcess等待
+
+System.exit(0)
+System.exit(-1) by convention,a nonzero status code indicates abnormal termination

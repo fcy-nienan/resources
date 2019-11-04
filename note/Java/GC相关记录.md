@@ -21,7 +21,7 @@
 ![年轻代和年老代的垃圾收集器](../resources/photo/gc-collector.gif)
 * Serial收集器
     * 串行收集,进行收集时会造成STW,采用标记整理算法  
-    ![](../resources/photo/serial.gif)
+    ![](../resources/photo/Serial.gif)
 * ParNew收集器
     * Serial收集器的多线程版本
 * ParallelScavenge收集器

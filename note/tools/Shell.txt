@@ -72,7 +72,15 @@ awk命令
     awk '{print $1,$2}'  显示第一列和第二列
     awk -F ':' '{print $1 $2}'  以':'做为分隔符
     awk 'BEGIN{count=0;print "start count"}{count++;print $0}END{print "total user num is:" count}' /etc/passwd
+sysctl一些内核参数,通过该命令可以查询,更新相关的变量值
+    文件路径:/etc/sysctl.conf
+    屏蔽别人 ping 你的主机      net.ipv4.icmp_echo_ignore_all = 1
+    执行以下命令使变动立即生效
+    /sbin/sysctl -p
 
+    /sbin/sysctl -w net.ipv4.route.flush=1
+
+    输出所有变量  sysctl -a
 iostat命令
     iostat -d 2 6    每隔两秒输出io信息,总共输出6次
 vmstat命令

@@ -8,9 +8,6 @@
 	-XX:CompileCommand=option,*MyClass.myMethod,PrintOptoAssembly (debug build only) produces the old print command output
 	-XX:CompileCommand=option,*MyClass.myMethod,PrintNMethods produces method dumps
 
-	
-	
-	
 	java -XX:+UnlockDiagnosticVMOptions -XX:+PrintAssembly -XX:CompileCommand=compileonly,*TestVolatile1.getInstance TestVolatile1
  
 	java -XX:+UnlockDiagnosticVMOptions -XX:+PrintAssembly -XX:CompileCommand=print,*TestVolatile1.getInstance  TestVolatile1
@@ -68,13 +65,6 @@ this.class.getResourcesAsStream(path);
 如果path是以/开头,则是以类路径的绝对路径
 如果只是要给文件名,则是当前类的class文件所在目录下
 
-
--XX:+PrintGC 输出GC日志
--XX:+PrintGCDetails 输出GC的详细日志
--XX:+PrintGCTimeStamps 输出GC的时间戳（以基准时间的形式）
--XX:+PrintGCDateStamps 输出GC的时间戳（以日期的形式，如 2013-05-04T21:53:59.234+0800）
--XX:+PrintHeapAtGC 在进行GC的前后打印出堆的信息
--Xloggc:../logs/gc.log 日志文件的输出路径
 -XX:-PrintConcurrentLocks
 -XX:NewRatio=比率
   年轻代和老年代的比例。
@@ -134,15 +124,7 @@ System.out.println()使用了synchronized
 而日志logger.info()没使用synchronized
 但几次测试都是System.out.println()快
 
-Java中和c中使用\r控制字符会将光标移动到该行的起始位置,然后会清空改行,环境是
-    linux+c
-    windows10+java1.8
-\b会删除上一个字符,环境
-    linux+c
-    windows10+java1.8
-个人感觉是\b和\r是移动了文件指针到指定位置
-然后输出的也是开始和结束之间的内容
-其他index上还是有原来的内容,并没有被清楚掉
+
 
 
 
