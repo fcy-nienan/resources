@@ -1,54 +1,53 @@
-清空文件
-cat /dev/null > wordcount
-:>wordcount
-判断上一条命令是否执行成功 $?
-获取上一条命令执行结果 dir=`pwd`          或者       dir=$(pwd)
-free -h -s 3     每3秒显示内存信息
-显示文件的全部信息(可显示换行)cat -v filename
-tr -s ' ' 将 将重复的空格以一个空格显示,tr -s 't' 将重复的t以一个t显示
-cut -d' ' -f 1   以空格作为分隔符并且取第一列
-vim查找上一个N,查找下一个n
-vim清空所有内容 dg
-df命令
+#基础语法
+    判断上一条命令是否执行成功 $?
+    获取上一条命令执行结果 dir=`pwd` 或者dir=$(pwd)
+    vim查找上一个N,查找下一个n
+    vim清空所有内容 dg
+    清空文件
+    cat /dev/null > wordcount
+    :>wordcount
+    显示文件的全部信息(可显示换行)cat -v filename
+# df命令  
     df -h
     df -T 显示文件系统类型
-查看当前目录空间占用空间大小 du -h --max-depth=0
-删除特定文件 rm -rf A-[0-9][0-9][0-9].zip
-切分大文件
+    查看当前目录空间占用空间大小 du -h --max-depth=0
+    删除特定文件 rm -rf A-[0-9][0-9][0-9].zip
+# 切分大文件
     split -l 100 bigfile prefix
     split -b 10m bigfile prefix
-查看Linux虚拟机内存和处理器信息
+# 查看Linux虚拟机内存和处理器信息
     cat /proc/cpuinfo
     cat /proc/meminfo
-find命令
+# find命令
     find . -type f -size -3k -exec ls -l {} \;  查找大小3k以内的文件并显示
     find . -type f -size +3k -exec ls -l {} \;  查找大小3k以上的文件并显示
-cat命令
+# cat命令
     cat -v 显示特殊字符
     cat -n 显示行号
-tail命令
+# tail命令
     tail -f file
     tail -10 file显示最后十行数据
-head命令
+# head命令
     head -10 file显示前10行数据
-tr命令
+# tr命令
     tr a-z A-Z
     tr -s ' '压缩多个空格为一个空格
     tr -s ' ' '\n'先用换行符替换空格,然后再压缩连续的换行符
-Linux输出结果逆序
+    tr -s ' ' 将 将重复的空格以一个空格显示,tr -s 't' 将重复的t以一个t显示
+# Linux输出结果逆序
     ll -t | tac
-tail当前目录最新文件
+# tail当前目录最新文件
     tail -f `ll -t | awk "NR==2" | tr -s ' ' | cut -d ' ' -f 9`
     awk "NR==2"输出第二行数据
     ll -t 按日期排序
     tr -s ' ' 压缩空格
     cut -d ' ' -f 9 以空格分割字符并且截取第九列
-sort命令
+# sort命令
     sort -r逆序输出
     sort file 以ASCII排序
     sort -u 排序并去重
     sort -nk 2 -t: file  将文件每一行的内容以:分割,对第二列进行排序,以数字的形式
-ps命令
+# ps命令
     ps aux
     查看当前系统进程的uid,pid,stat,pri, 以uid号排序.
     ps -eo pid,stat,pri,uid –sort uid
@@ -56,23 +55,23 @@ ps命令
     ps -eo user,pid,stat,rss,args –sort rss
     ps aux
     ps --forest     显示进程的父子关系
-netstat命令
+# netstat命令
     netstat -ntlp
-strings命令
+# strings命令
     在要给二进制文件中查找指定字符串
-strace命令    跟踪程序运行时的系统调用
+# strace命令    跟踪程序运行时的系统调用
     strace常用来跟踪进程执行时的系统调用和所接收的信号。
     在Linux世界，进程不能直接访问硬件设备，当进程需要访问硬件设备(比如读取磁盘文件，接收网络数据等等)时，
     必须由用户态模式切换至内核态模式，通 过系统调用访问硬件设备。
     strace可以跟踪到一个进程产生的系统调用,包括参数，返回值，执行消耗的时间。
     strace -T -tt -e trace=all -p pid
-pmap命令
+# pmap命令
     显示进程内存中的地址映射
-awk命令
+# awk命令
     awk '{print $1,$2}'  显示第一列和第二列
     awk -F ':' '{print $1 $2}'  以':'做为分隔符
     awk 'BEGIN{count=0;print "start count"}{count++;print $0}END{print "total user num is:" count}' /etc/passwd
-sysctl一些内核参数,通过该命令可以查询,更新相关的变量值
+# sysctl一些内核参数,通过该命令可以查询,更新相关的变量值
     文件路径:/etc/sysctl.conf
     屏蔽别人 ping 你的主机      net.ipv4.icmp_echo_ignore_all = 1
     执行以下命令使变动立即生效
@@ -81,11 +80,11 @@ sysctl一些内核参数,通过该命令可以查询,更新相关的变量值
     /sbin/sysctl -w net.ipv4.route.flush=1
 
     输出所有变量  sysctl -a
-iostat命令
+# iostat命令
     iostat -d 2 6    每隔两秒输出io信息,总共输出6次
-vmstat命令
+# vmstat命令
     vmstat -d 2 6    每隔两秒输出cpu信息,总共输出6此
-od命令
+# od命令
     输出文件的二进制内容
     od -to1 fileName    八进制(一字节作为一个单元)
     od -to2 fileName    八进制(两字节作为一个单元)
@@ -93,22 +92,22 @@ od命令
     od -td2 fileName    十进制(两字节作为一个单元)
     od -tx1 fileName    十六进制(一字节作为一个单元)
     od -tx2 fileName    十六进制(两字节作为一个单元)
-xxd命令
+# xxd命令
     输出原始二进制信息(od命令可能和大小端字节序有关)
     xdd fileName
-read命令
+# read命令
     cat file.txt | while read line
     do
         echo "$line"
     done
-shell同步和异步
+# shell同步和异步
     sh start.sh &   异步运行
     正常在shell中调用其他脚本是同步运行
     使用wait可以等待其他shell脚本运行结束
-nl命令
+# nl命令
     类似于cat+vim的set nu
     输出文件并带上行号
-shell中的特殊符号
+# shell中的特殊符号
     $0	当前脚本的文件名
     $n	传递给脚本或函数的参数。n 是一个数字，表示第几个参数。例如，第一个参数是$1，第二个参数是$2。
     $#	传递给脚本或函数的参数个数。
@@ -116,7 +115,7 @@ shell中的特殊符号
     $@	传递给脚本或函数的所有参数。被双引号(" ")包含时，与 $* 稍有不同。
     $?	上个命令的退出状态，或函数的返回值。
     $$	当前Shell进程ID。对于 Shell 脚本，就是这些脚本所在的进程ID。
-grep命令
+# grep命令
     grep -n                 输出时带上行号
     grep -v                 反向选择
     grep -i                 忽略大小写
@@ -126,7 +125,7 @@ grep命令
     grep -Po '(?<!A)a'      匹配a,并且a前面不是A
     nl data | grep 'go$'    输出以go开头的行
     nl data | grep '^c++'   输出以c++开头的行
-ulimit命令
+# ulimit命令
     限制当前会话的系统资源
     相关的系统资源有
     -H	设置硬资源限制，一旦设置不能增加。	ulimit – Hs 64；限制硬资源，线程栈大小为 64K。
@@ -143,7 +142,7 @@ ulimit命令
     -t	最大的 CPU 占用时间，以秒为单位。	ulimit – t unlimited；对最大的 CPU 占用时间不进行限制。
     -u	用户最大可用的进程数。	ulimit – u 64；限制用户最多可以使用 64 个进程。
     -v	进程最大可用的虚拟内存，以 Kbytes 为单位。	ulimit – v 200000；限制最大可用的虚拟内存为 200000 Kbytes。
-sed命令
+# sed命令
     增删改查
     在第几行增加数据
     查找并更新
@@ -153,13 +152,13 @@ sed命令
 
     sed -n 18p fileName 查看第18行数据
     sed -n '1,8p' fileName 查看第1-8行数据
-shell传递参数
+# shell传递参数
     $1 $2 $3
-shell截取字符串
+# shell截取字符串
     ${string:start:len}
     获取字符串长度
     ${#string}
-shell循环
+#shell循环
     for((i=0;i<10;i++))
     do
     echo $i
@@ -169,7 +168,7 @@ shell循环
     do
 
     done
-shell函数
+#shell函数
     cutDemo(){
             ls | cut -b 3-5
             ls | cut -b -3
@@ -178,14 +177,16 @@ shell函数
     echo 'execute cutDemo function...'
     cutDemo
     echo 'cutDemo function finished...'
-shell双引号和单引号
+    
+    cut -d' ' -f 1   以空格作为分隔符并且取第一列
+#shell双引号和单引号
     [root@fcy shell]# name=fcy
     [root@fcy shell]# echo 'hello $name'
     hello $name
     [root@fcy shell]# echo "hello $name"
     hello fc
     双引号中变量输出值,单引号中变量名无效
-shell数组
+#shell数组
     array=(1 2 3 4 5 6 7 8)
     输出第一个元素
     echo ${array[0]}
@@ -195,17 +196,17 @@ shell数组
     输出数组长度
     echo ${#array[*]}
     echo ${#array[@]}
-查找特定文件并删除
+#查找特定文件并删除
     格式:find   path   -option   [   -print ]   [ -exec   -ok   command ]   {} \;
     find ./ -mtime +32 -name *.java -exec rm -rf {}
     find ./ -mtime -1 -name *.java -exec rm -rf {}
     find ./ -mtime 1 -name *.java -exec rm -rf {}
     find ./ -mtime +1 -name *.java -exec rm -rf {}
-shell文件的三个时间
+#shell文件的三个时间
     atime(access time)   最后访问时间
     ctime(change time)   最后变更时间(文件属性,文件的metadata被修改时)
     mtime(modify time)   最后修改时间
-stat filename查看文件信息
+#stat filename查看文件信息
 0   标准输入
 1   标准输出
 2   错误输出
@@ -217,7 +218,7 @@ ls a.txt b.txt 1>success.txt 2>&1 将标准错误和标准输出输出到success
 ls a.txt b.txt 2>&1 2>success.txt   则会将标准错误输出到控制台上
 也就是从最靠近最终输入的写起
 
-shell控制语句
+#shell控制语句
     if [ $num -gt 1 ]
     then
 
@@ -232,7 +233,7 @@ shell控制语句
 -ge     >=
 -le     <=
 
-top -H -p <pid>查看指定进程的线程信息
+#top -H -p <pid>查看指定进程的线程信息
     top中相关参数含义
     VIRT    所有使用的未使用的内存总和
     RES     实际使用的内存量
@@ -242,12 +243,13 @@ ps -T -p <pid>查看指定进程的所有线程
 sync 命令将所有未写的系统缓冲区写到磁盘中，包含已修改的 i-node、已延迟的块 I/O 和读写映射文件)
 
 free 命令中的信息都来自于 /proc/meminfo 文件
-free命令详解
+#free命令详解
               total        used        free      shared  buff/cache   available
 Mem:           972M        437M        409M        7.6M        125M        379M
 Swap:          2.0G        264K        2.0G
 free表示真正空闲的内存
 echo 1 > /proc/sys/vm/drop_caches当然，这个文件可以设置的值分别为1、2、3。它们所表示的含义为：echo 1 > /proc/sys/vm/drop_caches：表示清除 page cache。echo 2 > /proc/sys/vm/drop_caches：表示清除回收 slab 分配器中的对象（包括目录项缓存和 inode 缓存）。slab 分配器是内核中管理内存的一种机制，其中很多缓存数据实现都是用的 page cache。echo 3 > /proc/sys/vm/drop_caches：表示清除 page cache 和 slab 分配器中的缓存对象。
+free -h -s 3     每3秒显示内存信息
 
 buff/cache
 A buffer is something that has yet to be "written" to disk. A cache is something that has been "read" from the disk and 
@@ -255,7 +257,7 @@ stored for later use.
 	buff是缓冲,还未写入到磁盘的脏数据
 	cache是方便读取
 
-Inode节点
+#Inode节点
  磁盘分为许多个INode节点
  每个iNode节点都有编号
  INode节点信息
