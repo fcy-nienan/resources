@@ -23,3 +23,14 @@ jit即时编译技术
     -client 和 -server
 +:UseCompressedClassPointers
 +:UseCompressedObjectOops
+
+jdk8去掉了永久代，变成了元空间
+两方面的改变
+    1、名称改变了
+    2、存储的地方改变了，永久代是在jvm中的内存，而元空间则是使用本地的内存，主要是方法区中的对象回收条件太苛刻,方法去也容易溢出
+
+
+    如果收集器为ParNew收集器，新生代为ParNew，Parallel New Generation
+    如果收集器是Serial收集器，新生代为DefNew，Default New Generation
+
+    整个堆的大小=新生代+老年代+方法区
