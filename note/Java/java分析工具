@@ -25,7 +25,10 @@ l  gcoldcapacity (老区大小)
 l  gcpermcapacity (永久区大小)
 l  gcutil (GC统计汇总)
 l  printcompilation (HotSpot编译统计)
-详细信息:https://docs.oracle.com/javase/1.5.0/docs/tooldocs/share/jstat.html#class_option
+显示的时间时毫秒
+大小时KB
+详细信息:
+https://docs.oracle.com/javase/1.5.0/docs/tooldocs/share/jstat.html#class_option
 
 jinfo命令
 打印Java运行时的相关环境信息Generates configuration information
@@ -33,7 +36,8 @@ jinfo命令
 jmap命令
 Prints shared object memory maps or heap memory details for a process, core file, or remote debug server
 打印共享对象内存映射或者堆内存详细信息,核心文件,或者远程调试服务器
-
+jmap -histo pid
+jmap -dump:format=b,file=dump.txt pid
 jhat命令
 从一个dump文件获取信息并分析并可以通过web访问
 The jhat command parses a Java heap dump file and starts a web server.

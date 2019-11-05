@@ -9,3 +9,4 @@ docker run -it containerId /bin/bash    进入docker
 
 docker查看网络信息    docker inspect image_id | grep IPAddress
 
+docker查看容器被杀的原因 docker inspect image_id -f '{{json .State}}'

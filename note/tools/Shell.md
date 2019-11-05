@@ -7,6 +7,18 @@
     cat /dev/null > wordcount
     :>wordcount
     显示文件的全部信息(可显示换行)cat -v filename
+    Linux文件权限后面的一个加号和一个点
+    -rwx--xr-x+ root root    #只有ACL，没有selinux上下文
+    -rw-r--r--. root root    #只有selinux上下文，没有ACL
+    -rwxrwxr--+ root root    #有selinux上下文，有ACL
+    修改配置文件以防重启后恢复selinux状态
+    vi /etc/sysconfig/selinux
+    SELINUX=disabled 
+    在线关闭selinux
+    setenforce 0
+    查看状态
+    [root@localhost ~]# /usr/sbin/sestatus -v
+    SELinux status:                 disabled
 # df命令  
     df -h
     df -T 显示文件系统类型
@@ -125,6 +137,8 @@
     grep -Po '(?<!A)a'      匹配a,并且a前面不是A
     nl data | grep 'go$'    输出以go开头的行
     nl data | grep '^c++'   输出以c++开头的行
+#dirname
+    去除文件名中的非目录部分
 # ulimit命令
     限制当前会话的系统资源
     相关的系统资源有
@@ -256,8 +270,18 @@ A buffer is something that has yet to be "written" to disk. A cache is something
 stored for later use.
 	buff是缓冲,还未写入到磁盘的脏数据
 	cache是方便读取
-
+#查看进程端口信息
++ ss -tnlp  
+    ss：可以用于转储套接字统计信息。
++ netstat -tnlp  
+    netstat：可以显示打开的套接字列表。
++ lsof -i P
+    lsof：可以列出打开的文件。
++ fuser 22/tcp
+    fuser：可以列出那些打开了文件的进程的进程 ID。  
+    还可以显示信号量等其他信息
 #Inode节点
+ inode中包含了文件大小、属主、归属的用户组、读写权限等信息。不只是用vi修改文件，只要文件被改变了，inode的值就会变。
  磁盘分为许多个INode节点
  每个iNode节点都有编号
  INode节点信息
