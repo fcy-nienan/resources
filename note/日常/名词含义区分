@@ -16,3 +16,10 @@ verification和validation
     validation   -- Are we producing the right product?
     验证注重过程
     确认注重结果
+吞吐量 进出的总量
+吞吐率 统计某个时间内某个动作的量
+        字节数/秒    请求数/秒      页面数/秒
+        从业务的角度可以又   业务数/小时,天   访问人数/小时,天  页面访问量/小时,天
+事务      用户一步或者几步的操作集合
+TPS     Transaction Per Action
+点击率

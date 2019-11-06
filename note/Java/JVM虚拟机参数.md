@@ -33,7 +33,13 @@
 + -XX:ParallelCMSThreads=	并发标记扫描垃圾回收器 =为使用的线程数量
 + -XX:+UseG1GC	        G1垃圾回收器
 + -XX:+UseCMSCompactAtFullCollection:打开对年老代的压缩.可能会影响性能,但是可以消除碎片
-
-
-
-
++ -Djava.compiler=none关闭jit编译
++ -XX:+UseCMSCompactAtFullCollection：使用并发收集器时，开启对年老代的压缩
++ -XX:CMSFullGCsBeforeCompaction=0：上面配置开启的情况下，这里设置多少次Full GC后，对年老代进行压缩
++ -XX:+DisableExplicitGC可以让System.gc()不起作用。
++ -XX:+PrintFlagsInitial与-XX:+PrintFlagsFinal
++ -XX:+PrintCommandLineFlags参数
++ 开启(-XX:+UseCompressedOops) 可以压缩指针。 
++ 关闭(-XX:-UseCompressedOops) 可以关闭压缩指针。 
++ -Djava.compiler=none关闭JIT编译
++ -XX:+PrintCompilation参数，你可以在log文件中看到方法被JIT编译时的信息

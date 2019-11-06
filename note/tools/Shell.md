@@ -83,6 +83,7 @@
     awk '{print $1,$2}'  显示第一列和第二列
     awk -F ':' '{print $1 $2}'  以':'做为分隔符
     awk 'BEGIN{count=0;print "start count"}{count++;print $0}END{print "total user num is:" count}' /etc/passwd
+    awk 'NR==1{print $1}'显示第一行的第一列
 # sysctl一些内核参数,通过该命令可以查询,更新相关的变量值
     文件路径:/etc/sysctl.conf
     屏蔽别人 ping 你的主机      net.ipv4.icmp_echo_ignore_all = 1
