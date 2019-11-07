@@ -65,8 +65,11 @@
     ps -eo pid,stat,pri,uid –sort uid
     查看当前系统进程的user,pid,stat,rss,args, 以rss排序.
     ps -eo user,pid,stat,rss,args –sort rss
-    ps aux
+    ps aux --sort -rss倒序
+    ps aux --sort rss正序
     ps --forest     显示进程的父子关系
+#ldd
+    打印程序以来的共享库
 # netstat命令
     netstat -ntlp
 # strings命令
@@ -74,16 +77,47 @@
 # strace命令    跟踪程序运行时的系统调用
     strace常用来跟踪进程执行时的系统调用和所接收的信号。
     在Linux世界，进程不能直接访问硬件设备，当进程需要访问硬件设备(比如读取磁盘文件，接收网络数据等等)时，
-    必须由用户态模式切换至内核态模式，通 过系统调用访问硬件设备。
+    必须由用户态模式切换至内核态模式，通过系统调用访问硬件设备。
     strace可以跟踪到一个进程产生的系统调用,包括参数，返回值，执行消耗的时间。
+    也可以跟踪正在运行的进程的系统调用
     strace -T -tt -e trace=all -p pid
+    
+    execve("/usr/bin/ls", ["ls", "-l", "123.txt"], [/* 22 vars */]) = 0
+    execve系统调用名称
+    括号内的时系统调用参数
+    =0是系统调用返回的值
+#ltrace命令   跟踪调用了那些glibc函数
+    ltrace ls -l 123.txt
+#man命令
+    1：可执行的程序或 shell 命令
+    2：系统调用（由内核提供的函数）
+    3：库调用（在程序的库内的函数）
+    4：特殊文件（通常出现在 /dev）
+    man 1 ls
+    man 1 strace
+    man 2 execve
+
 # pmap命令
     显示进程内存中的地址映射
+#ss命令
+    ss 列出所有的连接，包括tcp连接、udp连接、unix socket、raw socket
+    ss -t 列出所有tcp连接
+    ss -tl 列出所有处于监听状态的tcp连接
+    ss -u 列出所有的udp连接
+    ss -p 列出连接时显示进程名字和pid
+    ss -s 统计socket
+    
+    找出某个进程监听的端口号: ss -ltp | grep pro_name
+    找出某个端口号被哪个进程占用: ss -p | grep port_num
+    列出某个端口上的tcp连接：ss -tenp | grep port_num
 # awk命令
     awk '{print $1,$2}'  显示第一列和第二列
     awk -F ':' '{print $1 $2}'  以':'做为分隔符
     awk 'BEGIN{count=0;print "start count"}{count++;print $0}END{print "total user num is:" count}' /etc/passwd
     awk 'NR==1{print $1}'显示第一行的第一列
+    awk '$2=="yellow"{print $1}' file1.txt  带条件输出
+    awk '$3&gt;5 {print $1, $2}' colours.txt
+
 # sysctl一些内核参数,通过该命令可以查询,更新相关的变量值
     文件路径:/etc/sysctl.conf
     屏蔽别人 ping 你的主机      net.ipv4.icmp_echo_ignore_all = 1
@@ -278,6 +312,14 @@ stored for later use.
     netstat：可以显示打开的套接字列表。
 + lsof -i P
     lsof：可以列出打开的文件。
+    lsof -u test      用户打开的文件
+    lsof -p pid        进程号为pid的进程打开的文件
+    lsof -c pro_name          进程名开头为pro_name打开的文件
+    lsof -i tcp         列出所有的tcp连接
+    lsof -i udp        列出所有的udp连接
+    lsof -i tcp:4600       列出占用4600端口的tcp连接
+    lsof -i udp:4600        列出占用4600端口的udp连接
+    lsof -i :4600          列出占用4600端口连接
 + fuser 22/tcp
     fuser：可以列出那些打开了文件的进程的进程 ID。  
     还可以显示信号量等其他信息
