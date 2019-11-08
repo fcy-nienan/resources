@@ -1,8 +1,9 @@
+#vim
+    vim查找上一个N,查找下一个n
+    vim清空所有内容 dg
 #基础语法
     判断上一条命令是否执行成功 $?
     获取上一条命令执行结果 dir=`pwd` 或者dir=$(pwd)
-    vim查找上一个N,查找下一个n
-    vim清空所有内容 dg
     清空文件
     cat /dev/null > wordcount
     :>wordcount
@@ -19,6 +20,24 @@
     查看状态
     [root@localhost ~]# /usr/sbin/sestatus -v
     SELinux status:                 disabled
+    
+    -eq     ==
+    -ne     !=
+    -gt     >
+    -lt     <
+    -ge     >=
+    -le     <=
+    
+    0   标准输入
+    1   标准输出
+    2   错误输出
+    ls a.txt 1>success.txt 2>error.txt  将标准输出输出到success.txt文件,标准错误输出到error.txt
+    其中1可以省略,所以可以写成 ls a.txt > success.txt 2>error.txt
+    
+    ls a.txt b.txt 1>success.txt 2>&1 将标准错误和标准输出输出到success.txt文件
+    如果写成了
+    ls a.txt b.txt 2>&1 2>success.txt   则会将标准错误输出到控制台上
+    也就是从最靠近最终输入的写起
 # df命令  
     df -h
     df -T 显示文件系统类型
@@ -59,6 +78,7 @@
     sort file 以ASCII排序
     sort -u 排序并去重
     sort -nk 2 -t: file  将文件每一行的内容以:分割,对第二列进行排序,以数字的形式
+    ls | sort -n -k2 
 # ps命令
     ps aux
     查看当前系统进程的uid,pid,stat,pri, 以uid号排序.
@@ -68,6 +88,26 @@
     ps aux --sort -rss倒序
     ps aux --sort rss正序
     ps --forest     显示进程的父子关系
+    ps -T -p <pid>查看指定进程的所有线程
+    stat取值含义
+    	D      //无法中断的休眠状态（通常 IO 的进程）；
+    	R      //正在运行可中在队列中可过行的；
+    	S      //处于休眠状态；
+    	T      //停止或被追踪；
+    	W      //进入内存交换 （从内核2.6开始无效）；
+    	X      //死掉的进程 （基本很少见）；
+    	Z      //僵尸进程；
+    	<      //优先级高的进程
+    	N      //优先级较低的进程
+    	L      //有些页被锁进内存；
+    	s      //进程的领导者（在它之下有子进程）；
+    	l      //多线程，克隆线程（使用 CLONE_THREAD, 类似 NPTL pthreads）；
+    	+      //位于后台的进程组；
+#终端类型
+    1.串行端口终端（/dev/ttySn）
+    2.伪终端（/dev/pty/）
+    3.控制终端（/dev/tty）
+    4.控制台终端（/dev/ttyn, /dev/console）
 #ldd
     打印程序以来的共享库
 # netstat命令
@@ -88,6 +128,9 @@
     =0是系统调用返回的值
 #ltrace命令   跟踪调用了那些glibc函数
     ltrace ls -l 123.txt
+#proc目录
+    cmdline
+    
 #man命令
     1：可执行的程序或 shell 命令
     2：系统调用（由内核提供的函数）
@@ -117,6 +160,7 @@
     awk 'NR==1{print $1}'显示第一行的第一列
     awk '$2=="yellow"{print $1}' file1.txt  带条件输出
     awk '$3&gt;5 {print $1, $2}' colours.txt
+    ls -S | awk '{a+=$5}END{print a "m"}'   累加列
 
 # sysctl一些内核参数,通过该命令可以查询,更新相关的变量值
     文件路径:/etc/sysctl.conf
@@ -198,7 +242,6 @@
     查找并删除
     查找并增加
     sed '/^\s*$/d' data     删除文件中的空行 ^表示文件开头,$表示文件结尾,\s表示空格,/d表示删除
-
     sed -n 18p fileName 查看第18行数据
     sed -n '1,8p' fileName 查看第1-8行数据
 # shell传递参数
@@ -245,27 +288,37 @@
     输出数组长度
     echo ${#array[*]}
     echo ${#array[@]}
+#lscpu查看服务器cpu相关信息
+    更详细的信息: cat /proc/cpuinfo
+    大小端
+    32or64
+    cpu核数
+    1)CPU总核数 	= 物理CPU个数 * 每颗物理CPU的核数 
+    		2)逻辑CPU总数 = 物理CPU个数 * 每颗物理CPU的核数 * 超线程数
+    		3)多核超线程：
+    			1>多个物理CPU：	物理CPU间通过总线进行通信，效率比较低。
+    			1>多核CPU：		不同的核通过L2 cache进行通信，存储和外设通过总线与CPU通信。
+    			2>超线程：		每个核有两个逻辑的处理单元，两个处理单元共享一个核的资源。
+    CPU(s):                1    1个cpu
+    Thread(s) per core:    1    每个核的逻辑核(线程数)
+    Core(s) per socket:    1    每个插槽的cpu核数
+    Socket(s):             1    cpu插槽
+#压缩文件和目录
+    zip 123.zip 123.txt压缩文件
+    zip -r 123.zip 123压缩目录
 #查找特定文件并删除
     格式:find   path   -option   [   -print ]   [ -exec   -ok   command ]   {} \;
     find ./ -mtime +32 -name *.java -exec rm -rf {}
     find ./ -mtime -1 -name *.java -exec rm -rf {}
     find ./ -mtime 1 -name *.java -exec rm -rf {}
     find ./ -mtime +1 -name *.java -exec rm -rf {}
+    find /cpic/jtzxmd -type d -exec mkdir -p /home/jtaom{} \;   复制目录结构
 #shell文件的三个时间
     atime(access time)   最后访问时间
     ctime(change time)   最后变更时间(文件属性,文件的metadata被修改时)
     mtime(modify time)   最后修改时间
 #stat filename查看文件信息
-0   标准输入
-1   标准输出
-2   错误输出
-ls a.txt 1>success.txt 2>error.txt  将标准输出输出到success.txt文件,标准错误输出到error.txt
-其中1可以省略,所以可以写成 ls a.txt > success.txt 2>error.txt
 
-ls a.txt b.txt 1>success.txt 2>&1 将标准错误和标准输出输出到success.txt文件
-如果写成了
-ls a.txt b.txt 2>&1 2>success.txt   则会将标准错误输出到控制台上
-也就是从最靠近最终输入的写起
 
 #shell控制语句
     if [ $num -gt 1 ]
@@ -274,61 +327,50 @@ ls a.txt b.txt 2>&1 2>success.txt   则会将标准错误输出到控制台上
     else
 
     fi
-
--eq     ==
--ne     !=
--gt     >
--lt     <
--ge     >=
--le     <=
-
 #top -H -p <pid>查看指定进程的线程信息
     top中相关参数含义
     VIRT    所有使用的未使用的内存总和
     RES     实际使用的内存量
     SHR     和其他进程共享的内存
-ps -T -p <pid>查看指定进程的所有线程
 
-sync 命令将所有未写的系统缓冲区写到磁盘中，包含已修改的 i-node、已延迟的块 I/O 和读写映射文件)
-
-free 命令中的信息都来自于 /proc/meminfo 文件
 #free命令详解
-              total        used        free      shared  buff/cache   available
-Mem:           972M        437M        409M        7.6M        125M        379M
-Swap:          2.0G        264K        2.0G
-free表示真正空闲的内存
-echo 1 > /proc/sys/vm/drop_caches当然，这个文件可以设置的值分别为1、2、3。它们所表示的含义为：echo 1 > /proc/sys/vm/drop_caches：表示清除 page cache。echo 2 > /proc/sys/vm/drop_caches：表示清除回收 slab 分配器中的对象（包括目录项缓存和 inode 缓存）。slab 分配器是内核中管理内存的一种机制，其中很多缓存数据实现都是用的 page cache。echo 3 > /proc/sys/vm/drop_caches：表示清除 page cache 和 slab 分配器中的缓存对象。
-free -h -s 3     每3秒显示内存信息
-
-buff/cache
-A buffer is something that has yet to be "written" to disk. A cache is something that has been "read" from the disk and 
-stored for later use.
-	buff是缓冲,还未写入到磁盘的脏数据
-	cache是方便读取
+                  total        used        free      shared  buff/cache   available
+    Mem:           972M        437M        409M        7.6M        125M        379M
+    Swap:          2.0G        264K        2.0G
+    free表示真正空闲的内存
+    echo 1 > /proc/sys/vm/drop_caches当然，这个文件可以设置的值分别为1、2、3。它们所表示的含义为：echo 1 > /proc/sys/vm/drop_caches：表示清除 page cache。echo 2 > /proc/sys/vm/drop_caches：表示清除回收 slab 分配器中的对象（包括目录项缓存和 inode 缓存）。slab 分配器是内核中管理内存的一种机制，其中很多缓存数据实现都是用的 page cache。echo 3 > /proc/sys/vm/drop_caches：表示清除 page cache 和 slab 分配器中的缓存对象。
+    free -h -s 3     每3秒显示内存信息
+    free 命令中的信息都来自于 /proc/meminfo 文件
+    buff/cache
+    A buffer is something that has yet to be "written" to disk. A cache is something that has been "read" from the disk and 
+    stored for later use.
+        buff是缓冲,还未写入到磁盘的脏数据
+        cache是方便读取
 #查看进程端口信息
-+ ss -tnlp  
-    ss：可以用于转储套接字统计信息。
-+ netstat -tnlp  
-    netstat：可以显示打开的套接字列表。
-+ lsof -i P
-    lsof：可以列出打开的文件。
-    lsof -u test      用户打开的文件
-    lsof -p pid        进程号为pid的进程打开的文件
-    lsof -c pro_name          进程名开头为pro_name打开的文件
-    lsof -i tcp         列出所有的tcp连接
-    lsof -i udp        列出所有的udp连接
-    lsof -i tcp:4600       列出占用4600端口的tcp连接
-    lsof -i udp:4600        列出占用4600端口的udp连接
-    lsof -i :4600          列出占用4600端口连接
-+ fuser 22/tcp
-    fuser：可以列出那些打开了文件的进程的进程 ID。  
-    还可以显示信号量等其他信息
+      ss -tnlp  
+        ss：可以用于转储套接字统计信息。
+    netstat -tnlp  
+        netstat：可以显示打开的套接字列表。
+    lsof -i P
+        lsof：可以列出打开的文件。
+        lsof -u test      用户打开的文件
+        lsof -p pid        进程号为pid的进程打开的文件
+        lsof -c pro_name          进程名开头为pro_name打开的文件
+        lsof -i tcp         列出所有的tcp连接
+        lsof -i udp        列出所有的udp连接
+        lsof -i tcp:4600       列出占用4600端口的tcp连接
+        lsof -i udp:4600        列出占用4600端口的udp连接
+        lsof -i :4600          列出占用4600端口连接
+    fuser 22/tcp
+        fuser：可以列出那些打开了文件的进程的进程 ID。  
+        还可以显示信号量等其他信息
 #Inode节点
- inode中包含了文件大小、属主、归属的用户组、读写权限等信息。不只是用vi修改文件，只要文件被改变了，inode的值就会变。
- 磁盘分为许多个INode节点
- 每个iNode节点都有编号
- INode节点信息
- stat查看文件的INode信息
+    sync 命令将所有未写的系统缓冲区写到磁盘中，包含已修改的 i-node、已延迟的块 I/O 和读写映射文件)
+     inode中包含了文件大小、属主、归属的用户组、读写权限等信息。不只是用vi修改文件，只要文件被改变了，inode的值就会变。
+     磁盘分为许多个INode节点
+     每个iNode节点都有编号
+     INode节点信息
+     stat查看文件的INode信息
 	File		'Dockerfile'		文件名
 	Size		'422'				文件大小
 	Blocks		'8'					文件块
@@ -343,10 +385,10 @@ stored for later use.
 	Modify							上次修改时间
 	Change							元数据的修改时间
 	Birth							创建时间
-目录也是一种文件,结构简单,就是一系列目录项列表,每个目录项由两部分组成
+    目录也是一种文件,结构简单,就是一系列目录项列表,每个目录项由两部分组成
 	所包含文件的文件名
 	改文件名对于的inode号码
-硬连接
+    硬连接
 	在inode节点的链接上加一,然后以另一个文件名访问该节点的数据,该该文件的内容修改会影响所有的文件名,但是删除一个文件名,并不一定会删除该文件,只是把该inode节点的链接数减一,如果该inode节点的链接数为0,则系统会回收该节点,但是并不会清楚该节点的数据,只有当其他数据需要存储在该节点的时候这里的数据才会被覆盖掉
 	目录文件的链接数
 		创建一个目录的时候,会默认生成两个目录项, .和..,
@@ -354,103 +396,19 @@ stored for later use.
 		后者的inode就是当前目录的父目录的inode号码
 		等同于硬连接
 		所以一个目录的硬链接总数等于其子目录项加上2
-软链接就是文件的内容是是另一个文件的路径,相当于windows下的快捷方式
-系统indoe是有限的,所以可能系统空间还够但不能存放数据,
-文件夹太多了,每创建一个文件都需要一个inode节点
-由于每个文件都必须有一个inode，因此有可能发生inode已经用光，但是硬盘还未存满的情况。这时，就无法在硬盘上创建新文件。
-yum remove mysql*
-rpm -qa|grep -i mysql   查找系统的有关于mysql的文件
-rpm -e -nodeps 包名删除mysql有关软件
-rpm -qa|grep -i mysql来确认系统中是否还含有mysql相关的文件
-rpm -ql php71-php-fpm-7.1.2-1.el6.remi.x86_64    yum 安装的程序 安装到哪里了？
-
-安装文件传输命令lrzsz
-yum install -y lrzsz
-使用该命令
-直接键入rz则会弹出一个文件窗口,然后选择需要传输的文件
-
-mysql的连接方式有两种：
-
-1.tcp/ip方式
-先说说这种方式，这个方式是在tcp/ip上建立一个网络连接请求，
-即MySQL服务器和客户端不再同一个服务器上，需要通过网络（IP）形式去连接。
-但是这种连接需要mysql服务器给这台客户端IP进行授权，否则不可以连接。
-如mysql服务器是192.168.10.230，客户端IP是192.168.10.220
-授权：grant all on *.* to 'root'@'192.168.10.220' identified by '123456';
-连接：mysql -uroot -h192.168.2.230 -p ? ? ? ? ? ? ##-h是指定连接服务器
-这种方式是不需要在客户端安装mysql的，即mysql的服务器安装完成后，就默认建立了一个和任何客户端进行连接的通道。
-2.socket方式
-这种方式必须是客户端和mysql服务器在同一台服务器上，使用localhost的方式去连接，
-这样就会用到套接字文件socket，即主机名是localhost的服务器，
-客户端通过套接字文件mysql.sock文件连接到服务器，
-如果这个文件删除就不能连接。
-
-mysql设置远程登录，修改host字段为'%'
-
-centos7安装mysql
-直接用yum -y install mysql mysql-server会出现No package mysql-server available错误
-可以先键入下面两个命令
-	wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
-	rpm -ivh mysql-community-release-el7-5.noarch.rpm
-然后在安装mysql
-	yum -y install mysql mysql-server
-
-开启mysql 
-	systemctl start mysqld
-进入mysql
-	mysql -uroot
-改密码
-	set password for root@localhost=password('123');
-	mysqldadmin -uroot -p123456 password 123;
-	update user set password=password('123') where user='root' and host='localhost';
-	flush privileges;
-忘记密码
-	关闭mysql
-	进入mysql的bin目录
-	打开cmd
-	键入 mysqld --skip-grant-tables,意思是跳过权限认证
-	然后新开一个cmd
-	然后进入mysql修改密码
-	最后需要刷新权限:flush privileges;
-mysql的默认配置文件
-	F:\mysql\bin\mysqld --defaults-file="F:\mysql\my-default.ini" MySQL
-	在注册表中修改ImagePage的值为以上值
-	最后的MYSQL是服务名称
-	
-cmd链接远程数据库    mysql -uroot -proot -h120.79.158.25 -P3306 -Ddatabasename
-		P,D要大写
-mysql导出SQL文件(将数据库导出为SQL文件)
-		mysqldump -uroot -p shopping > shop.sql
-1.将数据库mydb导出到e:\mysql\mydb.sql文件中：
-打开开始->运行->输入cmd    进入命令行模式
-c:\>mysqldump -h localhost -u root -p mydb >e:\mysql\mydb.sql
-然后输入密码，等待一会导出就成功了，可以到目标文件中检查是否成功。
-2.将数据库mydb中的mytable导出到e:\mysql\mytable.sql文件中：
-c:\>mysqldump -h localhost -u root -p mydb mytable>e:\mysql\mytable.sql
-3.将数据库mydb的结构导出到e:\mysql\mydb_stru.sql文件中：
-c:\>mysqldump -h localhost -u root -p mydb --add-drop-table >e:\mysql\mydb_stru.sql
-四.从外部文件导入数据到数据库中：
-从e:\mysql\mydb2.sql中将文件中的SQL语句导入数据库中：
-1.从命令行进入mysql，然后用命令CREATE DATABASE mydb2;创建数据库mydb2。
-2.退出mysql 可以输入命令exit；或者quit；
-3.在CMD中输入下列命令：
-c:\>mysql -h localhost -u root -p mydb2 < e:\mysql\mydb2.sql
-然后输入密码，就OK了。
-
-开机自启动
+    软链接就是文件的内容是是另一个文件的路径,相当于windows下的快捷方式
+    系统indoe是有限的,所以可能系统空间还够但不能存放数据,
+    文件夹太多了,每创建一个文件都需要一个inode节点
+    由于每个文件都必须有一个inode，因此有可能发生inode已经用光，但是硬盘还未存满的情况。这时，就无法在硬盘上创建新文件。
+#rpm命令
+    rpm -qa|grep -i mysql   查找系统的有关于mysql的文件
+    rpm -e -nodeps 包名删除mysql有关软件
+    rpm -qa|grep -i mysql来确认系统中是否还含有mysql相关的文件
+    rpm -ql php71-php-fpm-7.1.2-1.el6.remi.x86_64    yum 安装的程序 安装到哪里了？
+#开机自启动
 	将shell脚本的路径添加到/etc/rc.local文件中
-服务相关目录
+#服务相关目录
     /etc/init.d/   chkconfig命令就是对其进行增删改查
     chkconfig --list
     chkconfig --add
     chkconfig --del
-
-测试端口是否开放
-telnet ip port
-curl ip:port
-wget ip:port
-wireshark抓取本机回环数据
-net start npf
-route add 192.168.43.176 mask 255.255.255.255 192.168.43.1  metric 1
-打开wireshark选择本地回环网卡
-

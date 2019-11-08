@@ -15,7 +15,10 @@ start other.bat
 call是同步调用,在一个cmd总执行
 start是开多个cmd执行
 
-
+wireshark抓取本机回环数据
+net start npf
+route add 192.168.43.176 mask 255.255.255.255 192.168.43.1  metric 1
+打开wireshark选择本地回环网卡
 
 在cmd窗口中set设置的环境变量为临时变量，如：
 
