@@ -1,29 +1,39 @@
-查看字节码
-	javap -c test	查看Java的字节码
+https://docs.oracle.com/javase/1.5.0/docs/tooldocs/share/jstat.html#class_option
+javap查看字节码
+jcmd
+jstat查看gc状态，显示的时间时毫秒，大小时KB
+jinfo打印Java运行时的相关环境信息Generates configuration information
+javah和jni有关,生成想要的jni头文件
+jmapPrints shared object memory maps or heap memory details for a process, core file, or remote debug server
+jdb通过控制台调试程序
+jhat从一个dump文件获取信息并分析并可以通过web访问http://localhost:7000/oqlhelp/
+jstack查看线程状态
+jps查看运行的进程信息
+生成JitWatch分析日志
+-XX:+UnlockDiagnosticVMOptions -XX:+PrintAssembly -XX:+LogCompilation -XX:LogFile=jit.log
+
+测试工具
+JMH(Java Microbenchmark Harness)
+
+jvm的相关参数
+jinfo中看到的参数时不能更改的file.encoding和sun.jnu.encoding这中可以通过System.getProperty获取的
+file.encoding affects the content of file;
+sun.jnu.encoding affects the name of file;
+
+
+jcmd pid VM.flags
 查看汇编
 	将hsdis.dll放到：jre安装目录\bin\server
 	java -XX:+UnlockDiagnosticVMOptions -XX:+PrintAssembly -XX:CompileCommand=compileonly,*ThreadAssembly.tttt 
-	
 	-XX:CompileCommand=print,*MyClass.myMethod prints assembly for just one method
 	-XX:CompileCommand=option,*MyClass.myMethod,PrintOptoAssembly (debug build only) produces the old print command output
 	-XX:CompileCommand=option,*MyClass.myMethod,PrintNMethods produces method dumps
-
 	java -XX:+UnlockDiagnosticVMOptions -XX:+PrintAssembly -XX:CompileCommand=compileonly,*TestVolatile1.getInstance TestVolatile1
- 
 	java -XX:+UnlockDiagnosticVMOptions -XX:+PrintAssembly -XX:CompileCommand=print,*TestVolatile1.getInstance  TestVolatile1
-
 java分析工具
 jinfo -flag MaxHeapSize pid
 
 jinfo -flags pid
-
-jstat -gc 13744
-
-	
-开启断言
-	-ea
-	
-	
 带包编译
 	javac -Djava.ext.dirs=H:\lib springtest.java   编译时添加指定jar包
 带包运行
@@ -31,18 +41,10 @@ jstat -gc 13744
 查看运行时数据hsdb
 	java -cp %JAVA_HOME%/lib/sa-jdi.jar sun.jvm.hotspot.HSDB
 	查询对象语言	select a from java.lang.String a
-	
-	
-	
 调试类
 	jdb -XX:+UseSerialGC -Xmx10m
 	stop in son.show
 	run ArrayTest
-window下查找文件
-	for /r testdir %i in (*) do @echo %i 列举testdir目录及所有子目录的所有文件
-	for /r testdir %i in (*.txt,*.jpg,*.java) do @echo %i 寻找txt,jpg,java文件
-window下查找字符串
-	netstat -ano | find "8080"
 反编译
 	jad 将一个class文件反编译为Java文件
 	-s 扩展名
@@ -63,27 +65,11 @@ MANIFEST文件编写规则
 	第一行不能有空行,行与行间不能有空行,行尾不能有空格
 	最后一行一定是空行
 	key: value分号后面有一个空格
-windows下查找字符
-netstat -ano | findstr "8080"
-类似于Linux下的grep
-
-this.class.getResourcesAsStream(path);
-如果path是以/开头,则是以类路径的绝对路径
-如果只是要给文件名,则是当前类的class文件所在目录下
-
--XX:-PrintConcurrentLocks
--XX:NewRatio=比率
-  年轻代和老年代的比例。
-[GC (Allocation Failure)
-[PSYoungGen: 5632K->512K(6144K)]    回收前新生代空间大小-->回收后新生代空间大小
-12193K->12217K(19968K), 0.0313625 secs]     回收前堆空间大小-->回收后堆空间大小
-[Times: user=0.13 sys=0.00, real=0.03 secs]     用户耗时--系统耗时--实际耗时
-
 GC日志中的PSYoungGen（PS是指Parallel Scavenge）为Eden+FromSpace，
 而整个YoungGeneration为Eden+FromSpace+ToSpace。
 我们设置的新生代大小为10240K，这包括9216K大小的PSYoungGen和1024K大小的ToSpace。
 其中，PSYoungGen中的Eden:FromSpace为8:1，
-这包括8192K的Eden和1024K的FromSpace。
+这包括8192K的Eden和1024K的FromSpace。	
 
 
 

@@ -29,3 +29,8 @@ set PATH=%PATH%;D:\Program Files\
 
 setx PATH "%PATH%;D:\Program Files\"
 setx 后面的字符串最长1024
+window下查找文件
+	for /r testdir %i in (*) do @echo %i 列举testdir目录及所有子目录的所有文件
+	for /r testdir %i in (*.txt,*.jpg,*.java) do @echo %i 寻找txt,jpg,java文件
+window下查找字符串
+	netstat -ano | find "8080"

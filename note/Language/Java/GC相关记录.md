@@ -18,10 +18,10 @@
 + 复制算法不需要遍历全堆,标记整理算法需要遍历全堆
     + 标记整理算法不可以直接找到然后直接移动到另一侧吗?
 #相关垃圾收集器
-![年轻代和年老代的垃圾收集器](../resources/photo/gc-collector.gif)
+![年轻代和年老代的垃圾收集器](../../resources/photo/gc-collector.gif)
 * Serial收集器
     * 串行收集,进行收集时会造成STW,采用标记整理算法  
-    ![](../resources/photo/Serial.gif)
+    ![](../../resources/photo/Serial.gif)
 * ParNew收集器
     * Serial收集器的多线程版本
 * ParallelScavenge收集器
@@ -31,7 +31,7 @@
 * SerialOld收集器,老年代的串行单线程收集器
 * CMS收集器
     * 和用户线程一起工作
-    ![CMS收集器](../resources/photo/cms-collector.png "CMS收集器工作原理")
+    ![CMS收集器](../../resources/photo/cms-collector.png "CMS收集器工作原理")
 # 直接可选的垃圾收集器方案
 **通过排列以上垃圾收集器常用的不同的组合**
 * -XX:+UseSerialGC

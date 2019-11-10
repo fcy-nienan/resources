@@ -43,3 +43,6 @@
 + 关闭(-XX:-UseCompressedOops) 可以关闭压缩指针。 
 + -Djava.compiler=none关闭JIT编译
 + -XX:+PrintCompilation参数，你可以在log文件中看到方法被JIT编译时的信息
++ -ea开启断言
++ -XX:+TraceClassLoading打印加载的类
++ -XX:hashCode选择使用哪种hash算法
