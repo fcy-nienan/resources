@@ -319,3 +319,9 @@ Runtime.getRuntime().exec()
 this.class.getResourcesAsStream(path);
 如果path是以/开头,则是以类路径的绝对路径
 如果只是要给文件名,则是当前类的class文件所在目录下
+
+
+Java对象的hashcode
+    If you write a custom type you are responsible for creating a good hashCode implementation that will best represent the state of the current instance
+    底层有几种不同的生成hashcode的方法
+    最终在Synchronizer.cpp文件的FastHashCode方法中,生成hashcode的方法在get_next_hash方法中,其中hashcode=2时固定时1

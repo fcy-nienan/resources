@@ -8,6 +8,10 @@ WARNING: /base/bigData/hadoop/logs does not exist. Creating
 如果你需要为全局变量计算一个新值
 那应该在计算的最后把最终值赋给全局变量
 而不要把中间值赋给他
+
+防御性编程时内部自己处理,保证代码的健壮性,也就是可以认为穿了一些模棱两个的参数自己控制
+将其变为一个相似的参数还是向外部抛出错误,重点在于如何处理不规范的参数
+而契约式编程是只接受符合规范的参数,其余参数一律不执行,重点在于只接受合格的参数
 public void run() {
         if (state != NEW ||
             !UNSAFE.compareAndSwapObject(this, runnerOffset,
