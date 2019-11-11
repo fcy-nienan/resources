@@ -218,6 +218,10 @@
     nl data | grep '^c++'   输出以c++开头的行
 #dirname
     去除文件名中的非目录部分
+#shell中的算数运算
+    echo $[2400/40]
+    let k=8*8
+    let t=$k/32
 # ulimit命令
     限制当前会话的系统资源
     相关的系统资源有
@@ -313,6 +317,7 @@
     find ./ -mtime 1 -name *.java -exec rm -rf {}
     find ./ -mtime +1 -name *.java -exec rm -rf {}
     find /cpic/jtzxmd -type d -exec mkdir -p /home/jtaom{} \;   复制目录结构
+    find / -name java -type f 2>/dev/null   将大量出现的Permission Denied重定向到另一个目录
 #shell文件的三个时间
     atime(access time)   最后访问时间
     ctime(change time)   最后变更时间(文件属性,文件的metadata被修改时)
