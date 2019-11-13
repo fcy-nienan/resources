@@ -67,3 +67,6 @@ c:\>mysqldump -h localhost -u root -p mydb --add-drop-table >e:\mysql\mydb_stru.
 3.在CMD中输入下列命令：
 c:\>mysql -h localhost -u root -p mydb2 < e:\mysql\mydb2.sql
 然后输入密码，就OK了。
+
+
+alter table command modify `status` int default 0 comment 'execute status'
