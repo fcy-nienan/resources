@@ -153,6 +153,9 @@
     找出某个进程监听的端口号: ss -ltp | grep pro_name
     找出某个端口号被哪个进程占用: ss -p | grep port_num
     列出某个端口上的tcp连接：ss -tenp | grep port_num
+#tee 
+    Usage: tee [OPTION]... [FILE]...
+    Copy standard input to each FILE, and also to standard output.
 # awk命令
     awk '{print $1,$2}'  显示第一列和第二列
     awk -F ':' '{print $1 $2}'  以':'做为分隔符

@@ -316,9 +316,22 @@ Runtime.getRuntime().exec()
 如果是在运行期间转换为直接引用，那么这种转换就成为动态连接
 
 
-this.class.getResourcesAsStream(path);
-如果path是以/开头,则是以类路径的绝对路径
-如果只是要给文件名,则是当前类的class文件所在目录下
+package com.my;
+class fcyLoader
+如果只是文件名则查找classes/com/my/
+如果以/开头则查找classes/
+目前发现的是classloader的getResource和getResourcesAsStream只支持文件名开头，
+并且查找的是classes/目录下的
+如果以/开头，我也不知道他在哪查找
+System.out.println(loader.getClass().getResource("ff"));
+System.out.println(loader.getClass().getResource("/dbconfig"));
+System.out.println(loader.getClass().getResourceAsStream("ff"));
+System.out.println(loader.getClass().getResourceAsStream("/dbconfig"));
+ClassLoader classLoader=loader.getClass().getClassLoader();
+System.out.println(classLoader.getResource("dbconfig"));    worked
+System.out.println(classLoader.getResource("/dbconfig"));   null
+System.out.println(classLoader.getResourceAsStream("dbconfig"));    worked
+System.out.println(classLoader.getResourceAsStream("/dbconfig"));   null
 
 
 Java对象的hashcode
