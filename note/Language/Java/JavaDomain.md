@@ -1,5 +1,9 @@
 Random.nextInt(20) 生成0-19的随机数([0,19]不包括20)
 
+##Java中的操作符优先级,越顶端的优先级越高
+
+![Java操作符优先级](../../resources/photo/java-operator-precedence.PNG "操作符优先级")
+
 Java的每个方法有张异常表
 异常造成的性能消耗很小
 
