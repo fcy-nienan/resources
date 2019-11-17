@@ -210,6 +210,9 @@
     $?	上个命令的退出状态，或函数的返回值。
     $$	当前Shell进程ID。对于 Shell 脚本，就是这些脚本所在的进程ID。
     $PPID   当前进程得父ID 
+#链接
+    ln filename linkname
+    ln -s filename linkname
 #设置进程得优先级
     nice
     renice
