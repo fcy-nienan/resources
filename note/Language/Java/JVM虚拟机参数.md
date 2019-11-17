@@ -25,6 +25,8 @@
 + -XX:SurvivorRatio=8     Eden区和Survivor的比值8:1:1
 + -XX:PermSize            方法区初始值
 + -XX:MaxPermSize         方法区最大值
++ -XX:MetaspaceSize
++ -XX:MaxMetaspaceSize
 + -XX:NewRatio=4          新生代与老年代1:4
 + -XX:PretenureSizeThreshold对象超过多大直接进老年代
 + -XX:+UseSerialGC	    串行垃圾回收器
