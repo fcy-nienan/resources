@@ -21,6 +21,7 @@
     [root@localhost ~]# /usr/sbin/sestatus -v
     SELinux status:                 disabled
     
+    产生core文件 ulimit -c unlimited
     -eq     ==
     -ne     !=
     -gt     >
@@ -130,7 +131,9 @@
     ltrace ls -l 123.txt
 #proc目录
     cmdline
-    
+#编码格式转换
+    iconv -f GBK -t UTF-8 file1 -o file2
+   
 #man命令
     1：可执行的程序或 shell 命令
     2：系统调用（由内核提供的函数）
