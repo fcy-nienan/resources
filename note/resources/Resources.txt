@@ -65,3 +65,4 @@ wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-
 
 
 linux信息http://www.linfo.org/index.html
+Linux信息https://www.kernel.org/doc/Documentation/filesystems/proc.txt

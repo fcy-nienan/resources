@@ -11,3 +11,53 @@ Linux 内核有个机制叫OOM killer（Out-Of-Memory killer），该机制会�
 
 Linux进程知识
 进程状态
+
+#proc下各个目录文件详解
+attr
+autogroup
+auxv
+cgroup
+clear_refs
+cmdline     完整命令行
+comm
+coredump_filter
+cpuset
+cwd         工作目录
+environ     当前进程的环境变量
+exe         当前进程的可执行文件
+fd          当前进程打开的文件列表
+fdinfo
+gid_map
+io
+limits      当前进程启动的受限制资源
+loginuid
+map_files
+maps        当前进程关联的每个可执行文件和相关库文件在内存中的映射区域及访问权限列表
+mem
+mountinfo
+mounts
+mountstats
+net
+ns
+numa_maps
+oom_adj
+oom_score
+oom_score_adj
+pagemap
+personality
+projid_map
+root
+sched
+schedstat
+sessionid
+setgroups
+smaps
+stack
+stat        当前进程运行的状态信息(可读性不好)
+statm
+status      当前进程运行的状态信息(可读性号)
+syscall
+task        当前进程中的所有线程
+timers
+uid_map
+wchan

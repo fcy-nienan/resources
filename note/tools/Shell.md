@@ -1,6 +1,7 @@
 #vim
     vim查找上一个N,查找下一个n
     vim清空所有内容 dg   Esc+Shift+:+%d
+    vim全局替换     :%s#ttt#kkk     将所有的ttt替换为kkk      #作为分隔符 %代表全局替换 s代表替换
 #基础语法
     判断上一条命令是否执行成功 $?
     获取上一条命令执行结果 dir=`pwd` 或者dir=$(pwd)
@@ -59,6 +60,9 @@
 # tail命令
     tail -f file
     tail -10 file显示最后十行数据
+#uptime命令
+    查看上一次重启时间
+    cat /proc/uptime
 # head命令
     head -10 file显示前10行数据
 # tr命令
@@ -263,10 +267,12 @@
     sed -n '1,8p' fileName 查看第1-8行数据
 # shell传递参数
     $1 $2 $3
-# shell截取字符串
+# shell字符串相关操作
+    #截取字符串
     ${string:start:len}
     获取字符串长度
     ${#string}
+    ${file/e/k}将file字符串中的第一个e替换为k
 #shell循环
     for((i=0;i<10;i++))
     do
