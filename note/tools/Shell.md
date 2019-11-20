@@ -329,6 +329,8 @@
 #压缩文件和目录
     zip 123.zip 123.txt压缩文件
     zip -r 123.zip 123压缩目录
+#查看当前环境变量
+    env
 #查找特定文件并删除
     格式:find   path   -option   [   -print ]   [ -exec   -ok   command ]   {} \;
     find ./ -mtime +32 -name *.java -exec rm -rf {}
