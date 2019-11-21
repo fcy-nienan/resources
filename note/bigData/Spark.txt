@@ -180,3 +180,17 @@ collect_set去重
 select sub_company,explode(split(sub_company_name,"分")) from one;
 
 select collect_set(sub_company)[0],collect_list(sup_company)[2] from one group by(sub_company);
+
+
+create table t(
+id string,
+name string,
+password string)
+row format delimited
+fields terminated by ','
+stored as TEXTFILE
+LOCATION '/WORK'
+
+LOAD DATA LOCAL INPATH 'PATH'
+OVERWRITE TABLE 'FCY'
+PARTITION(WORKDATE='2019-11-12')
