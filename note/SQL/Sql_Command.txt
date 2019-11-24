@@ -12,6 +12,9 @@ FROM test_table;
 
 
 
+查询结果的第几行通过limit 1,1获取
+查询结果为NULL通过函数IFNULL
+列选择中用if: select a.Score,sum(if(b.Score>=a.Score,1,0)) as Rank
 
 
 查询第二高的薪水
@@ -34,6 +37,17 @@ group by后表的数据并没有消失,还是可以在那个if中使用,可以�
 select score,(select count(DISTINCT(score)) from Scores where score>=s.score) 
 from Scores s order by score desc;
 	这种方式虽然很简单，但是 在select语句中使用子查询来生成rank，相当于对每一条记录都需要查询一次scores表，查询次数为 （记录条数^2），会很慢，而且在数据量稍大的情况下真的可取吗
+
+select distinct Num as ConsecutiveNums
+from (
+  select Num,
+    case
+      when @prev = Num then @count := @count + 1
+      when (@prev := Num) is not null then @count := 1
+    end as CNT
+  from Logs, (select @prev := null,@count := null) as t
+) as temp
+where temp.CNT >= 3
 
 从不订购的客户
 select a.Name as Customers from Customers a left join Orders b on a.id=b.CustomerId
