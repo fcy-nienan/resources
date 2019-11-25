@@ -1,9 +1,9 @@
-#vim
+# vim
     vim查找上一个N,查找下一个n
     vim清空所有内容 dg   Esc+Shift+:+%d
     vim全局替换     :%s#ttt#kkk     将所有的ttt替换为kkk      #作为分隔符 %代表全局替换 s代表替换
     :set ff=unix
-#基础语法
+# 基础语法
     判断上一条命令是否执行成功 $?
     获取上一条命令执行结果 dir=`pwd` 或者dir=$(pwd)
     清空文件
@@ -55,13 +55,14 @@
 # find命令
     find . -type f -size -3k -exec ls -l {} \;  查找大小3k以内的文件并显示
     find . -type f -size +3k -exec ls -l {} \;  查找大小3k以上的文件并显示
+    find ./ -mmin +2 2分钟以上的文件
 # cat命令
     cat -v 显示特殊字符
     cat -n 显示行号
 # tail命令
     tail -f file
     tail -10 file显示最后十行数据
-#uptime命令
+# uptime命令
     查看上一次重启时间
     cat /proc/uptime
 # head命令
@@ -109,12 +110,12 @@
     	s      //进程的领导者（在它之下有子进程）；
     	l      //多线程，克隆线程（使用 CLONE_THREAD, 类似 NPTL pthreads）；
     	+      //位于后台的进程组；
-#终端类型
+# 终端类型
     1.串行端口终端（/dev/ttySn）
     2.伪终端（/dev/pty/）
     3.控制终端（/dev/tty）
     4.控制台终端（/dev/ttyn, /dev/console）
-#ldd
+# ldd
     打印程序以来的共享库
 # netstat命令
     netstat -ntlp
@@ -132,17 +133,17 @@
     execve系统调用名称
     括号内的时系统调用参数
     =0是系统调用返回的值
-#ltrace命令   跟踪调用了那些glibc函数
+# ltrace命令   跟踪调用了那些glibc函数
     ltrace ls -l 123.txt
-#proc目录
+# proc目录
     cmdline
-#编码格式转换
+# 编码格式转换
     iconv -f GBK -t UTF-8 file1 -o file2
-#linux中shell相关
+# linux中shell相关
     查看所有shell   cat /etc/shells
     查看当前使用的sehll echo $SHELL
     更换当前shell       chsh
-#man命令
+# man命令
     1：可执行的程序或 shell 命令
     2：系统调用（由内核提供的函数）
     3：库调用（在程序的库内的函数）
@@ -153,7 +154,7 @@
 
 # pmap命令
     显示进程内存中的地址映射
-#ss命令
+# ss命令
     ss 列出所有的连接，包括tcp连接、udp连接、unix socket、raw socket
     ss -t 列出所有tcp连接
     ss -tl 列出所有处于监听状态的tcp连接
@@ -164,7 +165,7 @@
     找出某个进程监听的端口号: ss -ltp | grep pro_name
     找出某个端口号被哪个进程占用: ss -p | grep port_num
     列出某个端口上的tcp连接：ss -tenp | grep port_num
-#tee 
+# tee 
     Usage: tee [OPTION]... [FILE]...
     Copy standard input to each FILE, and also to standard output.
 # awk命令
@@ -221,10 +222,10 @@
     $?	上个命令的退出状态，或函数的返回值。
     $$	当前Shell进程ID。对于 Shell 脚本，就是这些脚本所在的进程ID。
     $PPID   当前进程得父ID 
-#链接
+# 链接
     ln filename linkname
     ln -s filename linkname
-#设置进程得优先级
+# 设置进程得优先级
     nice
     renice
 # grep命令
@@ -237,9 +238,9 @@
     grep -Po '(?<!A)a'      匹配a,并且a前面不是A
     nl data | grep 'go$'    输出以go开头的行
     nl data | grep '^c++'   输出以c++开头的行
-#dirname
+# dirname
     去除文件名中的非目录部分
-#shell中的算数运算
+# shell中的算数运算
     echo $[2400/40]
     let k=8*8
     let t=$k/32
@@ -277,7 +278,7 @@
     获取字符串长度
     ${#string}
     ${file/e/k}将file字符串中的第一个e替换为k
-#shell循环
+# shell循环
     for((i=0;i<10;i++))
     do
     echo $i
@@ -287,7 +288,7 @@
     do
 
     done
-#shell函数
+# shell函数
     cutDemo(){
             ls | cut -b 3-5
             ls | cut -b -3
@@ -298,14 +299,14 @@
     echo 'cutDemo function finished...'
     
     cut -d' ' -f 1   以空格作为分隔符并且取第一列
-#shell双引号和单引号
+# shell双引号和单引号
     [root@fcy shell]# name=fcy
     [root@fcy shell]# echo 'hello $name'
     hello $name
     [root@fcy shell]# echo "hello $name"
     hello fc
     双引号中变量输出值,单引号中变量名无效
-#shell数组
+# shell数组
     array=(1 2 3 4 5 6 7 8)
     输出第一个元素
     echo ${array[0]}
@@ -315,7 +316,7 @@
     输出数组长度
     echo ${#array[*]}
     echo ${#array[@]}
-#lscpu查看服务器cpu相关信息
+# lscpu查看服务器cpu相关信息
     更详细的信息: cat /proc/cpuinfo
     大小端
     32or64
@@ -330,12 +331,12 @@
     Thread(s) per core:    1    每个核的逻辑核(线程数)
     Core(s) per socket:    1    每个插槽的cpu核数
     Socket(s):             1    cpu插槽
-#压缩文件和目录
+# 压缩文件和目录
     zip 123.zip 123.txt压缩文件
     zip -r 123.zip 123压缩目录
-#查看当前环境变量
+# 查看当前环境变量
     env
-#查找特定文件并删除
+# 查找特定文件并删除
     格式:find   path   -option   [   -print ]   [ -exec   -ok   command ]   {} \;
     find ./ -mtime +32 -name *.java -exec rm -rf {}
     find ./ -mtime -1 -name *.java -exec rm -rf {}
@@ -343,27 +344,27 @@
     find ./ -mtime +1 -name *.java -exec rm -rf {}
     find /cpic/jtzxmd -type d -exec mkdir -p /home/jtaom{} \;   复制目录结构
     find / -name java -type f 2>/dev/null   将大量出现的Permission Denied重定向到另一个目录
-#shell文件的三个时间
+# shell文件的三个时间
     atime(access time)   最后访问时间
     ctime(change time)   最后变更时间(文件属性,文件的metadata被修改时)
     mtime(modify time)   最后修改时间
-#stat filename查看文件信息
+# stat filename查看文件信息
 
 
-#shell控制语句
+# shell控制语句
     if [ $num -gt 1 ]
     then
 
     else
 
     fi
-#top -H -p <pid>查看指定进程的线程信息
+# top -H -p <pid>查看指定进程的线程信息
     top中相关参数含义
     VIRT    所有使用的未使用的内存总和
     RES     实际使用的内存量
     SHR     和其他进程共享的内存
 
-#free命令详解
+# free命令详解
                   total        used        free      shared  buff/cache   available
     Mem:           972M        437M        409M        7.6M        125M        379M
     Swap:          2.0G        264K        2.0G
@@ -376,7 +377,7 @@
     stored for later use.
         buff是缓冲,还未写入到磁盘的脏数据
         cache是方便读取
-#查看进程端口信息
+# 查看进程端口信息
       ss -tnlp  
         ss：可以用于转储套接字统计信息。
     netstat -tnlp  
@@ -394,7 +395,7 @@
     fuser 22/tcp
         fuser：可以列出那些打开了文件的进程的进程 ID。  
         还可以显示信号量等其他信息
-#Inode节点
+# Inode节点
     sync 命令将所有未写的系统缓冲区写到磁盘中，包含已修改的 i-node、已延迟的块 I/O 和读写映射文件)
      inode中包含了文件大小、属主、归属的用户组、读写权限等信息。不只是用vi修改文件，只要文件被改变了，inode的值就会变。
      磁盘分为许多个INode节点
@@ -430,14 +431,14 @@
     系统indoe是有限的,所以可能系统空间还够但不能存放数据,
     文件夹太多了,每创建一个文件都需要一个inode节点
     由于每个文件都必须有一个inode，因此有可能发生inode已经用光，但是硬盘还未存满的情况。这时，就无法在硬盘上创建新文件。
-#rpm命令
+# rpm命令
     rpm -qa|grep -i mysql   查找系统的有关于mysql的文件
     rpm -e -nodeps 包名删除mysql有关软件
     rpm -qa|grep -i mysql来确认系统中是否还含有mysql相关的文件
     rpm -ql php71-php-fpm-7.1.2-1.el6.remi.x86_64    yum 安装的程序 安装到哪里了？
-#开机自启动
+# 开机自启动
 	将shell脚本的路径添加到/etc/rc.local文件中
-#服务相关目录
+# 服务相关目录
     /etc/init.d/   chkconfig命令就是对其进行增删改查
     chkconfig --list
     chkconfig --add
