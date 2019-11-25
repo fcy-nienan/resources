@@ -12,3 +12,8 @@ CAP
 缓存雪崩
 数据库事务隔离级别
 负载均衡
+
+cpu更新内存中的数据到磁盘(页缓存)
+    write-through
+    write-back
+    write-post

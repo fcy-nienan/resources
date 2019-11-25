@@ -1,14 +1,24 @@
-relinquishes    放弃
-proceed         继续
+relinquishes
+proceed
     The awakened threads will not be able to proceed until the current
     thread relinquishes the lock on this object
-in the usual manner  以通常的方式
+in the usual manner
     The awakened threads will compete in the usual manner with any other threads that might
     be actively competing to synchronize on this object
 ReleaseJavaMonitorsClosure
 Compute string similarity based on Dice's coefficient
-formual  公式
-temporary  暂时
-at a time   依次 let's go through that query one stop at a time
-with a convention按照惯例
-precedence  operator precedence 运算符优先级
+formual
+temporary
+at a time   let's go through that query one stop at a time
+with a convention
+precedence  operator precedence
+demonstrating
+Note the absence of indications of interactions with a cache.
+Resilience
+Migration Guide
+Eviction Advisors
+time-to-live
+simulating
+disrupted
+retrieval
+low latency

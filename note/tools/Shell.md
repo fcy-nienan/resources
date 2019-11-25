@@ -138,7 +138,10 @@
     cmdline
 #编码格式转换
     iconv -f GBK -t UTF-8 file1 -o file2
-   
+#linux中shell相关
+    查看所有shell   cat /etc/shells
+    查看当前使用的sehll echo $SHELL
+    更换当前shell       chsh
 #man命令
     1：可执行的程序或 shell 命令
     2：系统调用（由内核提供的函数）
