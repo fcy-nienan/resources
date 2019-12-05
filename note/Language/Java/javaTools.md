@@ -35,24 +35,24 @@ java分析工具
 jinfo -flag MaxHeapSize pid
 
 jinfo -flags pid
-带包编译
+# 带包编译
 	javac -Djava.ext.dirs=H:\lib springtest.java   编译时添加指定jar包
-带包运行
+# 带包运行
 	java -classpath hello.jar myapp
-查看运行时数据hsdb
+# 查看运行时数据hsdb
 	java -cp %JAVA_HOME%/lib/sa-jdi.jar sun.jvm.hotspot.HSDB
 	查询对象语言	select a from java.lang.String a
-调试类
+# 调试类
 	jdb -XX:+UseSerialGC -Xmx10m
 	stop in son.show
 	run ArrayTest
-反编译
+# 反编译
 	jad 将一个class文件反编译为Java文件
 	-s 扩展名
 	-d 生成文件目录
 	-8 utf-8编码
 	-o 忽略确认(omit confirmation)
-打包
+# 打包
 	jar 将一个或多个class文件组织成.jar文件格式
 	jar cvf hello.jar *.class
 	jar cvfm hello.jar MANIFEST.MF *.class(自带MANIFEST.MF文件打包)
@@ -62,7 +62,7 @@ jinfo -flags pid
 Class-Path: FirstApplet.jar
 Class-path: SecondApplet.jar
 Java调用类的顺序：java\lib\ext中的类--->Manifest.mf中指定的类-->当前目录中的类-->set CLASSPATH中指定的类
-MANIFEST文件编写规则
+# MANIFEST文件编写规则
 	第一行不能有空行,行与行间不能有空行,行尾不能有空格
 	最后一行一定是空行
 	key: value分号后面有一个空格
