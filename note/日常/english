@@ -9,10 +9,8 @@ ReleaseJavaMonitorsClosure
 Compute string similarity based on Dice's coefficient
 formual
 temporary
-at a time   let's go through that query one stop at a time
 with a convention
 precedence  operator precedence
-demonstrating
 Note the absence of indications of interactions with a cache.
 Resilience
 Migration Guide
@@ -22,3 +20,4 @@ simulating
 disrupted
 retrieval
 low latency
+primitive type of java
