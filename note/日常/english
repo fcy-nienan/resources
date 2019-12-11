@@ -21,3 +21,17 @@ disrupted
 retrieval
 low latency
 primitive type of java
+peers
+    Peers use the former port to connect to other peers
+Metrics
+    MetricsSystem
+herd
+    a herd effect
+recipe
+is left intact
+quorum
+    implement the quorum based
+    version of ZooKeeper.
+maintenance
+    structure maintenance
+

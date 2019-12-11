@@ -48,3 +48,5 @@ spark=job,dag,stage,task
 
 hive命令行显示当前数据库
 select current_database();
+查看当前表所有分区
+show partitions table_name;
