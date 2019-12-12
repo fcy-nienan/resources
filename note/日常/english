@@ -34,4 +34,13 @@ quorum
     version of ZooKeeper.
 maintenance
     structure maintenance
+precedence
+    have the same precedence
+compromise
+    unfortunately ,the replication of data can compromise its consistency and thereby break programs that are unaware
+recurring
+    is a recurring theme
+coherence
+    cache coherence
+
 

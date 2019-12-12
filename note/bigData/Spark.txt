@@ -194,3 +194,11 @@ LOCATION '/WORK'
 LOAD DATA LOCAL INPATH 'PATH'
 OVERWRITE TABLE 'FCY'
 PARTITION(WORKDATE='2019-11-12')
+
+spark-sql相关函数
+    max(columnName)
+    greatest(v1,v2,v3...)取几个的最大值 select greatest(1,2,3,4)   result: 4
+    cast(columnName as int)字符串转整型 select cast('20191212' as int) result: 20191212
+    least(v1,v2,v3...)取最小值 select least(1,2,3,4) result:1
+
+

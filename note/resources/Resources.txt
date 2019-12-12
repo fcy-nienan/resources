@@ -66,3 +66,5 @@ wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-
 
 linux信息http://www.linfo.org/index.html
 Linux信息https://www.kernel.org/doc/Documentation/filesystems/proc.txt
+
+Mysql手册https://dev.mysql.com/doc/refman/8.0/en/assignment-operators.html
