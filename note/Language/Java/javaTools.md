@@ -58,6 +58,12 @@ jinfo -flags pid
 	jar cvfm hello.jar MANIFEST.MF *.class(自带MANIFEST.MF文件打包)
 	Main-Class: makepojo带包运行(在MANIFEST.MF文件中添加)
 	java -jar hello.jar(运行jar)
+	显示jar文件的所有文件和目录清单:jar tvf hello.jar
+	解压jar文件:jar xvf hello.jar
+	
+	c是创建jar,t是显示清单,x是解压
+	f指定jar报名,v显示详细信息
+	
 打开任意文件夹后，在空白处按住shift再按右键就可以选择  在此处打开命令窗口
 Class-Path: FirstApplet.jar
 Class-path: SecondApplet.jar

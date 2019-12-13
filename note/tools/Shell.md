@@ -3,6 +3,34 @@
     vim清空所有内容 dg   Esc+Shift+:+%d
     vim全局替换     :%s#ttt#kkk     将所有的ttt替换为kkk      #作为分隔符 %代表全局替换 s代表替换
     :set ff=unix
+# 编码格式
+    在vim中敲命令:set fileencoding即可显示当前文件编码格式
+    在vim中敲命令:set fileencoding=utf-8即可将当前文件编码改为utf-8
+    通过iconv命令将文件由GBK转为utf-8(必须指定原始文件和目标文件的编码格式和原始文件名和目标文件名)
+    iconv -f GBK -t UTF-8 file1 -o file2
+    如果控制台乱码先查看登录控制台的软件是否有编码格式的设置,
+    如果不存在或者设置了并且重新连接了也无效可以通过export LANG=en_US.UTF-8命令设置      
+# locale
+    代表某一地域内的人们的语言习惯和传统
+    /etc/sysconfig/i18n/
+    /usr/lib/locale/
+    /usr/share/i18n/locales/
+    /usr/share/i18n/charmaps/
+    locale -a 查看所有字符集
+    locale      查看与之有关的变量
+    LANG
+    LC_CTYPE    分类
+    LC_NUMERIC  数字
+    LC_COLLATE  比较和排序习惯
+    LC_TIME     时间显示格式
+    LC_MONETARY 货币单位
+    LC_MESSAGES 信息
+    LC_NAME     姓名书写方式
+    LC_ADDRESS  地址书写方式
+    LC_TELEPHONE    电话号码书写方式
+    LC_MEASUREMENT  度量衡
+    LC_PAPER        纸张尺寸大小
+    LC_ALL
 # 基础语法
     判断上一条命令是否执行成功 $?
     获取上一条命令执行结果 dir=`pwd` 或者dir=$(pwd)
@@ -140,8 +168,6 @@
     ltrace ls -l 123.txt
 # proc目录
     cmdline
-# 编码格式转换
-    iconv -f GBK -t UTF-8 file1 -o file2
 # linux中shell相关
     查看所有shell   cat /etc/shells
     查看当前使用的sehll echo $SHELL
