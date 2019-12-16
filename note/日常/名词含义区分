@@ -23,3 +23,5 @@ verification和validation
 事务      用户一步或者几步的操作集合
 TPS     Transaction Per Action
 点击率
+BUG严重程度从大到小
+BLOKER,CRITICAL,MAJOR,MINOR/TRIVIAL

@@ -363,3 +363,7 @@ Runtime.getRuntime().exec()
     public static int hashCode(boolean value) {
             return value ? 1231 : 1237;
     }
+# Java序列化
+    如果实现了Serializable接口但是没写id则编译器会自动生成一个
+    字段被transiant修饰不会被序列化
+    实现ExternSerializable接口的类所有需要序列化的类都需要自己在方法中执行
