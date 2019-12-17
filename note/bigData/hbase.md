@@ -8,3 +8,4 @@
 + count 'prop_veh_manags'
 + desc 'prop_veh_manags'
 + get 'tableName','rowKey',{
++ hbase hbck 'prop_veh_manags'查看hbase健康状况

@@ -69,3 +69,6 @@ VERSION
 10、Spark的界面：8080
 
 11、Spark的URL：7077
+
+
+hdfs查看命令行日志 HADOOP_ROOT_LOGGER=DEBUG,console hadoop fs -ls /

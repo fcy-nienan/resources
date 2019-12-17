@@ -290,6 +290,7 @@ String变量赋值为null,那么常量池中的数据会清除吗?还是说gc只
     default 本类,同包类
     protected 本类,同包类,子类
     public 所有
+    com.fcy和com不是同包
 
 # 内部类和静态内部类
     Outer out=new Outer();
@@ -302,21 +303,21 @@ String变量赋值为null,那么常量池中的数据会清除吗?还是说gc只
     后者是获取操作系统的变量,比如path变量
 
 # java编码格式
-编译时指定编码格式
-javac -encoding utf8 test.java
-运行时指定编码格式(同时这个编码格式也是在程序中使用System.getProperty("file.encoding")获取的值
-java -Dfile.encoding=utf-8 test
-以上两种的默认值都是操作系统的默认值
+    编译时指定编码格式
+    javac -encoding utf8 test.java
+    运行时指定编码格式(同时这个编码格式也是在程序中使用System.getProperty("file.encoding")获取的值
+    java -Dfile.encoding=utf-8 test
+    以上两种的默认值都是操作系统的默认值
+    
+    同一个类中的static方法可以访问当前类的私有成员变量(new了该对象之后可以直接访问该对象的私有变量)
 
-同一个类中的static方法可以访问当前类的私有成员变量(new了该对象之后可以直接访问该对象的私有变量)
+# ArrayList
+    new一个空的时候时一个默认的静态数组,所有共享
+    第一次add的时候容量变为10(默认容量)
 
-ArrayList
-new一个空的时候时一个默认的静态数组,所有共享
-第一次add的时候容量变为10(默认容量)
-
-Runtime.getRuntime().exec()
-执行mv /home/* /home1/  发现无效
-执行mv /home/fcy1.zip /home1/ 发现执行成功
+# Runtime.getRuntime().exec()
+    执行mv /home/* /home1/  发现无效
+    执行mv /home/fcy1.zip /home1/ 发现执行成功
 
 # 符号引用和直接引用
     虚拟机运行的时候,运行时常量池会保存大量的符号引用，
@@ -367,3 +368,9 @@ Runtime.getRuntime().exec()
     如果实现了Serializable接口但是没写id则编译器会自动生成一个
     字段被transiant修饰不会被序列化
     实现ExternSerializable接口的类所有需要序列化的类都需要自己在方法中执行
+# Spliterator并行迭代器
+    第一反应就是将一个集合进行水平分割成多个集合，然后通过多线程遍历每个集合
+    当一个集合大的时候这样会速度更快，当然，如果在集合遍历的过程中通过集合的方法使得
+    modCont的值发生了变化那肯定还是会抛出FastFail
+   
+   
