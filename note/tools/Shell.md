@@ -485,6 +485,51 @@
     start : 启动屏幕输出
     stop :停止屏幕输出；
     susp : terminal stop当前程序。
+# seq命令
+    生成数
+    seq start
+    seq start,end
+    seq start,inc,end
+    seq 10
+    seq -f "str%g" 9 11     生成str9,str10,str11,也可以固定位数
 # sed命令
-    第一行插入   sed '1i 分公司,中支公司' 1.txt
-    全局替换    sed 's/^A/,/g' 1.txt
+    匹配并替换
+    sed接受[0-2]个地址参数
+    0   will be executed for all input lines which match that address
+    1   will only be exected for input lines which match that address
+    2   will only be exected for input lines which match the inclusive range of lines starting from 
+        the first lines and continuing to the second lines 
+    地址的语法是:add1,add2
+    地址1的行一定会被执行,尽管地址2选择了一个更早的行，并且如果地址2是要给正则，他不会测试地址1匹配的行数
+    
+    地址的表示形式
+        number      匹配第几行
+        first~last  1~2表示匹配1,3,5,7...行,从第一行开始递增
+        $           匹配最后一行
+        /regex/     正则匹配
+    sed也接受两地址参数
+        0,addr2
+        add1,+N 匹配第一个地址，并且之后的N行  1,+3d  将会删除第一行和第一行后面的三行,也就是1,4d
+        add1,~N 匹配第一个地址，直到遇到第一个行数是N的倍数
+        也就是if(lineNumber%N==0)matched
+        左边是输入,存为1.txt执行'sed 1,~2d 1.txt'则会有右边的结果
+           1       
+           2       3   
+           3       4   
+           4======>5   
+           5       6   
+           6       7   
+           7
+    替换  	s	    [address]s/pattern/replacement/flags	替换匹配的内容
+    删除	    d	    [address]d	            删除匹配的行
+    插入	    i	    [line-address]i\text	在匹配行的前方插入文本
+    追加	    a	    [line-address]a\text	在匹配行的后方插入文本
+    行替换	c	    [address]c\text	        将匹配的行替换成文本text
+    打印行	p	    [address]p	            打印在模式空间中的行
+    打印行号	=	    [address]=	            打印当前行行号
+    打印行	l	    [address]l	            打印在模式空间中的行，同时显示控制字符
+    转换字符	y	    [address]y/SET1/SET2/	将SET1中出现的字符替换成SET2中对应位置的字符
+    读取下一行n	    [address]n	            将下一行的内容读取到模式空间
+    读文件	r	    [line-address]r file	将指定的文件读取到匹配行之后
+    写文件	w	    [address]w file	        将匹配地址的所有行输出到指定的文件中
+    退出	    q	    [line-address]q	        读取到匹配的行之后即退出

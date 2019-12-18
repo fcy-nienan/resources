@@ -71,13 +71,54 @@ Despite their obvious utility in parallel algorithms
 further split
     进一步拆分
 retrieves
-    检索
+    检索,收回,取回
 Dimensions
     define page and report title and dimensions
 enhance
     增强 how to enhance readability of sqlplus output
 disturbing
     let's get rid of these disturbing
-
-
+inclusive
+    包括，广泛的
+    inclusive range of lines
+comma
+    逗号
+    the address separated by comma
+odd-numbered
+    奇数
+    will print all the odd-numbered lines
+multiple
+    whose input line number is a multiple of N
+suppress
+    压制
+    suppress automatic printing of pattern space
+newbie
+    新手
+stumbles over
+    每个oracle新手会被绊倒的地方
+    every Oracle newbie stumbles over
+    I stumbled upon this question
+forum
+    论坛
+    Ask it on the forum and you're pointed to the archives
+archives
+    档案，归档
+stated
+    陈述
+pseudocolumn
+    rownum is a pseudowcolumn
+permanently
+    永久地
+    a rownum value is not assigned permanently to a row
+predicate phase
+    谓语阶段
+    A ROWNUM value is assigned to a row
+    after it passes the predicate phase of the query but before the query
+    does any sorting or aggregation
+tainted
+    污染的
+tie
+    如果并列第二
+    there is a tie for second,the query could return more than one value
+    that is why the outer select is select distinct
 

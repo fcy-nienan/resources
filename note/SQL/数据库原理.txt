@@ -181,4 +181,26 @@ PROPAGATION_NESTED
 			
 			
 			
-			
+sql执行顺序
+    需要注意的是，sql的执行顺序是由sql引擎控制的,sql引擎只负责以性能更佳的顺序来执行sql,所以
+    具体的执行顺序我们是不可知的
+    但一般我们分析sql可以通过以下方式来进行
+select  from    join    on      where   group by    having order
+一个查询语句基本就这些关键词，那顺序是哪样的呢
+第一反应
+    1. FROM
+    2. ON
+    3. OUTER
+    4. WHERE
+    5. GROUP BY
+    6. CUBE | ROLLUP
+    7. HAVING
+    8. SELECT
+    9. DISTINCT
+    10. ORDER BY
+    11. TOP
+
+
+
+
+
