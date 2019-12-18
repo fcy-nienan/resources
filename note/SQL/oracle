@@ -11,3 +11,12 @@ conn user/"pass@pass"@ip:port/service
 sqlplus控制台乱码
 select userenv('language') from dual
 export NLS_LANG='$RESULT'
+
+sqlplus输出不友好
+    设置不输出标题头:set heading off;
+    setting wrap will not your data and it will display properly !
+    也就是这个字段时varchar(255),如果不设置这个他会输出255个字符,设置了之后就会只输出有值的部分
+    set warp off;
+    set linesize 160;
+
+查看建表语句  desc table_name

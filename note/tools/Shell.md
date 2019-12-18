@@ -472,3 +472,19 @@
     chkconfig --list
     chkconfig --add
     chkconfig --del
+# 特殊符号无效
+    在一些控制台上我们使用Backspace或者上下箭头无效的时候
+    1、使用Ctrl+Backspace
+    2、使用stty命令重新定义
+    stty命令
+    eof : 输入结束
+    erase : 向后删除字符，
+    intr : 中断当前程序
+    kill : 删除整条命令
+    quit :退出当前程序
+    start : 启动屏幕输出
+    stop :停止屏幕输出；
+    susp : terminal stop当前程序。
+# sed命令
+    第一行插入   sed '1i 分公司,中支公司' 1.txt
+    全局替换    sed 's/^A/,/g' 1.txt
