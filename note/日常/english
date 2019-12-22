@@ -124,5 +124,7 @@ tie
     that is why the outer select is select distinct
 Evolution
                                                                                                 the evolution of http http的演化
-
-
+upstream
+    将请求转发给上游服务器并将上游服务器的响应结果返回给客户端
+Trailing
+    E488:Trailing character尾随的字符
