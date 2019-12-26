@@ -79,6 +79,8 @@ GC日志中的PSYoungGen（PS是指Parallel Scavenge）为Eden+FromSpace，
 这包括8192K的Eden和1024K的FromSpace。	
 
 
+# jstat
+* jstat -gc pid 2000
 
 
 
