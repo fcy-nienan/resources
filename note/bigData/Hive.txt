@@ -56,3 +56,7 @@ show partitions table_name;
 ROW FORMAT?
 INPUTFORMAT?
 OUTPUTFORMAT?
+
+将数据根据某个字段动态插入分区表
+set hive.exec.dynamic.partition.mode = nonstrict
+insert into table tableName partition(date) select * from tableOther;
