@@ -72,3 +72,6 @@ VERSION
 
 
 hdfs查看命令行日志 HADOOP_ROOT_LOGGER=DEBUG,console hadoop fs -ls /
+
+查看已使用容量
+hadoop fs -du -h /

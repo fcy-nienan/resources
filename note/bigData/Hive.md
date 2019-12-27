@@ -60,3 +60,8 @@ OUTPUTFORMAT?
 将数据根据某个字段动态插入分区表
 set hive.exec.dynamic.partition.mode = nonstrict
 insert into table tableName partition(date) select * from tableOther;
+显示表结构
+desc tableName
+
+显示表详细结构
+desc formatted tableName
