@@ -7,5 +7,5 @@
 + scan 'prop_veh_manags',{LIMIT=>1}
 + count 'prop_veh_manags'
 + desc 'prop_veh_manags'
-+ get 'tableName','rowKey',{
++ get 'tableName','rowKey',{COLUMN=>'family:column'}
 + hbase hbck 'prop_veh_manags'查看hbase健康状况
