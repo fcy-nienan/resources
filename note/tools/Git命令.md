@@ -1,4 +1,4 @@
-git中的remoteName同意命名为fcy
+git中的remoteName统一命名为fcy
 git中远程建三个分支  master  release develop
 git中本地建一个分支  wind
 
