@@ -119,19 +119,20 @@ predicate phase
 tainted
                                                                                                        污染的
 tie
-                                                                                                       如果并列第二
-    there is a tie for second,the query could return more than one value
+    there is a tie for second,the query could return more than one value                                如果并列第二
     that is why the outer select is select distinct
 Evolution
-                                                                                                the evolution of http http的演化
+   the evolution of http                                                                                           http的演化
 upstream
     将请求转发给上游服务器并将上游服务器的响应结果返回给客户端
 Trailing
-    E488:Trailing character尾随的字符
+    E488:Trailing character                                 尾随的字符
 renewing
-    can not fulfill requested option while renewing credentials
-credentials
-
+    can not fulfill requested option while renewing credentials             租赁
+credentials 证书
 inference
-    type inference                                                  类型推断
-
+    type inference                                                          类型推断
+notion
+    Furthermore, Scala's notion of pattern matching naturally extends to the processing of XML data with the help of right-ignoring sequence patterns       概念                                                                          
+coherent                                                                    
+    coherent manner                                             连贯的方式
