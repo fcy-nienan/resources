@@ -1,15 +1,14 @@
-多重继承的棱形问题
-A有一个方法f()
-B和C都继承A并且都实现了f方法
-然后D继承B和C并且没有重写f方法,那么D该使用哪个方法
+# 多重继承的棱形问题
+    A有一个方法f()
+    B和C都继承A并且都实现了f方法
+    然后D继承B和C并且没有重写f方法,那么D该使用哪个方法
+# 函数
 
-函数
+# 闭包
 
-闭包
+# 柯里化
 
-柯里化
-
-模式匹配
+# 模式匹配
 # scala的Seq是什么?
     在Java的术语中,Seq是一个Java的List并且List是一个Java的LinkedList
     Seq是一个特质,List是一个实现
@@ -25,13 +24,13 @@ B和C都继承A并且都实现了f方法
     They are both relatively newly introduced, 
     so people doesn't use them much yet
 
-Map
+# Map
 ```
 var a=Map()
 var b=Map(1->2,2->3,3->4)
 b+=4->5
 ```
-Set
+# Set
 ```
     var set:Set[Int]=Set();
     set=Set(1,2,3,4,5)
@@ -69,8 +68,7 @@ Set
     set7-=1
     println(set7)//5,8,4
 ```
-```
-List
+# List
     ::
     {{{1 :: List(2, 3) = List(2, 3).::(1) = List(1, 2, 3)}}}
     :::

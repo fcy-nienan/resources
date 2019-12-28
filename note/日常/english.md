@@ -124,14 +124,14 @@ tie
     that is why the outer select is select distinct
 Evolution
                                                                                                 the evolution of http http的演化
-<<<<<<< HEAD
 upstream
     将请求转发给上游服务器并将上游服务器的响应结果返回给客户端
 Trailing
     E488:Trailing character尾随的字符
-=======
 renewing
     can not fulfill requested option while renewing credentials
 credentials
 
->>>>>>> tmp
+inference
+    type inference                                                  类型推断
+
