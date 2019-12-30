@@ -11,7 +11,16 @@
   并且返回一个函数，返回的函数接收其他参数，一直到接收最后一个参数
 * 可以惰性求值,知道所有的参数到齐后才能得到最终的结果
   中间过程得到的只是一个函数的地址
+  2019-12-30:有点疑问?执行addSugar(1)的时候返回的是一个函数,那我的那个变量存储在哪里,毕竟我返回的只是一个函数啊
+  通过在jvisualvm中查看内存发现其实返回的是一个对象.
+  我之前的理解就是这应该返回的就是一个函数,然后函数的话
+  在C中应该就是一个函数地址,并没有存储变量的空间
 * 还有一些其他的特性待研究
+* Methods with multiple parameter sections can be used to assist local type inference, by using parameters in the first section to infer type arguments that will provide an expected type for an argument in the subsequent section. foldLeft in the standard library is the canonical example of this  
+  柯里化在Scala中引入是为了支持类型推断?暂时不太理解
+* For fluent API.Another use for multiple parameter section methods is to create an API that looks like a language construct. The caller can use braces instead of parentheses
+* Curried Functions.Curried functions (or simply, functions that return functions) more easily be applied to N argument lists.
+* Multi Stage Computation.
 ```
  def main(args: Array[String]): Unit = {
     println(add(1,2))//3
@@ -49,6 +58,65 @@
   def addThreeSugar(x:Int):Int=>Int=>Int=(b:Int)=>(c:Int)=>x+b+c;
 ```
 # 模式匹配
+# scala中的一些特殊符号
+    泛型 <:  >:  eg: def fun1[A<:Closeable,B](closeable:A):B=>{}
+    协变和逆变   +T -T
+    视界
+    广义类型约束符号
+    +，-，*，/都是函数，比如 1+2，实质上是对象1上调用+函数，传入的参数是2，等价于(1).+(2)
+    _N 访问元组的第几个元素 var x=(1,2,3,4,5) x._5=5
+    ->    // Automatically imported method
+    ||=   // Syntactic sugar
+    ++=   // Syntactic sugar/composition or common method
+    <=    // Common method
+    _._   // Typo, though it's probably based on Keyword/composition
+    ::    // Common method
+    :+=   // Common method
+### Keywords/reserved symbols
+    // Keywords
+    <-  // Used on for-comprehensions, to separate pattern from generator
+    =>  // Used for function types, function literals and import renaming
+    
+    // Reserved
+    ( )        // Delimit expressions and parameters
+    [ ]        // Delimit type parameters
+    { }        // Delimit blocks
+    .          // Method call and path separator
+    // /* */   // Comments
+    #          // Used in type notations
+    :          // Type ascription or context bounds
+    <: >: <%   // Upper, lower and view bounds
+    <? <!      // Start token for various XML elements
+    " """      // Strings
+    '          // Indicate symbols and characters
+    @          // Annotations and variable binding on pattern matching
+    `          // Denote constant or enable arbitrary identifiers
+    ,          // Parameter separator
+    ;          // Statement separator
+    _*         // vararg expansion
+    _          // Many different meanings
+    import scala._    // Wild card -- all of Scala is imported
+    import scala.{ Predef => _, _ } // Exception, everything except Predef
+    def f[M[_]]       // Higher kinded type parameter
+    def f(m: M[_])    // Existential type
+    _ + _             // Anonymous function placeholder parameter
+    m _               // Eta expansion of method into method value
+    m(_)              // Partial function application
+    _ => 5            // Discarded parameter
+    case _ =>         // Wild card pattern -- matches anything
+    f(xs: _*)         // Sequence xs is passed as multiple parameters to f(ys: T*)
+    case Seq(xs @ _*) // Identifier xs is bound to the whole matched sequence
+### Automatically imported methods
+    // Not necessarily in this order
+    import _root_.java.lang._      // _root_ denotes an absolute path
+    import _root_.scala._
+    import _root_.scala.Predef._
+    class <:<
+    class =:=
+    object <%<
+    object =:=
+### Common methods
+### Syntactic sugars/composition
 # scala的Seq是什么?
     在Java的术语中,Seq是一个Java的List并且List是一个Java的LinkedList
     Seq是一个特质,List是一个实现

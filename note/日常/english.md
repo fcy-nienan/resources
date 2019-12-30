@@ -136,3 +136,15 @@ notion
     Furthermore, Scala's notion of pattern matching naturally extends to the processing of XML data with the help of right-ignoring sequence patterns       概念                                                                          
 coherent                                                                    
     coherent manner                                             连贯的方式
+illustrate 
+    to illustrate RDD basics                                        解释,说明
+idiom 
+    another common idiom is attempting to print 
+overall
+    in the overall spark design                                 spark总体设计
+chunks
+    in the same chunks                                          大块
+acyclic 
+    a directed acyclic graph                                    有向无环图
+Bundling 
+    bundling your application dependency                        捆绑    

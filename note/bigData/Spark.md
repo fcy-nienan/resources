@@ -74,7 +74,6 @@ groupByKey
 			map[s.key]=(map[s.key])
 		}
 	}
-intersection		交集
 cogroup		两个数据共同的分组
 		先把两个数据集的所有key去重得到不同的值
 		在每一个不同的值后面加上帝一个数据集中和他相同的值
@@ -99,15 +98,6 @@ Cartesian笛卡尔积
 
 1、Except返回两个结果集的差（即从左查询中返回右查询没有找到的所有非重复值）。
 Returns a new Dataset containing rows in this Dataset but not in another Dataset.
-
-
-yarn application -list
-
-
-spark-sql --master yarn-client --driver-memory 500m --executor-cores 2 --executor-memory 500m --num-executors 2
-
-
-
 Intel(R) Core(TM) i5-5200U CPU @ 2.20GHz
 
 电脑物理CPU个数		1
@@ -120,9 +110,6 @@ Intel(R) Core(TM) i5-5200U CPU @ 2.20GHz
 
 
 centos是基于redHat的
-
-
-tuple-elements are not access like x(0) but x._1 etc
 
 this should work
 
@@ -173,32 +160,76 @@ RDD转换为DataFrame
 	spark.sql("select * from dept").show();
 
 
-explode是行转列
-collect_list是列转行
-collect_set去重
 
-select sub_company,explode(split(sub_company_name,"分")) from one;
-
-select collect_set(sub_company)[0],collect_list(sup_company)[2] from one group by(sub_company);
-
-
-create table t(
-id string,
-name string,
-password string)
-row format delimited
-fields terminated by ','
-stored as TEXTFILE
-LOCATION '/WORK'
-
-LOAD DATA LOCAL INPATH 'PATH'
-OVERWRITE TABLE 'FCY'
-PARTITION(WORKDATE='2019-11-12')
-
-spark-sql相关函数
-    max(columnName)
-    greatest(v1,v2,v3...)取几个的最大值 select greatest(1,2,3,4)   result: 4
-    cast(columnName as int)字符串转整型 select cast('20191212' as int) result: 20191212
-    least(v1,v2,v3...)取最小值 select least(1,2,3,4) result:1
+# Spark相关概念
+## overview
+    spark提供了两种抽象:RDD和共享变量
+* RDD(resilient distributed dataset)    
+    1. 一个可以并行操作的跨集群节点的数据集合
+    2. 由Hadoop文件系统或者其他支持Hadoop文件系统的或者一个客户端的Scala集合创建
+    并且
+    3. RDD自动从故障节点恢复(数据丢失了可以重新计算)
+    4. RDD的两种创建方式
+        1. 并行化你的集合
+            ```
+           val data = Array(1, 2, 3, 4, 5)
+           val distData = sc.parallelize(data)
+           ```
+        2. 引用一个外部的存储系统,例如HDFS,Hbase或者任何一个提供了Hadoop的InputFormat
+            ```
+           scala> val distFile = sc.textFile("data.txt")
+           distFile: org.apache.spark.rdd.RDD[String] = data.txt MapPartitionsRDD[10] at textFile at <console>:26
+           ```
+     5. Shuffle Operations
+        1. shuffle read and shuffle write
+            1. shuffle read: total shuffle bytes and records read(includes both data read locally and data read from remote executors)
+            2. shuffle write: bytes and records written to disk in order to be read by a shuffle in a future stage
+            
+        2. Operations which can cause a shuffle include repartition operations like repartition and coalesce, ‘ByKey operations (except for counting) like groupByKey and reduceByKey, and join operations like cogroup and join.
+        3. Shuffle operation is used in Spark to re-distribute data across multiple partitions. It is a costly and complex operation. 
+        In general a single task in Spark operates on elements in one partition. 
+        To execute shuffle, we have to run an operation on all elements of all partitions.
+        It is also called all-to- all operation
+        
+* shared variables  
+    **正常情况下spark在每一个节点的task上都运行一个实例,但有时候我们需要在多个节点的多个task间共享变量,spark
+    提供两种类型的变量广播变量和累加变量**
+    1. broadcast variable
+        在每个节点上缓存一份并使用
+        正常情况下是task每次请求一个值
+        广播变量使得在开始的时候就将需要的值发送到了executor端
+        然后每个task都可以直接使用而不用通过网络请求了
+    2. accumulators variable
+        只能累加或者做汇总的变量
+## 运行模式
+    local本地多线程模式
+    standlone spark自己的模式(spark自己管理资源)
+    yarn-client 以yarn客户端的模式提交作业
+    yarn-cluster 以yarn集群的模式提交作业
+## 相关术语
+1. Application  
+   User program built on Spark. Consists of a driver program and executors on the cluster
+2. Application Jar
+   A jar containing the user's Spark application. In some cases users will want to create an "uber jar" containing their application along with its dependencies. The user's jar should never include Hadoop or Spark libraries, however, these will be added at runtime
+3. Cluster Manager
+   An external service for acquiring resources on the cluster (e.g. standalone manager, Mesos, YARN)
+4. Driver Program  
+   The process running the main() function of the application and creating the SparkContext
+5. Deploy Mode  
+   Distinguishes where the driver process runs. In "cluster" mode, the framework launches the driver inside of the cluster. In "client" mode, the submitter launches the driver outside of the cluster
+6. Worker Node  
+   Any node that can run application code in the cluster
+7. Executor  
+    A process launched for an application on a worker node, that runs tasks and keeps data in memory or disk storage across them. Each application has its own executors.
+8. Task  
+    A unit of work that will be sent to one executor
+9. Job  
+    A parallel computation consisting of multiple tasks that gets spawned in response to a Spark action (e.g. save, collect); you'll see this term used in the driver's logs.
+10. Stage  
+    Each job gets divided into smaller sets of tasks called stages that depend on each other (similar to the map and reduce stages in MapReduce); you'll see this term used in the driver's logs. 
+## 算子
+* reduce归约操作
+* reduceByKey对所有相同的key做归约操作
+* groupByKey
 
 
