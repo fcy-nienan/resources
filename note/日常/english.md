@@ -148,3 +148,6 @@ acyclic
     a directed acyclic graph                                    有向无环图
 Bundling 
     bundling your application dependency                        捆绑    
+cache penetration                                               缓存穿透            
+cache avalanche                                                 缓存雪崩          
+cache breakdown                                                 缓存击穿

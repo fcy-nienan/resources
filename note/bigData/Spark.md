@@ -47,7 +47,6 @@ select * from a except select * from b;
 
 
 
-union	并集(不去重)
 distinct	去重	(k,v),去重时相同的key不同的value是不同的数据,只有key和value都相同才去掉
 map			映射
 filter		过滤		rdd1.filter(_._2>2)  		rdd.filter(x => x._2==2)
