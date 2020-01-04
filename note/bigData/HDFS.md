@@ -81,7 +81,9 @@ hadoop fs -du -h /
 # HDFS相关数据结构信息
 * FileStatus    
     Interface that represents the client side information for a file.
-    代表客户端的文件信息
+    代表客户端的文件信息(文件的一些元数据和安全信息)
+    元数据包括:文件名,大小,是否目录,相关时间,存储策略,符号链接
+    权限:类似Linux权限
 * BlockLocation  
     Represents the network location of a block, information about the hosts
     that contain block replicas, and other block metadata (E.g. the file
@@ -96,4 +98,10 @@ hadoop fs -du -h /
     private long offset;  // Offset of the block in the file
     private long length;
     private boolean corrupt;
-    文件所在ip地址,主机名,每块一个id,网络拓扑结构的全路径,存储类型(磁盘或者内存等),偏移量,是否损坏,还有一系列的安全
+    文件所在ip地址,主机名,每块一个id,网络拓扑结构的全路径,存储类型(磁盘或者内存等),偏移量,是否损坏,还有一系列的安全(认证信息)
+## 以上两个基础结构就是文件的本身信息文件块在网络中的信息
+    将其分离一下就是四方面的信息
+    文件元数据(metedata)
+    权限
+    网络地址   
+    存储方式(虽然定义了一系列的枚举值,但默认是磁盘)
