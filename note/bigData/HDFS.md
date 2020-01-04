@@ -75,3 +75,25 @@ hdfs查看命令行日志 HADOOP_ROOT_LOGGER=DEBUG,console hadoop fs -ls /
 
 查看已使用容量
 hadoop fs -du -h /
+
+
+
+# HDFS相关数据结构信息
+* FileStatus    
+    Interface that represents the client side information for a file.
+    代表客户端的文件信息
+* BlockLocation  
+    Represents the network location of a block, information about the hosts
+    that contain block replicas, and other block metadata (E.g. the file
+    offset associated with the block, length, whether it is corrupt, etc).
+    代表一个块在网络中的信息,BlockLocation(offset: 0, length: BLOCK_SIZE,hosts: {"host1:9866", "host2:9866, host3:9866"})
+    private String[] hosts; // Datanode hostnames
+    private String[] cachedHosts; // Datanode hostnames with a cached replica
+    private String[] names; // Datanode IP:xferPort for accessing the block
+    private String[] topologyPaths; // Full path name in network topology
+    private String[] storageIds; // Storage ID of each replica
+    private StorageType[] storageTypes; // Storage type of each replica
+    private long offset;  // Offset of the block in the file
+    private long length;
+    private boolean corrupt;
+    文件所在ip地址,主机名,每块一个id,网络拓扑结构的全路径,存储类型(磁盘或者内存等),偏移量,是否损坏,还有一系列的安全
