@@ -379,7 +379,6 @@
     mtime(modify time)   最后修改时间
 # stat filename查看文件信息
 
-
 # shell控制语句
     if [ $num -gt 1 ]
     then
