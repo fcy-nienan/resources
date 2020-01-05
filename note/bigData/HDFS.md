@@ -336,7 +336,14 @@ The process of transferring data from the mappers to reducers is shuffling
 可以的，这个是Secondary Sorting in MapReduce技术，在传递数据给
 Reducer之前对values进行排序
 The important thing to note is that shuffling and sorting in Hadoop MapReduce are will not take place at all if you specify zero reducers (setNumReduceTasks(0)). If reducer is zero, then the MapReduce job stops at the map phase. And the map phase does not include any kind of sorting (even the map phase is faster).
-
+      if (conf.getNumReduceTasks() == 0) {
+        mapPhase = getProgress().addPhase("map", 1.0f);
+      } else {
+        // If there are reducers then the entire attempt's progress will be 
+        // split between the map phase (67%) and the sort phase (33%).
+        mapPhase = getProgress().addPhase("map", 0.667f);
+        sortPhase  = getProgress().addPhase("sort", 0.333f);
+      }    
 ## Reducer
 框架将Reducer的输出存储在HDFS上
 ## RecordWriter
