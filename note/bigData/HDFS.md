@@ -79,12 +79,12 @@ hadoop fs -du -h /
 
 
 # HDFS相关数据结构信息
-* FileStatus    
+# FileStatus    
     Interface that represents the client side information for a file.
     代表客户端的文件信息(文件的一些元数据和安全信息)
     元数据包括:文件名,大小,是否目录,相关时间,存储策略,符号链接
     权限:类似Linux权限
-* BlockLocation  
+# BlockLocation  
     Represents the network location of a block, information about the hosts
     that contain block replicas, and other block metadata (E.g. the file
     offset associated with the block, length, whether it is corrupt, etc).
@@ -99,9 +99,23 @@ hadoop fs -du -h /
     private long length;
     private boolean corrupt;
     文件所在ip地址,主机名,每块一个id,网络拓扑结构的全路径,存储类型(磁盘或者内存等),偏移量,是否损坏,还有一系列的安全(认证信息)
-* Mapper
-    Mapper的核心方法,主要看run方法,从context中获取一行记录,然后对其调用我们自己写的map方法
-    setup和cleanup方法只调用一次
+## 以上两个基础结构就是文件的本身信息文件块在网络中的信息
+    将其分离一下就是下面几个信息
+    文件元数据(metedata)
+    权限
+    网络地址   
+    存储方式(虽然定义了一系列的枚举值,但默认是磁盘)
+# InputFormat
+>InputFormat</code> describes the input-specification for a Map-Reduce job.
+* 描述了一个MR任务的输入规范?
+# InputSplit
+>InputSplit</code> represents the data to be processed by an individual {@link Mapper}. 
+* 代表由单个的Mapper处理的数据
+# RecordReader  
+>The record reader breaks the data into key/value pairs for input to the {@link Mapper}
+* 将数据切分为key/value对作为Mapper的输入
+# Mapper
+* Mapper的核心方法,主要看run方法,从context中获取一行记录,然后对其调用我们自己写的map方法,setup和cleanup方法只调用一次
 ```
     public class Mapper<KEYIN, VALUEIN, KEYOUT, VALUEOUT> {
     
@@ -156,8 +170,42 @@ hadoop fs -du -h /
       }
     }
 ```
-* Reducer
+# Reducer
+    同样有setup和cleanup方法,在run方法中也可以看出只调用一次,另外reducer处理的value是一个迭代器
+    默认使用的是HashPartitioner哈希分区,将相同的key分配到了一个reducer处理
+    source: java go java scala go c scala
+    Map:    (java,1),(go,1),(java,1),(scala,1),(go,1),(c,1),(scala,1)
+    HasPartitioner: (java,(1,1)),(go,(1,1)),(scala,(1,1)),(c,(1))
+    Reducer:    reducer的输入就是上述结果的输出
+## 如果不设置的话默认就是哈希分区器 
+```
+    /**
+       * Get the {@link Partitioner} class for the job.
+       *
+       * @return the {@link Partitioner} class for the job.
+       */
+      @SuppressWarnings("unchecked")
+      public Class<? extends Partitioner<?,?>> getPartitionerClass() 
+         throws ClassNotFoundException {
+        return (Class<? extends Partitioner<?,?>>) 
+          conf.getClass(PARTITIONER_CLASS_ATTR, HashPartitioner.class);
+      }
+```
+## 哈希分区器也简单,就是使用key的hashcode与上整型的最大值然后根据reducer的数量取余
+```
+    /** Partition keys by their {@link Object#hashCode()}. */
+    @InterfaceAudience.Public
+    @InterfaceStability.Stable
+    public class HashPartitioner<K, V> extends Partitioner<K, V> {
     
+      /** Use {@link Object#hashCode()} to partition. */
+      public int getPartition(K key, V value,
+                              int numReduceTasks) {
+        return (key.hashCode() & Integer.MAX_VALUE) % numReduceTasks;
+      }
+    
+    }
+```
 ```
     public class Reducer<KEYIN,VALUEIN,KEYOUT,VALUEOUT> {
     
@@ -207,7 +255,9 @@ hadoop fs -du -h /
         try {
           while (context.nextKey()) {
             reduce(context.getCurrentKey(), context.getValues(), context);
-            // If a back up store is used, reset it
+            // If a back up store is used, reset it(备份存储,重置它?)
+            //This method is called when the reducer moves from one key to another.
+            //resetBackupStore方法干啥的？当一个reducer从一个键移动到另一个调用该方法
             Iterator<VALUEIN> iter = context.getValues().iterator();
             if(iter instanceof ReduceContext.ValueIterator) {
               ((ReduceContext.ValueIterator<VALUEIN>)iter).resetBackupStore();        
@@ -219,9 +269,4 @@ hadoop fs -du -h /
       }
     }
 ```
-## 以上两个基础结构就是文件的本身信息文件块在网络中的信息
-    将其分离一下就是四方面的信息
-    文件元数据(metedata)
-    权限
-    网络地址   
-    存储方式(虽然定义了一系列的枚举值,但默认是磁盘)
+## 分区器在哪里别调用呢,shuffle的那一部分是如何处理的呢?
