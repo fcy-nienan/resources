@@ -151,3 +151,4 @@ Bundling
 cache penetration                                               缓存穿透            
 cache avalanche                                                 缓存雪崩          
 cache breakdown                                                 缓存击穿
+back up store                                                   备份存储

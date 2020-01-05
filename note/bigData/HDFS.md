@@ -99,6 +99,126 @@ hadoop fs -du -h /
     private long length;
     private boolean corrupt;
     文件所在ip地址,主机名,每块一个id,网络拓扑结构的全路径,存储类型(磁盘或者内存等),偏移量,是否损坏,还有一系列的安全(认证信息)
+* Mapper
+    Mapper的核心方法,主要看run方法,从context中获取一行记录,然后对其调用我们自己写的map方法
+    setup和cleanup方法只调用一次
+```
+    public class Mapper<KEYIN, VALUEIN, KEYOUT, VALUEOUT> {
+    
+      /**
+       * The <code>Context</code> passed on to the {@link Mapper} implementations.
+       */
+      public abstract class Context
+        implements MapContext<KEYIN,VALUEIN,KEYOUT,VALUEOUT> {
+      }
+      
+      /**
+       * Called once at the beginning of the task.
+       */
+      protected void setup(Context context
+                           ) throws IOException, InterruptedException {
+        // NOTHING
+      }
+    
+      /**
+       * Called once for each key/value pair in the input split. Most applications
+       * should override this, but the default is the identity function.
+       */
+      @SuppressWarnings("unchecked")
+      protected void map(KEYIN key, VALUEIN value, 
+                         Context context) throws IOException, InterruptedException {
+        context.write((KEYOUT) key, (VALUEOUT) value);
+      }
+    
+      /**
+       * Called once at the end of the task.
+       */
+      protected void cleanup(Context context
+                             ) throws IOException, InterruptedException {
+        // NOTHING
+      }
+      
+      /**
+       * Expert users can override this method for more complete control over the
+       * execution of the Mapper.
+       * @param context
+       * @throws IOException
+       */
+      public void run(Context context) throws IOException, InterruptedException {
+        setup(context);
+        try {
+          while (context.nextKeyValue()) {
+            map(context.getCurrentKey(), context.getCurrentValue(), context);
+          }
+        } finally {
+          cleanup(context);
+        }
+      }
+    }
+```
+* Reducer
+    
+```
+    public class Reducer<KEYIN,VALUEIN,KEYOUT,VALUEOUT> {
+    
+      /**
+       * The <code>Context</code> passed on to the {@link Reducer} implementations.
+       */
+      public abstract class Context 
+        implements ReduceContext<KEYIN,VALUEIN,KEYOUT,VALUEOUT> {
+      }
+    
+      /**
+       * Called once at the start of the task.
+       */
+      protected void setup(Context context
+                           ) throws IOException, InterruptedException {
+        // NOTHING
+      }
+    
+      /**
+       * This method is called once for each key. Most applications will define
+       * their reduce class by overriding this method. The default implementation
+       * is an identity function.
+       */
+      @SuppressWarnings("unchecked")
+      protected void reduce(KEYIN key, Iterable<VALUEIN> values, Context context
+                            ) throws IOException, InterruptedException {
+        for(VALUEIN value: values) {
+          context.write((KEYOUT) key, (VALUEOUT) value);
+        }
+      }
+    
+      /**
+       * Called once at the end of the task.
+       */
+      protected void cleanup(Context context
+                             ) throws IOException, InterruptedException {
+        // NOTHING
+      }
+    
+      /**
+       * Advanced application writers can use the 
+       * {@link #run(org.apache.hadoop.mapreduce.Reducer.Context)} method to
+       * control how the reduce task works.
+       */
+      public void run(Context context) throws IOException, InterruptedException {
+        setup(context);
+        try {
+          while (context.nextKey()) {
+            reduce(context.getCurrentKey(), context.getValues(), context);
+            // If a back up store is used, reset it
+            Iterator<VALUEIN> iter = context.getValues().iterator();
+            if(iter instanceof ReduceContext.ValueIterator) {
+              ((ReduceContext.ValueIterator<VALUEIN>)iter).resetBackupStore();        
+            }
+          }
+        } finally {
+          cleanup(context);
+        }
+      }
+    }
+```
 ## 以上两个基础结构就是文件的本身信息文件块在网络中的信息
     将其分离一下就是四方面的信息
     文件元数据(metedata)
