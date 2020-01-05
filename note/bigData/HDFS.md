@@ -270,3 +270,100 @@ hadoop fs -du -h /
     }
 ```
 ## 分区器在哪里别调用呢,shuffle的那一部分是如何处理的呢?
+
+# MapReducer的过程
+## Input Files
+输入文件格式可以是任意的,一行一行的日志文件或者日志文件
+## InputFormat
+InputFormat定义了如何拆分和读取这些文件。可以以文件或者一些对象作为输入,数据的来源很多
+可以在各类文件系统的文件中,数据库中,网络中,文件的格式也大不相同
+所以在此层做了一个抽象
+InputFormat会生成InputSplit
+
+Input Format的两个方法
+List<InputSplit> getSplit(JobContext context)
+RecordReader createRecordReader(InputSplit split,TaskAttemptContext con)
+## InputSplit
+它代表可以被单个Mapper任务处理的数据,对于每一个InputSplit会创建一个map task
+这个就是文件的一部分数据,在Map Reduce层面被单独的一个Mapper处理的数据
+他只是个数据的逻辑表示,看其实现类也只是记录了一些start,len等信息
+也就是该部分数据从哪开始，到哪结束，在哪里
+The main thing to focus is that InputSplit doesn’t contain actual data; it is just a reference to the data
+
+## RecordReader
+它和InputSplit通信直到完成文件的读取。并且将数据转换为适合Mapper读取的key-value对。
+默认情况下使用TextInputFormat。它为每一行赋值一个字节偏移量。然后这些key-value对会被发送
+到mapper被进一步处理
+Input Split只是数据，但MapperReducer处理的是键值对，所以需要将数据
+转化为key-value格式，Record Reader做的就是这个工作
+
+A RecordReader converts the byte-oriented view of the input to a record-oriented view for the Mapper and Reducer tasks for processing.
+将面向字节的视图转换为面向记录的视图
+
+Now before processing starts, it needs to know on which data to process. So, InputFormat class helps to achieve this. This class selects the file from HDFS that is the input to the map function. It is also responsible for creating the input splits.  Also, divide them into records. It divides the data into the number of splits (typically 64/128mb) in HDFS. This is known as InputSplit. InputSplit is the logical representation of data. In a MapReduce job, execution number of map tasks is equal to the number of InputSplits.
+
+Although it is not mandatory for RecordReader to stays in between the boundaries created by the inputsplit to generate key-value pairs it usually stays. Also, custom implementation can even read more data outside of the inputsplit.
+It is more than iterator over the records. The map task uses one record to generate key-value pair which it passes to the map function. We can also see this by using the mapper’s run function given below:
+    public void run(Context context ) throws IOException, InterruptedException{
+        setup(context);
+        while(context.nextKeyValue()){
+            map(context.setCurrentKey(),context.getCurrentValue(),context)
+        }
+        cleanup(context);
+    }
+Although it is not mandatory for RecordReader to stays in between the boundaries created by the inputsplit to generate key-value pairs it usually stays. Also, custom implementation can even read more data outside of the inputsplit.
+Then, after running setup(), the nextKeyValue() will repeat on the context. This populates the key and value objects for the mapper. By way of context, framework retrieves key-value from record reader. Then pass to the map() method to do its work. Hence, input (key-value) to the map function processes as per the logic mentioned in the map code. When the record gets to the end of the record, the nextKeyValue() method returns false.
+
+## Mapper
+它处理由RecordReader产生的记录并且生成中间的key-value对。
+Hadoop并不存储Mapper的输出到HDFS上，Mapper将输出传递给COmbiner被进一步处理
+## Combiner
+这是一个小型的Reducer,在本地对Mapper的输出执行聚合操作，它尽可能的缩小
+在Mapper和Reducer中间传输的数据，Combiner的输出作为Partitioner的输入
+## Partitioner
+分区器将Combiner的输出作为输入,然后根据key计算hash值,对该值取余,
+最后在每个分区存在这相同的key,在那之后,每个分区的数据发送到一个Reducer
+
+The important thing to notice is that the framework creates partitioner only when there are many reducers.
+
+## Shuffling and Sorting
+The process of transferring data from the mappers to reducers is shuffling
+从mapper传输数据到reducer的过程是shuffle
+ It is also the process by which the system performs the sort
+还有对key进行排序
+他不对values进行排序，values是任意顺序的
+那可以对values进行排序吗？
+可以的，这个是Secondary Sorting in MapReduce技术，在传递数据给
+Reducer之前对values进行排序
+The important thing to note is that shuffling and sorting in Hadoop MapReduce are will not take place at all if you specify zero reducers (setNumReduceTasks(0)). If reducer is zero, then the MapReduce job stops at the map phase. And the map phase does not include any kind of sorting (even the map phase is faster).
+
+## Reducer
+框架将Reducer的输出存储在HDFS上
+## RecordWriter
+将Reducer的输出写入到文件中
+## OutputFormat
+定义了RecordWriter写这些key-value对的方式。提供了在HDFS上写文件的实例。
+
+键值不是数据的固有属性
+Keys value is not the intrinsic properties of the data
+In MapReduce job execution, before sending data to the mapper, first convert it into key-value pairs
+在发送数据到Mapper之前将数据转化为键值对
+
+InputSplit – It is the logical representation of data which InputFormat generates. In MapReduce program it describes a unit of work that contains a single map task
+
+In MapReduce job execution, the map function processes a certain key-value pair. Then emits a certain number of key-value pairs. The Reduce function processes the values grouped by the same key
+
+Map Input by default takes the line offset as the key. The content of the line is value as Text. We can modify them; by using the custom input format.
+## Map Only Job in MapReduce
+Map-Only job in the Hadoop is the process in which mapper does all tasks. No task is done by the reducer. Mapper’s output is the final output.
+Map做所有的工作
+How to avoid Reduce Phase in MapReduce?
+如何避免Reduce阶段？
+By setting job.setNumreduceTasks(0) in the configuration in a driver we can avoid reduce phase.
+优点是啥?
+In MapReduce job execution in between map and reduces phases there is key, sort and shuffle phase. Shuffling –Sorting are responsible for sorting the keys in ascending order. Then grouping values based on the same keys. This phase is very expensive. If reduce phase is not required, we should avoid it. As avoiding reduce phase would eliminate sorting and shuffle phase as well. Therefore, this will also save network congestion. The reason is that in shuffling, an output of the mapper travels to reduce. And when the data size is huge, large data needs to travel to the reducer.
+
+The output of the mapper is written to local disk before sending to reduce. But in map only job, this output is directly written to HDFS. This further saves time as well reduces cost.
+在Map和Reduce之间有一个Shuffling和Sort的过程
+这个过程消耗的资源非常昂贵，磁盘IO，网络IO
+如果Reducer阶段不存在,那么自然可以避免Shuffle发生
