@@ -159,6 +159,18 @@ RDD转换为DataFrame
 	spark.sql("select * from dept").show();
 
 
+num-executors 16
+executor-cores 10
+executor-memory 36
+driver-memory 3
+driver-core 3
+16*36=556G  556*1024=569344
+actually: 
+    16Containers 161Cores 656384M
+    656384M/1024=641G
+
+task的个数有什么决定
+一个Stage分区数
 
 # Spark相关概念
 ## overview

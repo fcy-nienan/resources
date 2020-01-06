@@ -65,3 +65,12 @@ desc tableName
 
 显示表详细结构
 desc formatted tableName
+# 创建分区表
+    create table tableName(
+    id string,
+    name string,
+    password string
+    date string)
+    partitioned by (date)
+    row format delimited by ',' terminated by '\t'
+    
