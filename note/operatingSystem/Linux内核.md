@@ -83,6 +83,10 @@ wchan
     前6000肯定能读取,6000--8000是填充0还是读取磁盘的原有数据?,8000-8192肯定都是0
     也就是对于不映射的区域,我磁盘有数据,内核读取的时候是读取原始数据还是填充0?
     
+    优点肯定是读取更快了
+    但并不是所有地方都一定要用mmap,任何一种技术都有其适用场景
+>>mmap对变长文件不适合,如果更新文件的操作很多，mmap避免两态拷贝的优势就被摊还，最终还是落在了大量的脏页回写及由此引发的随机IO上.　所以在随机写很多的情况下，mmap方式在效率上不一定会比带缓冲区的一般写快.
+    
     相关操作
         Java:
         get()访问一个字节(引发缺页异常)
@@ -97,4 +101,14 @@ wchan
     那么有什么办法可以调用write后立刻将数据同步到磁盘呢?(防止系统宕机造成数据丢失)
     调用fsync方法可以，在Java中是调用FileInputStream.getFD().sync()方法
     fsync阻塞直到所有脏页都回写到了磁盘才返回
+    fdatasync和fsync差不多，
+    but do not flush modified metadata unless  that  metadata  is
+    needed  in order to allow a subsequent data retrieval to be correctly handled
+    fdatasync不刷新更新一类的元数据,比如Linux的几个时间
+    除非需要这个元数据以便正确处理后续的数据检索,比如文件长度一类的元数据需要更新
+    msync:synchronize a file with a memory map
+    这个是mmap的将数据同步到磁盘
+    flushes changes made to the in-core copy of a file that was mapped into memory using mmap(2)
+    back to disk
+    将由mmap建立的映射数据的改动刷新到磁盘
       
