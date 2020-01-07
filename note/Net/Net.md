@@ -57,3 +57,14 @@ vim搜索高亮 set hlsearch
 出站规则和入站规则
 出站规则是服务器访问外网
 入站规则是外网访问服务器
+
+多播和广播？
+0.0.0.0和255.255.255.255
+The IP address 0.0.0.0 is used as a wildcard to bind to all addresses. The IP address 255.255.255.255 is used to indicate a local broadcast.
+
+    0.0.0.0代表本机的所有IPV4地址
+
+IP地址  120.79.158.25
+网络地址 120
+网络掩码 255.0.0.0
+主机地址  79.158.25
