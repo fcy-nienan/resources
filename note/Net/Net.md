@@ -63,8 +63,19 @@ vim搜索高亮 set hlsearch
 The IP address 0.0.0.0 is used as a wildcard to bind to all addresses. The IP address 255.255.255.255 is used to indicate a local broadcast.
 
     0.0.0.0代表本机的所有IPV4地址
-
+    255.255.255.255代表所有的主机,这个所有是指互联网的所有主机吗(兴奋)
+    不是的，有广播边界(一般是网关)
+    受限广播地址
+    
+    255.255.255.255 to indicate all other nodes on the local network (LAN) should pick up that message. This broadcast is 'limited' in that it does not reach every node on the Internet, only nodes on the LAN
+    
 IP地址  120.79.158.25
 网络地址 120
 网络掩码 255.0.0.0
 主机地址  79.158.25
+
+那120.0.0.0和120.255.255.255这两个地址是干啥的?
+一个是代表一个网段,一个是广播段
+192.168.0.0           网段
+192.168.0.255           广播段
+192.168.0.1 - 192.168.0.254   IP地址
