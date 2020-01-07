@@ -150,7 +150,7 @@ optionally a list of preferred location to compute each slit on
 
 # spark-shell
 
-  spark-shell --name fcy --executor-memory 4g
+  spark-shell --name fcy local[6]
 
   --master MASTER_URL         spark://host:port, mesos://host:port, yarn,
                               k8s://https://host:port, or local (Default: local[*]).
