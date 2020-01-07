@@ -141,7 +141,17 @@ optionally a list of preferred location to compute each slit on
 处理时，任然使用iterator一边载入部分数据，
 一边执行运算（每个partition的实现内部实际就是一个iterator），没必要纠结这个概念
 
+如果用户直接运行bin/spark-sql命令。会导致我们的元数据有两种状态：
 
+1、in-memory状态:
+
+  如果SPARK-HOME/conf目录下没有放置hive-site.xml文件，元数据的状态就是in-memory
+
+2、hive状态：
+
+ 如果我们在SPARK-HOME/conf目录下放置了，hive-site.xml文件，那么默认情况下
+
+ spark-sql的元数据的状态就是hive.
 
 
 

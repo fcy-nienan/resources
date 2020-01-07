@@ -74,3 +74,32 @@ desc formatted tableName
     partitioned by (date)
     row format delimited by ',' terminated by '\t'
     
+    create table  person(name string,work_locations array<string>)
+    ROW FORMAT DELIMITED
+    FIELDS TERMINATED BY '\t'
+    COLLECTION ITEMS TERMINATED BY ',';
+    
+    create table score(name string, score map<string,int>)  
+    ROW FORMAT DELIMITED 
+    FIELDS TERMINATED BY '\t'  
+    COLLECTION ITEMS TERMINATED BY ','   
+    MAP KEYS TERMINATED BY ':';
+    
+    CREATE TABLE test(id int,course struct<course:string,score:int>)
+    ROW FORMAT DELIMITED
+    FIELDS TERMINATED BY '\t'
+    COLLECTION ITEMS TERMINATED BY ',';
+    
+    create table test1(id int,a MAP<STRING,ARRAY<STRING>>)
+    row format delimited fields terminated by '\t'   
+    collection items terminated by ',' 
+    MAP KEYS TERMINATED BY ':';
+
+    1 english:80,90,70
+    2 math:89,78,86
+    3 chinese:99,100,82
+    
+    LOAD DATA LOCAL INPATH '/home/hadoop/test1.txt' OVERWRITE INTO TABLE test1;
+    
+
+    
