@@ -1,17 +1,15 @@
-	1.num-executors		executor的数量
-　　2.executor-memory	executor的内存
-　　3.executor-cores	executor中task的数量
-　　4.driver-memory		driver端的内存，如果是collect一类的action则需要调大点
-　　5.spark.default.parallelism
-　　6.spark.storage.memoryFraction
-　　7.spark.shuffle.memoryFraction
-
-driver  worker  executor  job  stage  task
+# spark参数
+1. num-executors		executor的数量
+2. executor-memory	executor的内存
+3. executor-cores	executor中task的数量
+4. driver-memory		driver端的内存，如果是collect一类的action则需要调大点
+5. spark.default.parallelism    默认并行度
+6. spark.storage.memoryFraction
+7. spark.shuffle.memoryFraction
+# 理解
 每个Worker上存在一个或多个CoarseGrainedExecutorBackend进程，每个进程包含一个Executor对象，该对象持有一个线程池，每个线程池可以执行一个Task
-
-  （5+4）/9:
-
-  9:当前stage的task的数量，5：已完成的task数量，4：等待执行的task数量。
+(5+4)/9
+9:当前stage的task的数量，5：已完成的task数量，4：等待执行的task数量。
 
 RDD分为两种操作
 transfer和action
@@ -24,8 +22,8 @@ shuffle是一个复杂且代价较高的操作，它需要完成将数据在exec
 在Yarn的NodeManager节点上启动一个map task或者reduce task，
 在物理上启动的是一个jvm进程；而Spark的task是Executor进程中的一个线程。
 
-通过action出发job
-通过宽窄以来划分stage
+通过action触发job
+通过宽窄依赖划分stage
 
 
 job,stage,task
@@ -35,129 +33,71 @@ task是根据输入数据的分区数指定的
 
 多个不同stage之间可以同时执行吗?
 不可以,stage之间是有执行顺序的,只有上一个执行完了才能执行下一个
+根据宽窄依赖划分stage,那比如reduceByKey是在哪一个stage中
+textFile=>flatMap=>map=>reduceByKey=>foreach(println)
+stage1:textFile=>flatMap=>map
+stage2:reduceByKey
+那最后的foreach(println)算是什么算子?
+如果最后不是foreach(println)而是count呢?
+在spark UI中查看DAG划分的stage中并没有foreach()和count出现
+倒是在job页面显示了foreach和count
+也就是说foreach和count是action,触发job,并不在stage中的算子中
 
 
+两种stage
+ShuffleMapStage
+ResultStage
 
-select * from a union select * from b;
-去重的并集
-select * from a union all select * from b;
-没去重的并集
-select * from a except select * from b;
-差集
-
-
-
-distinct	去重	(k,v),去重时相同的key不同的value是不同的数据,只有key和value都相同才去掉
-map			映射
-filter		过滤		rdd1.filter(_._2>2)  		rdd.filter(x => x._2==2)
-
-join		内连接
-for(t:data1){
-	for(s:data2){
-		if(t.k==s.k){
-			t.k,(t.v,s.v)
-		}
-	}
-}
-leftOuterJoin		左外连接
-rightOuterJoin		又外连接
-
-groupBy(Function)
-按照给定的函数进行分组
-groupBy(_%2)按照模2的值进行分组,所以只有两组,一组的值为0,另一个为1
-groupByKey
-	for(s:data){
-		if(map[s.key]!=null){
-			map[s.key]=(map[s.key],s.value)
-		}else{
-			map[s.key]=(map[s.key])
-		}
-	}
-cogroup		两个数据共同的分组
-		先把两个数据集的所有key去重得到不同的值
-		在每一个不同的值后面加上帝一个数据集中和他相同的值
-		在第二个数据及中加上和他讲通的值
-		rdd1(List((tom,1),(jerry,2),(jerry,3),(shuke,4)
-		rdd2(List((tom,1),(jerry,4),(kitty,5))
-		rdd1.cogroup(rdd2)
-		
-		tom,jerry,shuke,kitty
-		
-		tom,(1),(1)
-		jerry,(2,3),(4)
-		shuke,(4),()
-		kitty,(),(5)
-		
-		
-mapValues		对value进行map操作不对key操作
-reduce		reduce将RDD中元素前两个传给输入函数，产生一个新的return值，新产生的return值与RDD中下一个元素（第三个元素）组成两个元素，再被传给输入函数，直到最后只有一个值为止。
-Cartesian笛卡尔积
+RDD是最早的概念
+DataFrame是spark1.3之后提出的概念
+DataSet是spark1.6之后提出的概念
+RDD转换为DataFrame
+	val df=deptRDD.toDF();
+	df.createOrReplaceTempView("dept");
+	spark.sql("select * from dept").show();
 
 
+num-executors 16
+executor-cores 10
+executor-memory 36
+driver-memory 3
+driver-core 3
+16*36=556G  556*1024=569344
+actually: 
+    16Containers 161Cores 656384M
+    656384M/1024=641G
 
-1、Except返回两个结果集的差（即从左查询中返回右查询没有找到的所有非重复值）。
-Returns a new Dataset containing rows in this Dataset but not in another Dataset.
-Intel(R) Core(TM) i5-5200U CPU @ 2.20GHz
-
-电脑物理CPU个数		1
-每个CPU的核数		2
-核只不支持超线程	2
-
-处理器数量				2
-每个处理器的内核数量	2
-
-
-
-centos是基于redHat的
-
-this should work
+task的个数有什么决定
+一个Stage分区数
 
 
-一个程序有多个job
-一个job有多个stage
-一个stage有多个task
+spark通过textFile读取一个文件一直到结束的流程
 
-总task数量=jobNum*stageNum*taskNum;就是所有task相加的数量
-
-
-RDD
+# CPU核
+    电脑物理CPU个数		1
+    每个CPU的核数		2
+    核只不支持超线程	2
+    处理器数量				2
+    每个处理器的内核数量	2
+# task总数
+    一个程序有多个job
+    一个job有多个stage
+    一个stage有多个task
+    总task数量=jobNum*stageNum*taskNum;就是所有task相加的数量
+# RDD
 属性
-a list of partitions
-a function for computing each split
-a list of dependencies on other rdds
-optionally a partitioner for key-value rdds
-optionally a list of preferred location to compute each slit on
-分区
-算子
-父依赖
-分区器
-计算优先位置
-
-
-
-
-现在回头看，RDD本身就是一个Berkeley的博士们在写论文时，抽象出的概念，
-其本质与Hadoop MapReduce处理时输入输出的key-value，Flink的dataset没有本质区别。
-处理时，任然使用iterator一边载入部分数据，
-一边执行运算（每个partition的实现内部实际就是一个iterator），没必要纠结这个概念
-
-如果用户直接运行bin/spark-sql命令。会导致我们的元数据有两种状态：
-
-1、in-memory状态:
-
-  如果SPARK-HOME/conf目录下没有放置hive-site.xml文件，元数据的状态就是in-memory
-
-2、hive状态：
-
- 如果我们在SPARK-HOME/conf目录下放置了，hive-site.xml文件，那么默认情况下
-
- spark-sql的元数据的状态就是hive.
-
-
-
-
-
-
+* a list of partitions    一系列分区
+* a function for computing each split    算子
+* a list of dependencies on other rdds   父依赖
+* optionally a partitioner for key-value rdds   分区器
+* optionally a list of preferred location to compute each slit on   计算优先位置
+    现在回头看，RDD本身就是一个Berkeley的博士们在写论文时，抽象出的概念，
+    其本质与Hadoop MapReduce处理时输入输出的key-value，Flink的dataset没有本质区别。
+    处理时，任然使用iterator一边载入部分数据，(读取一部分处理一部分)
+    一边执行运算（每个partition的实现内部实际就是一个iterator），没必要纠结这个概念
+# 如果用户直接运行bin/spark-sql命令。会导致我们的元数据有两种状态：
+1. in-memory状态:如果SPARK-HOME/conf目录下没有放置hive-site.xml文件，元数据的状态就是in-memory
+2. hive状态：如果我们在SPARK-HOME/conf目录下放置了，hive-site.xml文件，那么默认情况下spark-sql的元数据的状态就是hive.
 # spark-shell
 
   spark-shell --name fcy local[6]
@@ -236,70 +176,6 @@ optionally a list of preferred location to compute each slit on
                               principal specified above. This keytab will be copied to
                               the node running the Application Master via the Secure
                               Distributed Cache, for renewing the login tickets and the
-                              delegation tokens periodically.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-RDD是最早的概念
-
-DataFrame是spark1.3之后提出的概念
-
-DataSet是spark1.6之后提出的概念
-
-
-DataFrame转换为RDD
-
-RDD转换为DataFrame
-	val df=deptRDD.toDF();
-	df.createOrReplaceTempView("dept");
-	spark.sql("select * from dept").show();
-
-
-num-executors 16
-executor-cores 10
-executor-memory 36
-driver-memory 3
-driver-core 3
-16*36=556G  556*1024=569344
-actually: 
-    16Containers 161Cores 656384M
-    656384M/1024=641G
-
-task的个数有什么决定
-一个Stage分区数
-
 # Spark相关概念
 ## overview
     spark提供了两种抽象:RDD和共享变量
@@ -371,4 +247,74 @@ task的个数有什么决定
 * reduceByKey对所有相同的key做归约操作
 * groupByKey
 
+select * from a union select * from b;
+去重的并集
+select * from a union all select * from b;
+没去重的并集
+select * from a except select * from b;
+差集
 
+
+
+distinct	去重	(k,v),去重时相同的key不同的value是不同的数据,只有key和value都相同才去掉
+map			映射
+filter		过滤		rdd1.filter(_._2>2)  		rdd.filter(x => x._2==2)
+join		内连接
+for(t:data1){
+	for(s:data2){
+		if(t.k==s.k){
+			t.k,(t.v,s.v)
+		}
+	}
+}
+leftOuterJoin		左外连接
+rightOuterJoin		又外连接
+
+groupBy(Function)
+按照给定的函数进行分组
+groupBy(_%2)按照模2的值进行分组,所以只有两组,一组的值为0,另一个为1
+groupByKey
+	for(s:data){
+		if(map[s.key]!=null){
+			map[s.key]=(map[s.key],s.value)
+		}else{
+			map[s.key]=(map[s.key])
+		}
+	}
+cogroup		两个数据共同的分组
+		先把两个数据集的所有key去重得到不同的值
+		在每一个不同的值后面加上帝一个数据集中和他相同的值
+		在第二个数据及中加上和他讲通的值
+		rdd1(List((tom,1),(jerry,2),(jerry,3),(shuke,4)
+		rdd2(List((tom,1),(jerry,4),(kitty,5))
+		rdd1.cogroup(rdd2)
+		
+		tom,jerry,shuke,kitty
+		
+		tom,(1),(1)
+		jerry,(2,3),(4)
+		shuke,(4),()
+		kitty,(),(5)
+		
+		
+mapValues		对value进行map操作不对key操作
+reduce		reduce将RDD中元素前两个传给输入函数，产生一个新的return值，新产生的return值与RDD中下一个元素（第三个元素）组成两个元素，再被传给输入函数，直到最后只有一个值为止。
+Cartesian笛卡尔积
+1、Except返回两个结果集的差（即从左查询中返回右查询没有找到的所有非重复值）。
+Returns a new Dataset containing rows in this Dataset but not in another Dataset.
+* def textFile(
+        path: String,
+        minPartitions: Int = defaultMinPartitions): RDD[String] = withScope {
+    def defaultMinPartitions: Int = math.min(defaultParallelism, 2)
+    没指定的话分区为默认并行度和2的最小值,通常是2
+    但第一个参数path也可以用目录,那么如果目录下又多个文件分区数如何算?
+    不指定分区参数的情况下
+    1. 一个605M两个7M的文件最后有了21个Task
+    605/32~=18.9=19
+    两个文件各一个Task
+    2. 单独两个7M的文件最后有了2个Task
+    也就是一个文件只要不达到spark的读取一个分区的最大数据那么就一个分区
+    如果达到了就将该文件划分为多个分区
+    如果指定了分区数为3
+    表现行为暂时未得出规律------源码在computeSize相关方法和HDFS计算splitSize中,InputFormat的getSplits
+    

@@ -1,0 +1,1 @@
+cleaner.foreach(_.registerBroadcastForCleanup(bc))
