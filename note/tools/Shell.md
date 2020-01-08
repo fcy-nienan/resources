@@ -377,6 +377,8 @@
     atime(access time)   最后访问时间
     ctime(change time)   最后变更时间(文件属性,文件的metadata被修改时)
     mtime(modify time)   最后修改时间
+    
+    ll显示的时mtime文件内容修改时间
 # stat filename查看文件信息
 
 # shell控制语句

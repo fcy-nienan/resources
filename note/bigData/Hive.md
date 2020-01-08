@@ -69,9 +69,8 @@ desc formatted tableName
     create table tableName(
     id string,
     name string,
-    password string
-    date string)
-    partitioned by (date)
+    password string)
+    partitioned by (date string)
     row format delimited by ',' terminated by '\t'
     
     create table  person(name string,work_locations array<string>)
