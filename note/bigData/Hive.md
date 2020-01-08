@@ -65,6 +65,18 @@ desc tableName
 
 显示表详细结构
 desc formatted tableName
+
+# DataFrame.registerTempTable()
+    为什么要注册临时表？
+    通过DATa Frame的一些函数同样可以操作数据进行sql类似的查询
+    什么时候需要注册临时表呢？
+    还是说注册了临时表会比使用DATa Frame的函数操作效率更高？
+    
+    注册临时表的原因是你还有另一种选择可以对这些数据进行操作
+    注册了临时表后我们可以通过SQL查询来进行操作
+    sql有sql的特性，函数有函数的特性，各有优势
+    效率相差不大
+
 # 创建分区表
     create table tableName(
     id string,
