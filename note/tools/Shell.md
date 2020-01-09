@@ -315,7 +315,12 @@
 
     while [ true ]
     do
-
+        if [ ${num} -gt 3 ];then
+            echo ${num}
+            continue
+        else
+            break
+        fi
     done
 # shell函数
     cutDemo(){
