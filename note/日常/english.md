@@ -154,3 +154,4 @@ cache breakdown                                                 缓存击穿
 back up store                                                   备份存储
 we are going to cover HDFS Disk Balancer in detail              我们将详细介绍HDFS的磁盘平衡
 confidential                                                    保密的
+This connector features the lowest latency and best overall performance     最低的延迟性和最佳的性能
