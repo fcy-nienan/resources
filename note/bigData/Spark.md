@@ -30,18 +30,18 @@ job是我们提交的应用程序
 stage是根据我们提交的程序中的宽窄依赖划分的
 task是根据输入数据的分区数指定的
 
-多个不同stage之间可以同时执行吗?
-不可以,stage之间是有执行顺序的,只有上一个执行完了才能执行下一个
-根据宽窄依赖划分stage,那比如reduceByKey是在哪一个stage中
-textFile=>flatMap=>map=>reduceByKey=>foreach(println)
-stage1:textFile=>flatMap=>map
-stage2:reduceByKey
-那最后的foreach(println)算是什么算子?
-如果最后不是foreach(println)而是count呢?
-在spark UI中查看DAG划分的stage中并没有foreach()和count出现
-倒是在job页面显示了foreach和count
-也就是说foreach和count是action,触发job,并不在stage中的算子中
-* spark是如何做到只在action操作才提交的?
+# 多个不同stage之间可以同时执行吗?
+    不可以,stage之间是有执行顺序的,只有上一个执行完了才能执行下一个
+# 根据宽窄依赖划分stage,那比如reduceByKey是在哪一个stage中
+    textFile=>flatMap=>map=>reduceByKey=>foreach(println)
+    stage1:textFile=>flatMap=>map
+    stage2:reduceByKey
+    那最后的foreach(println)算是什么算子?
+    如果最后不是foreach(println)而是count呢?
+    在spark UI中查看DAG划分的stage中并没有foreach()和count出现
+    倒是在job页面显示了foreach和count
+    也就是说foreach和count是action,触发job,并不在stage中的算子中
+# spark是如何做到只在action操作才提交的?
     我们调用的方法是spark自己的api,它可以在特定的action方法中加上提交的代码
       def map[U: ClassTag](f: T => U): RDD[U] = withScope {
         val cleanF = sc.clean(f)
@@ -51,7 +51,7 @@ stage2:reduceByKey
         val results = sc.runJob(this, (iter: Iterator[T]) => iter.toArray)
         Array.concat(results: _*)
       }
-两种stage
+# 两种stage
 ShuffleMapStage
 ResultStage
 Each Stage can either be a shuffle map stage, 
@@ -59,8 +59,32 @@ in which case its tasks' results are input for * other stage(s), or a result sta
 in which case its tasks directly compute a Spark action
 每个stage可以是一个shuffleMapStage,他们的task的输出是其他stage的输入
 或者一个resultStage,他们的输出就是一个计算spark的action
+
+Each Stage also has a firstJobId, identifying the job that first submitted the stage.  When FIFO
+scheduling is used, this allows Stages from earlier jobs to be computed first or recovered
+faster on failure.
+每个stage还有一个job编号，标识这第一次提交这个stage的job，
+当使用FIFO队列，允许计算最早的stage，或者出现故障的时候更快的恢复
  
- 
+# stage的元素
+id                      
+    stage的id
+rdd[]                   
+    此stage运行的rdd   shuffle map stage:it's the rdd we run map tasks on 
+    for a result stage, it's the target RDD than we ran an action on
+parents:List[Stage]
+    此stage依赖的stage
+firstJobId
+    提交这个stage的job id
+callSite
+    CallSite represents a place in user code. It can have a short and a long form
+    这东西代表一个用户代码的位置,它可以有一个长短格式
+# 两种Task
+    A Spark job consists of one or more stages. The very last stage in a job consists of multiple
+    ResultTasks, while earlier stages consist of ShuffleMapTasks. A ResultTask executes the task
+    and sends the task output back to the driver application. A ShuffleMapTask executes the task
+    and divides the task output to multiple buckets (based on the task's partitioner).
+# RDD,DataFrame,DataSet
 RDD是最早的概念
 DataFrame是spark1.3之后提出的概念
 DataSet是spark1.6之后提出的概念
@@ -68,7 +92,7 @@ RDD转换为DataFrame
 	val df=deptRDD.toDF();
 	df.createOrReplaceTempView("dept");
 	spark.sql("select * from dept").show();
-
+# yarn memory
 num-executors 16
 executor-cores 10
 executor-memory 36
@@ -78,11 +102,52 @@ driver-core 3
 actually: 
     16Containers 161Cores 656384M
     656384M/1024=641G
-
-task的个数有什么决定
-一个Stage分区数
-
-spark通过textFile读取一个文件一直到结束的流程
+# core,task
+如果有四个Map任务需要运行,只有两个core,那么需要分两批运行
+每个Task根据提供的分区器进行分区，然后每个分区产生一个小文件
+优化1: File Consolidation 文件合并
+    后来优化可以在同个个executor中的task将小文件合并到一个文件中,然后reducer端根据相应的索引获取数据
+    但如果下游stage的分区数N很大,那么还是会产生N个文件
+优化2: sort Shuffle 只产生一个文件 
+    根据partition ID排序,每个分区内部再按照key排序,同时会生成一个索引文件记录每个partition的大小和偏移量
+优化3: 文件格式变为二进制,再序列化的二进制数据上进行排序,提供了对外内存供使用
+    分区数不能超过一定大小(2^24-1),shuffle阶段不能有aggregate操作
+优化4: 同意优化2和优化3,自动选择合适的方式
+# 在1M的内存中对100亿条记录进行排序
+    假设1M内存能装1亿条记录
+    那么我们需要取100次并把每次排序的结果输出到一个文件中
+    然后将这100个文件merge成一个全局有序的大文件,如何合并?
+    可以堆排序,好像还有归并排序
+# 为什么需要分区
+    减少网络数据传输.spark将RDD进行分区,然后对每个分区进行运算,在网络中传输的可以是每个分区的结果
+    当然如果需要进行shuffle那么必要的网络IO还是少不了的
+# shuffle
+    shuffle的根本原因还是相同的key在不同的Map端,按照key做一些操作的时候不得不进行shuffle,
+    也就是将所有节点的key拉到一个reducer中来
+    每个stage的最后一部就是将数据分区并且写入磁盘,还要上报分区数据到Master
+    master在启动新的stage的时候会将分区信息发送给task,这样task就知道去哪读数据了
+    
+    下一个stage什么时候开始fetch数据?是等待所有task执行玩还是有执行玩的就fetch?
+    全部执行完
+    那全部执行完后是边获取边执行还是全部获取后在开始?
+    边获取边执行
+    获取的数据存放在哪里?
+    这个肯定有一个shuffle buffer,内存+磁盘,这个空间不够肯定还会spill数据到磁盘,内存使用Map
+    怎么知道数据在哪?
+    从driver端获取分区信息
+# task和分区
+D:\\data\\目录下有三个文件
+    2020/01/08  23:56       634,776,175 12306.txt   605M 
+    2020/01/07  12:34         8,100,002 data.txt    7.7M
+    2020/01/07  12:34         8,100,002 data1.txt   7.7M
+sc.textFile("D:\\data\\").count
+最后生成了21个task
+    605/32=18.9=19个task
+    其他两个文件各一个，总共21个
+    32M一个分区这个是看版本的
+sc.textFile("D:\\data\\",10).count
+    当只剩下两个7.7M的文件的时候,text File加了个参数,然后还很有了10个task
+    但是奇怪的是只有两个task读了全文件，其他都是读取文件的一部分，并且records都是0
 # CPU核
     电脑物理CPU个数		1
     每个CPU的核数		2
@@ -203,11 +268,17 @@ val rdd=sc.parallelize(Array(1 to 10)):Rdd[Range.Inclusive]
 * sample(withReplacement,fraction,seed)
     数据抽样,去除一部分数据
     sample(false,0.5,1)
+    withReplacement表示取样是取出来的数据是否放回
 * union
     数据不去重(sql中的union是去重的)
     rdd.union(rdd1)
+    Return the union of this RDD and another one. Any identical elements will appear multiple
+    times (use `.distinct()` to eliminate them).
 * intersection
     两个rdd的交集并去重且无序返回
+    this.map(v => (v, null)).cogroup(other.map(v => (v, null)))
+            .filter { case (_, (leftGroup, rightGroup)) => leftGroup.nonEmpty && rightGroup.nonEmpty }
+            .keys
 * distinct(numPartitions)
     map(x => (x, null)).reduceByKey((x, y) => x, numPartitions).map(_._1)
     去重
@@ -240,10 +311,19 @@ val rdd=sc.parallelize(Array(1 to 10)):Rdd[Range.Inclusive]
    聚合操作
 * aggregateByKey
 
+* glom
+    将RDD的每一行合并为一个数组
 * sortByKey
-
+    new ShuffledRDD[K, V, V](self, part)
+    Sort the RDD by key, so that each partition contains a sorted range of the elements. Calling
+    `collect` or `save` on the resulting RDD will return or output an ordered list of records
+    (in the `save` case, they will be written to multiple `part-X` files in the filesystem, in
+    order of the keys).
+* filterByRange(lower: K, upper: K): RDD[P]
 * join
 
+* keyBy[K](f: T => K): RDD[(K, T)]
+    将一个单独的元素变成一个Map
 * leftOuterJoin
 
 * rightOuterJoin
@@ -251,17 +331,47 @@ val rdd=sc.parallelize(Array(1 to 10)):Rdd[Range.Inclusive]
 * fullOuterJoin
 
 * cogroup
-
+    (1,2)(2,3)(3,4)
+    (2,4)(3,6)(4,8)
+    (1,((2),())),(2,((3),(4))),(3,((4),(6))),(4,((),(8)))
 * cartesian笛卡尔积
 
-* pipe
-
-* coalesce
-
+* mapWith
+* flatMapWith
+* foreachWith
+* filterWith
+* zip
+    两个相同元素的RDD组成一个Map,左边的是key,右边的是value
+    元素个数必须相同否则报错
+* pipe(command: String): RDD[String]
+    就像运行一个Runtime.exec一样
+    command是一个脚本的路径
+    脚本的输入就是调用这个pipe方法的当前RDD
+    对于当前RDD的每一个分区调用一次外部程序
+    外部程序的标准输出就是该pipe方法的返回值RDD的一个分区
+    rdd每个个分区启动一个外部程序,stdin是外部程序的输入,新的RDD的输入是外部程序的输出
+    外部程序怎么引用这个数据源呢?
+    while read LINE; do
+       echo ${LINE}!
+    done
+* coalesce(numPartitions:Int,shuffle:Boolean)
+    重新分区,比如你现在有100个分区，然后指定numPartitions为10那么新生成的分区会有以前10个分区的数据，这个时候并没有
+    发生shuffle,
+    如果你进行一个剧烈的coalesce,比如numPartitions=1,那么可能算子都会运行在一个节点上
+    你也可以指定shuffle=true,这回增加一个shuffle过程
+    比如当前分区是100,指定numPartitions是1000,shuffle=true
+    当100个分区中有几个分区的数据特别大的时候这非常有用
+    指定1000个分区并且发生shuffle,那么会以哈希分区器将数据分布在不同分区中
 * repartition
-
+    def repartition(numPartitions: Int)(implicit ord: Ordering[T] = null): RDD[T] = withScope {
+        coalesce(numPartitions, shuffle = true)
+    }
 * repartitionAndSortWithinPartitions
     根据partitioner进行分区并在每个分区中按照key进行排序
+* treeReduce
+    使用 treeReduce & treeAggregate 替换 reduce & aggregate。
+    数据量较大时，reduce & aggregate 一次性聚合，Shuffle 量太大，
+    而 treeReduce & treeAggregate 是分批聚合，更为保险
 ## Action
 * reduce(fun(e1,e2):e3)
 * collect
@@ -269,6 +379,68 @@ val rdd=sc.parallelize(Array(1 to 10)):Rdd[Range.Inclusive]
 * collectPartitions
     将数据汇集到driver节点上来,为每一个分区产生一个数组,结果是要给二维数组
 * count():Long
+* toArray()
+    def toArray(): Array[T] = withScope {
+        collect()
+    }
+* countApprox(timeout)
+    在一个timeout内尽可能返回值,即使不完成也无所谓
+* countByValue
+* treeAggregate
+* mapValues(f)
+    在key-value中的rdd中对每一个pair中的value执行一个map函数,保持分区
+* flatMapValues(f)
+    对每一个value做一个flat Map函数
+* subtractByKey
+    根据key减去其他rdd中的元素
+* lookup(key)
+* combineByKey
+* aggregateByKey
+* foldByKey
+* sampleByKey
+* groupByKey
+* partitionByKey(partitioner:Partitioner)
+    使用自定义的分区器重新分区一下
+* countByKey
+* countByValueApprox
+* join
+    def join[W](other: RDD[(K, W)], partitioner: Partitioner): RDD[(K, (V, W))] = self.withScope {
+        this.cogroup(other, partitioner).flatMapValues( pair =>
+          for (v <- pair._1.iterator; w <- pair._2.iterator) yield (v, w)
+        )
+    }
+* leftOuterJoin
+    this.cogroup(other, partitioner).flatMapValues { pair =>
+          if (pair._2.isEmpty) {
+            pair._1.iterator.map(v => (v, None))
+          } else {
+            for (v <- pair._1.iterator; w <- pair._2.iterator) yield (v, Some(w))
+          }
+    }
+* rightOuterJoin
+    this.cogroup(other, partitioner).flatMapValues { pair =>
+          if (pair._1.isEmpty) {
+            pair._2.iterator.map(w => (None, w))
+          } else {
+            for (v <- pair._1.iterator; w <- pair._2.iterator) yield (Some(v), w)
+          }
+    }
+* fullOuterJoin
+    this.cogroup(other, partitioner).flatMapValues {
+          case (vs, Seq()) => vs.iterator.map(v => (Some(v), None))
+          case (Seq(), ws) => ws.iterator.map(w => (None, Some(w)))
+          case (vs, ws) => for (v <- vs.iterator; w <- ws.iterator) yield (Some(v), Some(w))
+    }
+* collectAsMap():Map[K,V]
+* top
+* max
+* min
+* collect(fun)
+    收集符合函数的结果
+* subtract
+    rdd1.subtract(rdd)
+    rdd1中的元素减去rdd中的元素
+* fold
 * first()
 * taskSample(withReplacement,num,seed)
     该方法需要将所有的数据都拉到driver端
@@ -294,7 +466,7 @@ val rdd=sc.parallelize(Array(1 to 10)):Rdd[Range.Inclusive]
 * saveAsObjectFile(path)
 * countByKey()
 * foreach(fun(e))
-
+* foreachPartition(fun(e))
     
 
 
@@ -303,14 +475,18 @@ val rdd=sc.parallelize(Array(1 to 10)):Rdd[Range.Inclusive]
 
 * reduce归约操作
 * reduceByKey对所有相同的key做归约操作
-* groupByKey
-去重的并集
-select * from a union select * from b;
-没去重的并集
-select * from a union all select * from b;
-差集
-select * from a except select * from b;
-distinct	去重	(k,v),去重时相同的key不同的value是不同的数据,只有key和value都相同才去掉
+* groupByKey  
+    去重的并集
+    select * from a union select * from b;
+    没去重的并集
+    select * from a union all select * from b;
+    差集
+    select * from a except select * from b;
+* distinct	
+    去重	(k,v),去重时相同的key不同的value是不同的数据,只有key和value都相同才去掉
+    def distinct(numPartitions: Int)(implicit ord: Ordering[T] = null): RDD[T] = withScope {
+        map(x => (x, null)).reduceByKey((x, y) => x, numPartitions).map(_._1)
+    }
 filter		过滤		rdd1.filter(_._2>2)  		rdd.filter(x => x._2==2)
 groupBy(Function)
 按照给定的函数进行分组
@@ -357,4 +533,15 @@ Returns a new Dataset containing rows in this Dataset but not in another Dataset
     如果达到了就将该文件划分为多个分区
     如果指定了分区数为3
     表现行为暂时未得出规律------源码在computeSize相关方法和HDFS计算splitSize中,InputFormat的getSplits
-    
+# spark-sql join
+    streamlter buildlter
+    两张表
+    streamlter为大表
+    buildlter为小表
+    遍历streamlter,每次取出streamlter中的一条数据,根据join条件计算keyA
+    然后取buildlter中查找所有满足join条件的keyB
+    最后经过过滤得到最后的结果
+    buildlter需要是一个查找性能较优的数据结果
+    sort merge join
+    broadcast join
+    hash join  

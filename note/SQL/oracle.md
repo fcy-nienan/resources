@@ -34,3 +34,9 @@
     that is, when all conditions in the WHERE clause are met.
     Since our condition requires that ROWNUM is greater than 2,
     no rows are selected and ROWNUM is never incremented beyond 1.
+# 导入导出
+    exp zxmdapp/passwd@10.180.178.4:1522/cisdb file=~/security_user.dmp
+    imp zxmdapp/passwd@10.180.178.4:1522/cisdb file=~/security_user.dmp
+# 外键删除出错
+    这是因为在建立外键关联的时候妹纸设置级联删除，也就是
+    在设置外键的时候没有加上on delete cascade限定
