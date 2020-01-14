@@ -135,6 +135,8 @@ actually:
     这个肯定有一个shuffle buffer,内存+磁盘,这个空间不够肯定还会spill数据到磁盘,内存使用Map
     怎么知道数据在哪?
     从driver端获取分区信息
+    
+    spark puts the data on HDDs only once during shuffles ,MR do it 2 times
 # task和分区
 D:\\data\\目录下有三个文件
     2020/01/08  23:56       634,776,175 12306.txt   605M 
@@ -159,6 +161,10 @@ sc.textFile("D:\\data\\",10).count
     一个job有多个stage
     一个stage有多个task
     总task数量=jobNum*stageNum*taskNum;就是所有task相加的数量
+# executor内存结构
+     storage memory 存储缓存数据
+     execution memory   存储执行过程中间结果数据
+ # worker节点信息
 # RDD
 属性
 * a list of partitions    一系列分区
@@ -545,3 +551,14 @@ Returns a new Dataset containing rows in this Dataset but not in another Dataset
     sort merge join
     broadcast join
     hash join  
+    
+# 相关类数据结构
+## task
+    private[spark] abstract class Task[T](
+        val stageId: Int,
+        val stageAttemptId: Int,
+        val partitionId: Int,
+        internalAccumulators: Seq[Accumulator[Long]]) extends Serializable {
+    @param stageId id of the stage this task belongs to
+    @param partitionId index of the number in the RDD
+    该task属于哪一个stage,该task计算的数据在RDD的哪一个分区
