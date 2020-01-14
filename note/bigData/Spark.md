@@ -13,23 +13,13 @@
 RDD分为两种操作
 transfer和action
 转换和具体的操作
-
 shuffle操作
 shuffle是Spark将多个分区的数据重新分组重新分布数据的机制。
 shuffle是一个复杂且代价较高的操作，它需要完成将数据在executor和机器节点之间进行复制的工作
-
 在Yarn的NodeManager节点上启动一个map task或者reduce task，
 在物理上启动的是一个jvm进程；而Spark的task是Executor进程中的一个线程。
-
 通过action触发job
 通过宽窄依赖划分stage
-
-
-job,stage,task
-job是我们提交的应用程序
-stage是根据我们提交的程序中的宽窄依赖划分的
-task是根据输入数据的分区数指定的
-
 # 多个不同stage之间可以同时执行吗?
     不可以,stage之间是有执行顺序的,只有上一个执行完了才能执行下一个
 # 根据宽窄依赖划分stage,那比如reduceByKey是在哪一个stage中
@@ -552,8 +542,86 @@ Returns a new Dataset containing rows in this Dataset but not in another Dataset
     broadcast join
     hash join  
     
+<<<<<<< HEAD
 # 相关类数据结构
 ## task
+=======
+# spark相关接口
+## RDD
+    SparkContext
+    List[Partition]
+    Seq[Dependency]
+    Partitioner
+    id
+    name
+    StorageLevel存储级别
+    creationSite创建这个RDD的用户的代码
+    RDDOperationScope
+    RDDCheckpointData
+    doCheckpointCalled:Boolean
+## Partition
+    trait Partition extends Serializable {
+      /**
+       * Get the partition's index within its parent RDD
+       */
+      def index: Int
+    
+      // A better default implementation of HashCode
+      override def hashCode(): Int = index
+    }
+    index
+## Dependency
+    abstract class Dependency[T] extends Serializable {
+      def rdd: RDD[T]
+    }
+    相关子类
+    NarrowDependency窄依赖
+        OneToOneDependency
+        RangeDependency
+        PruneDependency
+    ShuffleDependency宽依赖
+## CallSite
+    case class CallSite(shortForm: String, longForm: String)
+    长短格式的表示用户的代码
+    shortForm:
+        map at DemoFunction.scala:20
+    longForm:
+        org.apache.spark.rdd.RDD.map(RDD.scala:323)\n
+        LeetCode.ScalaAdvanced.DemoFunction$.main(DemoFunction.scala:20)\n
+        LeetCode.ScalaAdvanced.DemoFunction.main(DemoFunction.scala)\n
+## StorageLevel
+    用几个布尔值表示存储在哪
+    class StorageLevel private(
+        private var _useDisk: Boolean,
+        private var _useMemory: Boolean,
+        private var _useOffHeap: Boolean,
+        private var _deserialized: Boolean,
+        private var _replication: Int = 1)
+      extends Externalizable {
+## Stage
+    private[scheduler] abstract class Stage(
+        val id: Int,
+        val rdd: RDD[_],
+        val numTasks: Int,
+        val parents: List[Stage],
+        val firstJobId: Int,
+        val callSite: CallSite)
+    extends Logging {
+    唯一id
+    @param id Unique stage ID  
+    该stage运行的RDD
+    @param rdd RDD that this stage runs on: for a shuffle map stage, it's the RDD we run map tasks
+       on, while for a result stage, it's the target RDD that we ran an action on
+    该stage的task数量
+    @param numTasks Total number of tasks in stage; result stages in particular may not need to
+       compute all partitions, e.g. for first(), lookup(), and take().
+    依赖的父stage
+    @param parents List of stages that this stage depends on (through shuffle dependencies).
+    该stage距离最近的jobID
+    @param firstJobId ID of the first job this stage was part of, for FIFO scheduling.
+    与该stage关联的用户程序的位置
+    @param callSite Location in the user program associated with this stage: either where the target
+# Task
     private[spark] abstract class Task[T](
         val stageId: Int,
         val stageAttemptId: Int,
@@ -562,3 +630,14 @@ Returns a new Dataset containing rows in this Dataset but not in another Dataset
     @param stageId id of the stage this task belongs to
     @param partitionId index of the number in the RDD
     该task属于哪一个stage,该task计算的数据在RDD的哪一个分区
+    Task持有的信息只有stageID和分区ID
+    哪个stage的哪个分区上
+    两种Task
+        ShuffleMapTask
+        ResultTask
+    map(e=>(e,1))
+    reduceByKey((x,y)=>x+y)
+    count
+    执行map函数的是那种Task？
+    执行reduceByKey的是哪种Task
+    执行count的是哪种Task？
