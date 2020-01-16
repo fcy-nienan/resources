@@ -246,6 +246,13 @@ val rdd=sc.parallelize(Array(1 to 10)):Rdd[Range.Inclusive]
     rdd1.count
     rdd2.count//这步计算的时候
 # spark-sql join
+    去重的并集
+    select * from a union select * from b;
+    没去重的并集
+    select * from a union all select * from b;
+    差集
+    select * from a except select * from b;
+
     streamlter buildlter
     两张表
     streamlter为大表
@@ -284,6 +291,9 @@ val rdd=sc.parallelize(Array(1 to 10)):Rdd[Range.Inclusive]
       override def hashCode(): Int = index
     }
     index
+    
+    HashPartitioner
+    RangePartitioner
 ## Dependency
     abstract class Dependency[T] extends Serializable {
       def rdd: RDD[T]

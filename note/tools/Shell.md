@@ -290,15 +290,6 @@
     -t	最大的 CPU 占用时间，以秒为单位。	ulimit – t unlimited；对最大的 CPU 占用时间不进行限制。
     -u	用户最大可用的进程数。	ulimit – u 64；限制用户最多可以使用 64 个进程。
     -v	进程最大可用的虚拟内存，以 Kbytes 为单位。	ulimit – v 200000；限制最大可用的虚拟内存为 200000 Kbytes。
-# sed命令
-    增删改查
-    在第几行增加数据
-    查找并更新
-    查找并删除
-    查找并增加
-    sed '/^\s*$/d' data     删除文件中的空行 ^表示文件开头,$表示文件结尾,\s表示空格,/d表示删除
-    sed -n 18p fileName 查看第18行数据
-    sed -n '1,8p' fileName 查看第1-8行数据
 # shell传递参数
     $1 $2 $3
 # shell字符串相关操作
@@ -378,6 +369,7 @@
     find ./ -mtime +1 -name *.java -exec rm -rf {}
     find /cpic/jtzxmd -type d -exec mkdir -p /home/jtaom{} \;   复制目录结构
     find / -name java -type f 2>/dev/null   将大量出现的Permission Denied重定向到另一个目录
+    find / -name "TR-*.xlsx" 会递归搜索指定目录下的子目录
 # shell文件的三个时间
     atime(access time)   最后访问时间
     ctime(change time)   最后变更时间(文件属性,文件的metadata被修改时)
@@ -393,6 +385,25 @@
     else
 
     fi
+    if [ 1 -eq 1
+    if ((1==1));then
+        echo "true"
+    fi
+    if ((1==1)) && ((2==2));then
+        echo "true"
+    fi
+    
+    -f file        是否是一个文件
+    -x file        文件是否可执行
+    -r file　　　　　用户可读为真
+    -w file　　　　　用户可写为真
+    -x file　　　　　用户可执行为真
+    -f file　　　　　文件为正规文件为真
+    -d file　　　　　文件为目录为真
+    -c file　　　　　文件为字符特殊文件为真
+    -b file　　　　　文件为块特殊文件为真
+    -s file　　　　　文件大小非0时为真
+    -t file　　　　　当文件描述符(默认为1)指定的设备为终端时为真
 # top -H -p <pid>查看指定进程的线程信息
     top中相关参数含义
     VIRT    所有使用的未使用的内存总和
@@ -541,3 +552,7 @@
     读文件	r	    [line-address]r file	将指定的文件读取到匹配行之后
     写文件	w	    [address]w file	        将匹配地址的所有行输出到指定的文件中
     退出	    q	    [line-address]q	        读取到匹配的行之后即退出
+
+    sed '/^\s*\n$/d' data     删除文件中的空行 ^表示文件开头,$表示文件结尾,\s表示空格,/d表示删除
+    sed -n 18p fileName 查看第18行数据
+    sed -n '1,8p' fileName 查看第1-8行数据
