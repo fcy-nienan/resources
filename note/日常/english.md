@@ -158,3 +158,4 @@ This connector features the lowest latency and best overall performance     最�
     overall整体的
 interpreted                                                     解释的
 pads numeric fields with zeros                                  用0填充数字字段
+vulnerabilities                                                 漏洞
