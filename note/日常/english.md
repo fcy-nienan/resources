@@ -155,3 +155,6 @@ back up store                                                   备份存储
 we are going to cover HDFS Disk Balancer in detail              我们将详细介绍HDFS的磁盘平衡
 confidential                                                    保密的
 This connector features the lowest latency and best overall performance     最低的延迟性和最佳的性能
+    overall整体的
+interpreted                                                     解释的
+pads numeric fields with zeros                                  用0填充数字字段

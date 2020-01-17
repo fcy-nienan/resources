@@ -1,2 +1,0 @@
-cleaner.foreach(_.registerBroadcastForCleanup(bc))
-this.type
