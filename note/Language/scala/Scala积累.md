@@ -97,3 +97,7 @@ If you want mutable collections that automatically grow, use the += and +=: meth
 defined by collection.mutable.Buffer.
 不管可变还是不可变的集合,:+和+: 都会创建一个新的集合
 如果你需要可变集合自动增长,使用定义在Buffer中的+=和+=:方法
+3. 3 :: List(1,2)
+::这种时中缀运算符
+The associativity of an operator is determined by the operator’s last character. 
+Operators ending in a colon ‘:’ are right-associative. All other operators are left- associative
