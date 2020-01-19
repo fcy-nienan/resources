@@ -87,3 +87,13 @@ var finalResult = 0 //0默认值
 | obj.isInstanceOf[C] | obj instanceof C |
 | obj.asInstanceOf[C] | (C)obj |
 | classOf[C] | C.class |
+
+# 集合
+1. List(1,2,3) is "magic syntax" to call the apply method in the companion object of 
+trait or class List.
+直接val list=List(1,2,3)这种语法实际上是调用了其伴生对象的apply方法
+2. For both immutable and mutable collections, :+ and +: create new collections. 
+If you want mutable collections that automatically grow, use the += and +=: methods 
+defined by collection.mutable.Buffer.
+不管可变还是不可变的集合,:+和+: 都会创建一个新的集合
+如果你需要可变集合自动增长,使用定义在Buffer中的+=和+=:方法
