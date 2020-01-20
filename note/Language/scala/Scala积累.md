@@ -101,3 +101,7 @@ defined by collection.mutable.Buffer.
 ::这种时中缀运算符
 The associativity of an operator is determined by the operator’s last character. 
 Operators ending in a colon ‘:’ are right-associative. All other operators are left- associative
+# trait and abstract class in scala
+trait can stackable ,So super calls are dynamically bound
+abstract class is not stackable ,So super calls are statically bound
+

@@ -400,3 +400,14 @@ String变量赋值为null,那么常量池中的数据会清除吗?还是说gc只
     抛出的异常类型
     权限修饰符
     修饰方法的关键字(同步,final等待)
+# Iterable和Iterator
+Iterator是迭代器
+Iterable
+    Implementing this interface allows an object to be the target of
+    the "for-each loop" statement. See
+    这个接口代表的是该对象可以迭代,并且可以直接调用for-each方法,可以返回该对象的迭代器
+    迭代器是有多种的,比如传统的只读迭代器,还有List的ListIter可修改迭代器等等
+# 快速失败的modCount
+    putVal,removeVal,clear三个方法会改变该值
+    迭代器持有一份该迭代器创建时的modCount的只并记录
+    每次迭代的时候比较当前modCount和记录的值是否相等,如果不相等抛出异常

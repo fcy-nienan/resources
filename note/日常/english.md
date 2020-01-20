@@ -161,3 +161,6 @@ pads numeric fields with zeros                                  用0填充数字
 vulnerabilities                                                 漏洞
 Legend                                                          说明,传奇
 in the figures above                                            在上图中
+elevator                                                        电梯
+The elevator pitch behind this performance difference is straightforward   这中升降性的性能差异非常简单 直接   
+a class or object (here Bar2) can only derive from one (abstract) class   派生一个类
