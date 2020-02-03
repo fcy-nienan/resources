@@ -9,7 +9,6 @@ as to the result expected whether a left join is used or a left outer join is us
 The result will be similar, unless the environment is in the Microsoft SQL server.
 The outer keyword can be used or even omitted without worry 
 as the results do not differ in any way
-Read more: Difference between Left Join and Left Outer Join | Difference Between http://www.differencebetween.net/technology/software-technology/difference-between-left-join-and-left-outer-join/#ixzz6BH0v0Jtg
 * left outer join(实际就是left join)
 * right outer join(实际就是right join)
 # 
@@ -29,6 +28,8 @@ for(rowA in A){
         if(f(rowA,rowB)){
         
 # spark-sql的三种join实现
-* Broadcast Join
-* Shuffle Hash Join
-* Sort Merge Join
+## Broadcast Join
+    
+## Shuffle Hash Join
+
+## Sort Merge Join
