@@ -391,3 +391,32 @@ val rdd=sc.parallelize(Array(1 to 10)):Rdd[Range.Inclusive]
           }
         }
         
+# spark数据本地行
+    本地缓存
+    本地磁盘
+    其他机器
+# spark参数
+spark.sql.shuffle.partitions
+    在spark-sql中的参数，join时的分区数
+spark.default.parallelism
+    is only working for raw RDD and is ignored when working DataFrame
+    spark使用rdd的参数,textFile方法就用了这个参数的默认值读取文件
+# 资源申请和job执行
+    是等待所有资源全部充足之后才开始执行还是有一部分就申请一部分?
+    后者,有一部分申请一部分,然后等待资源
+    应该又相应的参数设置这个等待的时间
+# RDD的弹性
+    容错
+    task失败重试
+    内存和磁盘都可以存储
+    数据分片,小合并大,大分化小
+# RDD的缺点
+    粗粒度写
+    不支持细粒度的写和更新
+# RDD的宽窄依赖
+    宽依赖:一个RDD的一个分区的数据到达了多个子RDD的多个分区
+    窄依赖:一个RDD的一个分区的数据到达了一个RDD的一个分区，多个RDD的多个分区到达了一个RDD的一个分区
+    宽依赖:一父多子
+    窄依赖:一父一子或者多父一子
+# 如何使用cache缓存
+    shuffle后最后使用缓存持久化一下，网络传输开销大
