@@ -2,14 +2,14 @@
 Ctrl+Alt+S出现一个框选录屏区域  
 没找到Windows的这个快捷键在哪设置  
 只能更改IDEA的快捷键了
-
+后来好像是关闭了xbox后正常了
 # Windows下通过bat设置环境变量  
 ```
 echo.................
 echo 开始注册环境变量
 echo.................
 rem start /WAIT jre-8u144-windows-i586.exe /s INSTALLDIR=C:\Java\jre
-
+rem set只对当前session有效,setx全局有效
 setx JAVA_HOME "D:\Code\Language\java"
 setx GRADLE_HOME "D:\Code\Build\gradle-5.6"
 setx M2_HOME "D:\Code\Build\apache-maven-3.6.1"
