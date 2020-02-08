@@ -7,7 +7,8 @@
 6. spark.storage.memoryFraction
 7. spark.shuffle.memoryFraction
 # 理解
-每个Worker上存在一个或多个CoarseGrainedExecutorBackend进程，每个进程包含一个Executor对象，该对象持有一个线程池，每个线程池可以执行一个Task
+每个Worker上存在一个或多个CoarseGrainedExecutorBackend进程，
+每个进程包含一个Executor对象，该对象持有一个线程池，每个线程可以执行一个Task
 (5+4)/9     9:当前stage的task的数量，5：已完成的task数量，4：等待执行的task数量。
 
 RDD分为两种操作
@@ -16,8 +17,6 @@ transfer和action
 shuffle操作
 shuffle是Spark将多个分区的数据重新分组重新分布数据的机制。
 shuffle是一个复杂且代价较高的操作，它需要完成将数据在executor和机器节点之间进行复制的工作
-在Yarn的NodeManager节点上启动一个map task或者reduce task，
-在物理上启动的是一个jvm进程；而Spark的task是Executor进程中的一个线程。
 通过action触发job
 通过宽窄依赖划分stage
 # 多个不同stage之间可以同时执行吗?
@@ -41,21 +40,24 @@ shuffle是一个复杂且代价较高的操作，它需要完成将数据在exec
         val results = sc.runJob(this, (iter: Iterator[T]) => iter.toArray)
         Array.concat(results: _*)
       }
+     上面的runJob会触发job提交
 # 两种stage
 ShuffleMapStage
 ResultStage
 Each Stage can either be a shuffle map stage, 
-in which case its tasks' results are input for * other stage(s), or a result stage,
+in which case its tasks' results are input for  other stage(s),
+or a result stage,
 in which case its tasks directly compute a Spark action
 每个stage可以是一个shuffleMapStage,他们的task的输出是其他stage的输入
 或者一个resultStage,他们的输出就是直接计算spark的action
 
-Each Stage also has a firstJobId, identifying the job that first submitted the stage.  When FIFO
-scheduling is used, this allows Stages from earlier jobs to be computed first or recovered
+Each Stage also has a firstJobId, identifying the job that first submitted the stage.  
+When FIFOscheduling is used, 
+this allows Stages from earlier jobs to be computed first or recovered
 faster on failure.
 每个stage还有一个job编号，标识这第一次提交这个stage的job，
 当使用FIFO队列，允许计算最早的stage，或者出现故障的时候更快的恢复
- 
+
 # stage的元素
 id                      
     stage的id
@@ -70,13 +72,15 @@ callSite
     CallSite represents a place in user code. It can have a short and a long form
     这东西代表一个用户代码的位置,它可以有一个长短格式
 # 两种Task
-    A Spark job consists of one or more stages. The very last stage in a job consists of multiple
-    ResultTasks, while earlier stages consist of ShuffleMapTasks. A ResultTask executes the task
-    and sends the task output back to the driver application. A ShuffleMapTask executes the task
-    and divides the task output to multiple buckets (based on the task's partitioner).
+    A Spark job consists of one or more stages. 
+    The very last stage in a job consists of multiple ResultTasks, 
+    while earlier stages consist of ShuffleMapTasks. 
+    A ResultTask executes the task and sends the task output back to the driver application. 
+    A ShuffleMapTask executes the task and divides the task output to 
+    multiple buckets (based on the task's partitioner).
 # RDD,DataFrame,DataSet
 RDD是最早的概念
-DataFrame是spark1.3之后提出的概念
+DataFrame是spark1.3之后提出的概念,加上了schema
 DataSet是spark1.6之后提出的概念
 RDD转换为DataFrame
 	val df=deptRDD.toDF();
@@ -93,7 +97,9 @@ actually:
     16Containers 161Cores 656384M
     656384M/1024=641G
 # core,task
-如果有四个Map任务需要运行,只有两个core,那么需要分两批运行
+如果资源不够需要分批运行  
+    如果有四个Map任务需要运行,只有两个core,那么需要分两批运行
+
 每个Task根据提供的分区器进行分区，然后每个分区产生一个小文件
 优化1: File Consolidation 文件合并
     后来优化可以在同个个executor中的task将小文件合并到一个文件中,然后reducer端根据相应的索引获取数据
@@ -102,7 +108,7 @@ actually:
     根据partition ID排序,每个分区内部再按照key排序,同时会生成一个索引文件记录每个partition的大小和偏移量
 优化3: 文件格式变为二进制,再序列化的二进制数据上进行排序,提供了对外内存供使用
     分区数不能超过一定大小(2^24-1),shuffle阶段不能有aggregate操作
-优化4: 同意优化2和优化3,自动选择合适的方式
+优化4: 统一优化2和优化3,自动选择合适的方式
 # 在1M的内存中对100亿条记录进行排序
     假设1M内存能装1亿条记录
     那么我们需要取100次并把每次排序的结果输出到一个文件中
@@ -111,6 +117,8 @@ actually:
 # 为什么需要分区
     减少网络数据传输.spark将RDD进行分区,然后对每个分区进行运算,在网络中传输的可以是每个分区的结果
     当然如果需要进行shuffle那么必要的网络IO还是少不了的
+    容错性
+        某个分区失败不影响其他分区的数据,恢复时只需要重新计算该分区的数据就行
 # shuffle
     shuffle的根本原因还是相同的key在不同的Map端,按照key做一些操作的时候不得不进行shuffle,
     也就是将所有节点的key拉到一个reducer中来
@@ -125,7 +133,6 @@ actually:
     这个肯定有一个shuffle buffer,内存+磁盘,这个空间不够肯定还会spill数据到磁盘,内存使用Map
     怎么知道数据在哪?
     从driver端获取分区信息
-    
     spark puts the data on HDDs only once during shuffles ,MR do it 2 times
 # task和分区
 D:\\data\\目录下有三个文件
@@ -140,21 +147,11 @@ sc.textFile("D:\\data\\").count
 sc.textFile("D:\\data\\",10).count
     当只剩下两个7.7M的文件的时候,text File加了个参数,然后还很有了10个task
     但是奇怪的是只有两个task读了全文件，其他都是读取文件的一部分，并且records都是0
-# CPU核
-    电脑物理CPU个数		1
-    每个CPU的核数		2
-    核只不支持超线程	2
-    处理器数量				2
-    每个处理器的内核数量	2
 # task总数
     一个程序有多个job
     一个job有多个stage
     一个stage有多个task
     总task数量=jobNum*stageNum*taskNum;就是所有task相加的数量
-# executor内存结构
-     storage memory 存储缓存数据
-     execution memory   存储执行过程中间结果数据
- # worker节点信息
 # RDD
 属性
 * a list of partitions    一系列分区
@@ -164,7 +161,7 @@ sc.textFile("D:\\data\\",10).count
 * optionally a list of preferred location to compute each slit on   计算优先位置
     现在回头看，RDD本身就是一个Berkeley的博士们在写论文时，抽象出的概念，
     其本质与Hadoop MapReduce处理时输入输出的key-value，Flink的dataset没有本质区别。
-    处理时，任然使用iterator一边载入部分数据，(读取一部分处理一部分)
+    处理时，仍然使用iterator一边载入部分数据，(读取一部分处理一部分)
     一边执行运算（每个partition的实现内部实际就是一个iterator），没必要纠结这个概念
 # 如果用户直接运行bin/spark-sql命令。会导致我们的元数据有两种状态：
 1. in-memory状态:如果SPARK-HOME/conf目录下没有放置hive-site.xml文件，元数据的状态就是in-memory
@@ -177,7 +174,6 @@ spark-shell --name fcy local[6]   6个线程
 * RDD(resilient distributed dataset)    
     1. 一个可以并行操作的跨集群节点的数据集合
     2. 由Hadoop文件系统或者其他支持Hadoop文件系统的或者一个客户端的Scala集合创建
-    并且
     3. RDD自动从故障节点恢复(数据丢失了可以重新计算)
     4. RDD的两种创建方式
         1. 并行化你的集合

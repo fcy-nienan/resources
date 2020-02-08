@@ -5,7 +5,7 @@ asInstanceOf
 
 
 在Java中null是一个关键字
-而在Scala中鼓励使用Ooption
+而在Scala中鼓励使用Option
 使用getOrElse(defaultValue)返回默认值
 //可以先用get, get 出来的东西是个 Option[A], 再做判断
 ```

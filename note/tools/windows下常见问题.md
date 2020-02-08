@@ -21,10 +21,12 @@ setx SCALA_HOME "D:\Code\Language\scala-2.13.0"
 SETX GIT_HOME "D:\Code\CodeTool\VCS\Git"
 setx TEMP "D:\Dir\tmp"
 setx TMP "D:\Dir\tmp"
+setx SPARK_HOME "D:\Code\BigData\spark-2.4.3-bin-hadoop2.7"
+setx HADOOP_HOME "D:\Code\BigData\hadoop-3.1.2"
 setx CLASSPATH ".;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;"
 
 rem 将path变量的值写在一起，要不然会出现一些奇怪的现象，另外path的值最大1024
-setx PATH "%PATH%;%SYSTEMROOT%\System32\OpenSSH\;%SYSTEMROOT%\System32\WindowsPowerShell\v1.0\;%GIT_HOME%\cmd;%JAVA_HOME%\bin;%GRADLE_HOME%\bin;%MAEVN_HOME%\bin;%NODEJS_HOME%\bin;%PYTHON_HOME%\bin;%SBT_HOME%\bin;%SCALA_HOME%\bin;"
+setx PATH "%PATH%;%SYSTEMROOT%\System32\OpenSSH\;%SYSTEMROOT%\System32\WindowsPowerShell\v1.0\;%GIT_HOME%\cmd;%JAVA_HOME%\bin;%GRADLE_HOME%\bin;%MAEVN_HOME%\bin;%NODEJS_HOME%\bin;%PYTHON_HOME%\bin;%SBT_HOME%\bin;%SCALA_HOME%\bin;%SPARK_HOME%\bin;"
 
 mshta vbscript:msgbox("环境变量已成功注册！",64,"成功")(window.close)
 
