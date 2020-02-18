@@ -41,3 +41,13 @@ for ( i <- List
 ```
 for ( i <- List ) yield variable
 ```
+# other skills
+### 双重循环
+```
+for{
+      i<- 0 until grid.length
+      j<- 0 until grid(0).length
+    }{
+      dp(i)(j)=Math.min(dp(i-1)(j),dp(i)(j-1))+dp(i)(j)
+    }
+```

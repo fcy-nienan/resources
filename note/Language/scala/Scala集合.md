@@ -266,6 +266,7 @@ b+=4->5
     sorted
     startsWith
         同endsWith
+    :+   List(1,2,3,4) :+ 5 = List(1,2,3,4,5)
     sum
     toMap
     toArray
@@ -276,12 +277,21 @@ b+=4->5
 ```
 # mutable Collection
 scala.collection.ArrayBuffer
-    An ArrayBuffer buffer holds an array and a size. Most operations on an array buffer have the same speed as for an array, because the operations simply access and modify the underlying array. Additionally, array buffers can have data efficiently added to the end. Appending an item to an array buffer takes amortized constant time. Thus, array buffers are useful for efficiently building up a large collection whenever the new items are always added to the end
+    An ArrayBuffer buffer holds an array and a size. 
+    Most operations on an array buffer have the same speed as for an array, 
+    because the operations simply access and modify the underlying array. 
+    Additionally, array buffers can have data efficiently added to the end. 
+    Appending an item to an array buffer takes amortized constant time. 
+    Thus, array buffers are useful for efficiently building up a large collection 
+    whenever the new items are always added to the end
     和ArrayList差不多
     val buff=new ArrayBuffer
     buff+=3
 scala.collection.ListBuffer
-    A ListBuffer is like an array buffer except that it uses a linked list internally instead of an array. If you plan to convert the buffer to a list once it is built up, use a list buffer instead of an array buffer
+    A ListBuffer is like an array buffer except that 
+    it uses a linked list internally instead of an array. 
+    If you plan to convert the buffer to a list once it is built up, 
+    use a list buffer instead of an array buffer
     相当于LinkedList
     val buff=new LinkedList
     buff+=3
