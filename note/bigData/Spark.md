@@ -6,6 +6,7 @@
 5. spark.default.parallelism    默认并行度
 6. spark.storage.memoryFraction
 7. spark.shuffle.memoryFraction
+8. spark.serializer=org.apache.spark.serializer.KryoSerializer   更改默认的序列化机制(默认是Java的序列化)
 # 理解
 每个Worker上存在一个或多个CoarseGrainedExecutorBackend进程，
 每个进程包含一个Executor对象，该对象持有一个线程池，每个线程可以执行一个Task

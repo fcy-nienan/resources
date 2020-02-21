@@ -504,6 +504,10 @@
     start : 启动屏幕输出
     stop :停止屏幕输出；
     susp : terminal stop当前程序。
+# rev命令
+    反转字符串
+    echo 'A B C D' | rec
+    
 # seq命令
     生成数
     seq start
@@ -511,6 +515,7 @@
     seq start,inc,end
     seq 10
     seq -f "str%g" 9 11     生成str9,str10,str11,也可以固定位数
+    替换\n成\r\n  sed -e 's/$/\r/' 1pnet.txt >dos.txt
 # sed命令
     匹配并替换
     sed接受[0-2]个地址参数

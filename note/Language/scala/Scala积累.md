@@ -104,4 +104,5 @@ Operators ending in a colon ‘:’ are right-associative. All other operators a
 # trait and abstract class in scala
 trait can stackable ,So super calls are dynamically bound
 abstract class is not stackable ,So super calls are statically bound
-
+# scala中break和continue
+Scala中没有break和continue两个关键字,他是通过breakable和break两个函数抛异常来解决的
