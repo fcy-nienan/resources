@@ -102,7 +102,17 @@
     tr -s ' ' 将 将重复的空格以一个空格显示,tr -s 't' 将重复的t以一个t显示
     tr ':' '\n'  将字符串中的冒号替换位换行符,可以造成split(":")的效果
     tr -d '0-9'  将字符串中的数字删除掉
-    
+# echo
+    单引号将全部当作字符串输出
+    双引号中可以加变量
+# 统计hive中所有分区数据大小
+    work.txt中是所有分区字段信息
+    cat work.txt | while read line
+    do
+    b=`hadoop fs -ls /user/hive/warehouse/mdmg.db/workdate=${line} | awk -F ' ' '{print $5} 
+    | awk '{a+=$1}END{print a}'`
+    a=`echo ${a}+${b} | bc`
+    done
 # Linux输出结果逆序
     ll -t | tac
 # tail当前目录最新文件
