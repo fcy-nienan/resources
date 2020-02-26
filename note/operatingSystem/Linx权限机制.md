@@ -179,6 +179,51 @@ If you have execute permission for a directory, you may change chdir into that d
 这个链接有些作用  
 https://www.unix.com/tips-and-tutorials/19060-unix-file-permissions.html
 
+    What do r w and x really mean for a file?
+    
+    For a file, "read" and "write" are pretty intuitive. 
+    The x for "execute" means that the kernel may attempt to run the file. 
+    For that to work, the file must be an executable (output from a compiler) or a shell script 
+    with a "#!" first line. 
+    For a directory, things are a little more complex. With a directory, 
+    "write" permission means that you can create new files in the directory or remove old files. 
+    It sometimes surprises people that you can remove a file which you cannot read. 
+    The unix rm command will test for that and issue a warning, 
+    but you can suppress that warning with -f. And warning or no, 
+    if you want to remove an unreadable file from a writable directory, you may. 
+    And rmdir will not bother to check at all.
+    
+    What do r w and x really mean for a directory?
+    
+    A directory is a file too, and "read" permission means you can read it. 
+    But you really cannot do very much without x permission as well. 
+    With directories, you usually have both read and execute permission or neither. 
+    On a directory, that x is officially called "search permission". 
+    You need x to use a directory in a pathname. So if you try "cat /etc/passwd", 
+    you will need x on / and /etc. You also need x to cd into a directory. 
+    Suppose you have read but not search (x) permission on a directory. 
+    What can you do? Not much. You can use "ls" to view the file names. 
+    Even "ls -l" will not work. Read access without search permission is not very useful. 
+    Still that is better than having only write permission on a directory...that is completely useless. 
+    I have not seen any other documentation that states this explicitly, 
+    so let me repeat it: write but no execute permission on a directory grants nothing at all.
+    Suppose you have search (x) permission but no read permission on a directory. 
+    Now you can open files in the directory if you happen to know the file's name. 
+    You can cd into the directory. And that is it. You cannot even create a new file. 
+    Adding write permission will allow you to create files. 
+    And you can then delete files if you happen to know their name.
+
+对一个目录来说,w权限意味着你能在这个目录中创建文件或者移除旧的文件  
+r,w,x对一个目录来说究竟意味着什么?  
+目录也是一个文件,r意味着能够读取,但是没有x权限你并不能干点其他的  
+x权限正式定义为搜索权限  
+cat需要,cd需要  
+在一个目录上有r权限没有x权限你能做的事不多  
+在一个目录上只有w权限是完全无用的,我还没看到有其他文档对这进行详细描述  
+只有w权限没有x权限啥也干不了  
+
+这东西具体影响到哪些命令只能实际用的时候去测试了  
+
 # 遇到的问题
 ## /usr/bin/id: cannot find name for user ID 1002
     这个问题是因为普通用户没有权限读取/etc/passwd和/etc/group文件造成，添加权限即可。
