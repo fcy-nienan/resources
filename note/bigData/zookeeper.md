@@ -1,3 +1,8 @@
+# 三个端口
+zkClient连接zkServer的端口
+Leader和followers数据交流的端口
+followers选举的端口
+
 server.A=B.:C:D
 
 A:表示一个数字，这个数字表示第几个服务器，配置在myid的文件
@@ -8,7 +13,6 @@ C:本台服务器与集群中的lender服务器交换信息端口
 
 D:万一leader挂了就需要这个端口重新选举
 
-4.集群最少要几台机器
 
 Finally, note the two port numbers after each server name: " 2888" and "3888". 
 Peers use the former port to connect to other peers. 

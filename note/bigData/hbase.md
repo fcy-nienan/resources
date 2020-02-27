@@ -60,3 +60,12 @@ MemStore达到指定大小flush到磁盘
 将所有的HFile合并为一个HFile,并删除过期的Cell
 Major Compaction期间该Region不可访问
 
+# 核心结构
+底层数据结构是LSM树
+
+
+# 其他零碎
+hbase shell中可以直接写ruby
+HDFS的/hbase目录有关于hbase的一些信息
+WAL日志存储在HDFS上
+

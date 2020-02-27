@@ -191,7 +191,7 @@ hadoop fs -du -h /
           conf.getClass(PARTITIONER_CLASS_ATTR, HashPartitioner.class);
       }
 ```
-## 哈希分区器也简单,就是使用key的hashcode与上整型的最大值然后根据reducer的数量取余
+## 哈希分区器也简单,就是使用key的hashcode AND 整型的最大值然后根据reducer的数量取余
 ```
     /** Partition keys by their {@link Object#hashCode()}. */
     @InterfaceAudience.Public
