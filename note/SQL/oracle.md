@@ -40,3 +40,14 @@
 # 外键删除出错
     这是因为在建立外键关联的时候妹纸设置级联删除，也就是
     在设置外键的时候没有加上on delete cascade限定
+# 序列号
+    create sequence zxmd.seq_v_activity_id
+    minvalue 1
+    maxvalue 99999999
+    start with 1000
+    increment by 1
+    cache 200;
+    
+    create or replace synonym zxmdapp.seq_v_activity_id for zxmd.seq_v_activity
+    
+    grant select on seq_v_activity_id to zxmdapp
