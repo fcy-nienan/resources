@@ -69,3 +69,12 @@ hbase shell中可以直接写ruby
 HDFS的/hbase目录有关于hbase的一些信息
 WAL日志存储在HDFS上
 
+# 预分区
+最初只有一个Region
+当插入的数据越来越多的时候Region会分裂
+rowkey默认是字典序
+我们往hbase中插入数据的时候只在最后一个Region上插入(最后的排序rowkey)
+此时会造成热点问题,RegionTooBushException
+我们肯定想在插入的时候将数据均匀的插入到每个Region
+所以可以在建表的时候提前分好区
+然后在插入的时候就可以多台服务器并行插入了,各自负责各自region的rowkey范围的插入
