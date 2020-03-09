@@ -44,18 +44,7 @@ CentOS-7-x86_64-Minimal-1708.iso           精简版，自带的软件最少
 
 
 
-
-
-DEVICE=etho
-TYPE=Ethernet
-ONBOOT=yes
-NM_CONTROLLED=yes
-BOOTPROTO=dhcp
-
-
-
-
-
+更新yum源
 CentOS 5
 wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-5.repo
 CentOS 6
@@ -68,3 +57,5 @@ linux信息http://www.linfo.org/index.html
 Linux信息https://www.kernel.org/doc/Documentation/filesystems/proc.txt
 
 Mysql手册https://dev.mysql.com/doc/refman/8.0/en/assignment-operators.html
+
+w3resources https://www.w3resource.com/
