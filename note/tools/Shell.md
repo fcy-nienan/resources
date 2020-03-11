@@ -308,6 +308,18 @@
     获取字符串长度
     ${#string}
     ${file/e/k}将file字符串中的第一个e替换为k
+    
+    name=hello.world.txt.20200229
+    从左边开始一直到.删除掉
+    echo #{name#*.}   // world.txt.2020.229
+    从左边开始一直到最后一个.删除掉
+    echo ${name##*.}  // 20200229
+    从右边开始到第一个.删除掉
+    echo ${name%.*}   // hello.world.txt
+    从右边开始到最后一个.删除掉
+    echo ${name%%.*}  // hello
+    expr substr $name 1 3 // hel
+    
 # shell循环
     for((i=0;i<10;i++))
     do
