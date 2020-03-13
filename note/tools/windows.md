@@ -39,3 +39,6 @@ window下查找字符串
 taskschd.msc
 clip
 SnippingTool截图
+
+del /S /Q 
+rmdir /S /Q

@@ -72,6 +72,7 @@
     数据抽样,去除一部分数据  
     sample(false,0.5,1)  
     withReplacement表示取样是取出来的数据是否放回  
+    seed一直一样的话就一直是重复的数据
 * union  
     不发生shuffle  
     数据不去重(sql中的union是去重的)  
