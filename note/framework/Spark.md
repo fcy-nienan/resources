@@ -87,6 +87,10 @@ RDD转换为DataFrame
 	val df=deptRDD.toDF();
 	df.createOrReplaceTempView("dept");
 	spark.sql("select * from dept").show();
+RDD本身就是一个抽象出的概念，
+其本质与Hadoop MapReduce处理时输入输出的key-value，Flink的dataset没有本质区别。
+处理时，仍然使用iterator一边载入部分数据，(读取一部分处理一部分)
+一边执行运算（每个partition的实现内部实际就是一个iterator），没必要纠结这个概念
 # yarn memory
 num-executors 16
 executor-cores 10
@@ -160,10 +164,6 @@ sc.textFile("D:\\data\\",10).count
 * a list of dependencies on other rdds   父依赖
 * optionally a partitioner for key-value rdds   分区器
 * optionally a list of preferred location to compute each slit on   计算优先位置
-    现在回头看，RDD本身就是一个Berkeley的博士们在写论文时，抽象出的概念，
-    其本质与Hadoop MapReduce处理时输入输出的key-value，Flink的dataset没有本质区别。
-    处理时，仍然使用iterator一边载入部分数据，(读取一部分处理一部分)
-    一边执行运算（每个partition的实现内部实际就是一个iterator），没必要纠结这个概念
 # 如果用户直接运行bin/spark-sql命令。会导致我们的元数据有两种状态：
 1. in-memory状态:如果SPARK-HOME/conf目录下没有放置hive-site.xml文件，元数据的状态就是in-memory
 2. hive状态：如果我们在SPARK-HOME/conf目录下放置了，hive-site.xml文件，那么默认情况下spark-sql的元数据的状态就是hive.

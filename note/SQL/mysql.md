@@ -81,4 +81,18 @@
     详细考虑一下这几个时间段
     1,系统崩溃,不管,数据啥也没改变
     2,写完了系统崩溃
-    
+# mysql for loop
+    ITERATE can appear only within LOOP, REPEAT, and WHILE statements. ITERATE means “start the loop again.”
+
+
+    CREATE PROCEDURE insertData(p1 INT)
+    BEGIN
+        label1: LOOP
+            SET p1 = p1 + 1;
+            IF p1 < 10 THEN
+                ITERATE label1;
+            END IF;
+            LEAVE label1;
+        END LOOP label1;
+        SET @x = p1;
+    END;

@@ -51,3 +51,34 @@
     create or replace synonym zxmdapp.seq_v_activity_id for zxmd.seq_v_activity
     
     grant select on seq_v_activity_id to zxmdapp
+# Oracle分区
+    oracle有三种分区方式
+    range,list,hash
+    范围分区,列表分区,哈希分区
+    还有复合分区
+    range+list
+    range+hash
+    其他不行,只能这两种符合分区
+    select * from user_tab_partitions where table_name='';
+    
+    查询某一分区数据
+    select * from table partition(partitionName)
+    
+    create table cd_oracle(
+    cd_id string,
+    sub_company string,
+    sup_company string,
+    final_date string)
+    partition by range(sub_company) subpartition by list(final_date)
+    (
+        partition part_3010100 values less than values('4010100')
+        (
+            partition part_3010100_01 values('01'),
+            partition part_3010100_02 values('02')
+        ),
+        partition part_4010100 values less than values('5010100')
+        (   
+            partition part_3010100_01 values('01'),
+            partition part_3010100_02 values('02')
+        )
+    )
