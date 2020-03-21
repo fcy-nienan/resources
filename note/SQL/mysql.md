@@ -3,9 +3,23 @@
     MYD是数据文件
     MYI是索引
     *.frm是描述了表的结构，*.MYD保存了表的数据记录，*.MYI则是表的索引
+    直接放在mysql的data目录下就能在MySQL命令行看到表了
 # 命令
     alter table tableName add column id int;
     为没有id的表赋值一个递增id
+    
+    修改列名
+    alter table tableName change column oldName newName varchar(255)
+    
+    修改表名
+    alter table tableName rename to newName;
+    
+    查看执行计划
+    explain select * from data;
+    
+    查看表的索引
+    show idnex from tableName;
+    
     create table tt as 
     select @rownum:=@rownum+1 as id,
     username,
@@ -96,3 +110,27 @@
         END LOOP label1;
         SET @x = p1;
     END;
+# 启动mysql报系统无法找到文件
+    打开Windows的服务
+    windows+R
+    services.msc
+    找到mysql服务并且点击右键查看属性
+    发现可执行文件的路径为"C:\Program Files\MySQL\MySQL Server 5.7\mysqld" MySQL
+    打开注册表
+    定位到该路径
+    HKEY_LOCAL_MACHINE -> SYSTEM -> CurrentControlSet -? services -> mysql -> ImagePath
+    修改该值为mysql的安装路径
+# mysql执行计划
+    https://dev.mysql.com/doc/refman/8.0/en/explain-output.html
+    id	select_id	The SELECT identifier
+    select_type	None	The SELECT type
+    table	table_name	The table for the output row
+    partitions	partitions	The matching partitions
+    type	access_type	The join type
+    possible_keys	possible_keys	The possible indexes to choose
+    key	key	The index actually chosen
+    key_len	key_length	The length of the chosen key
+    ref	ref	The columns compared to the index
+    rows	rows	Estimate of rows to be examined
+    filtered	filtered	Percentage of rows filtered by table condition
+    Extra	None	Additional information
