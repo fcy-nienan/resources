@@ -1,3 +1,5 @@
+https://docs.docker.com/engine/reference/commandline/inspect/
+
 docker attach container_id
 docker rm
 docker rmi

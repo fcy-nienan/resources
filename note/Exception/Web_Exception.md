@@ -15,3 +15,10 @@ Upload-master
             <param-value>false</param-value>
         </init-param>
 </servlet>
+
+# windows无法上网
+    右下角显示有网络
+    浏览器访问网址无效
+    通过Windows诊断发现DNS服务器未响应
+    在网络连接配置了一下IPV4中的属性,手动填写DNS地址114.114.114.114
+    填写后正常访问网络
