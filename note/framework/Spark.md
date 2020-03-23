@@ -417,3 +417,4 @@ spark.default.parallelism
     窄依赖:一父一子或者多父一子
 # 如何使用cache缓存
     shuffle后最后使用缓存持久化一下，网络传输开销大
+# spark那些代码在本地执行，哪些会被序列化为任务

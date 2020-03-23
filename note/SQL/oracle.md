@@ -82,3 +82,42 @@
             partition part_3010100_02 values('02')
         )
     )
+# Oracle连接数
+    --当前连接数
+    select count(*) from v$process;
+    
+    
+    --允许最大连接数 （默认是150）
+    select value from v$parameter where name = 'processes';
+    
+    alter system set processes = 300 scope =spfile; 
+# oracle maximum open cursor exceeded
+    关闭prepareSment和ResultSet 
+# jdbc占位符
+    update table set name=? ,age=? where id=?
+    jdbc会自动为占位符加上单引号，所以如果是字符串类型的话不需要特殊处理
+    那其他数字类型的加了占位符会相等吗？能成功赋值吗？
+# 查询正在执行的sql和session
+    
+    SELECT b.sid oracleID,
+           b.username 登录Oracle用户名,
+           b.serial#,
+           spid 操作系统ID,
+           paddr,
+           sql_text 正在执行的SQL,
+           b.machine 计算机名
+    FROM v$process a, v$session b, v$sqlarea c
+    WHERE a.addr = b.paddr
+       AND b.sql_hash_value = c.hash_value
+       
+    查询oracle的连接数
+    select count(*) from v$session;
+    查询oracle当前的的并发连接数
+    select count(*) from v$session where status='ACTIVE';
+    查询允许的最大连接数
+    select value from v$parameter where name = 'processes';
+# java.sql.SQLException: 批处理中出现错误: batch must be either executed or cleared
+    应该是使用executeBatch
+    而我错误的写成了executeUpdate
+# dba_data_files表信息
+    https://docs.oracle.com/cd/B19306_01/server.102/b14237/statviews_3083.htm#REFRN23049
