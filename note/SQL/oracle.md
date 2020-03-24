@@ -82,3 +82,10 @@
             partition part_3010100_02 values('02')
         )
     )
+# oracle 命令
+    查看所有表空间信息
+    select * from dba_tablespace;
+    查看临时表空间
+    select * from dba_temp_files;
+    查看所有表空间大小
+    select * from dba_data_files;
