@@ -22,3 +22,7 @@ Upload-master
     通过Windows诊断发现DNS服务器未响应
     在网络连接配置了一下IPV4中的属性,手动填写DNS地址114.114.114.114
     填写后正常访问网络
+# tomcat
+    8005端口  监听关闭tomcat的命令
+    8009端口  AJP
+    8443端口  HTTPS
