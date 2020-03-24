@@ -417,8 +417,12 @@ spark.default.parallelism
     窄依赖:一父一子或者多父一子
 # 如何使用cache缓存
     shuffle后最后使用缓存持久化一下，网络传输开销大
+<<<<<<< HEAD
 # 进度条显示的是啥
     [Stage7:===========>                              (14174 + 5) / 62500]
     val total = s.numTasks()
     val header = s"[Stage ${s.stageId()}:"
     val tailer = s"(${s.numCompletedTasks()} + ${s.numActiveTasks()}) / $total]"
+=======
+# spark那些代码在本地执行，哪些会被序列化为任务
+>>>>>>> tmp

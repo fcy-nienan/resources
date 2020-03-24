@@ -129,7 +129,7 @@ desc formatted tableName
     3 chinese:99,100,82
     
     LOAD DATA LOCAL INPATH '/home/hadoop/test1.txt' OVERWRITE INTO TABLE test1;
-    
+    load无法指定分隔符，load只是将文件放入相应的路径中
 # hive命令
 >https://cwiki.apache.org/confluence/display/Hive/GettingStarted
 ## DML
@@ -195,6 +195,12 @@ SQL
     
     查看分区信息
     DESCRIBE EXTENDED page_view PARTITION (ds='2013-08-08');
+    
+    查看建表语句
+    show create table tableName;
+    
+    查看表结构
+    desc tableName
     
     导出数据
     FROM src

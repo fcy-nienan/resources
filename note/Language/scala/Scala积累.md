@@ -106,3 +106,18 @@ trait can stackable ,So super calls are dynamically bound
 abstract class is not stackable ,So super calls are statically bound
 # scala中break和continue
 Scala中没有break和continue两个关键字,他是通过breakable和break两个函数抛异常来解决的
+# Scala中三个单引号
+    在三个单引号中会把界面上看到的字符串格式原封不动的输出，比如回车后他就回车
+    而两个单引号中换行必须写\r\n
+    左对齐用
+    """|welcome to 
+            |home"""
+    welcome to 
+    home
+# 
+    var insertData=hc.getFullData()
+    insertData(otherData)
+    def insertData(data:DataFrame):Unit={
+        
+    }
+    上诉报编译错误，由于insertData有apply属性可以直接带括号访问，所以并没有调用下面的insertData函数
