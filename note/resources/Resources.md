@@ -59,3 +59,5 @@ Linux信息https://www.kernel.org/doc/Documentation/filesystems/proc.txt
 Mysql手册https://dev.mysql.com/doc/refman/8.0/en/assignment-operators.html
 
 w3resources https://www.w3resource.com/
+
+jmx包下载http://www.java2s.com/Code/Jar/j/Downloadjmxtoolsjar.htm
