@@ -2,14 +2,29 @@
     A有一个方法f()
     B和C都继承A并且都实现了f方法
     然后D继承B和C并且没有重写f方法,那么D该使用哪个方法
-# 函数
-
 # 闭包
-
+    函数式中实现成员变量的方式
+    栈的某一刻快照
+    Every function in JavaScript maintains a link to its outer lexical environment. 
+    A lexical environment is a map of all the names (eg. variables, parameters) within a scope, 
+    with their values.
+      def main(args: Array[String]): Unit = {
+        val intToInt = closure()
+        println(intToInt(1))
+        println(intToInt(2))
+      }
+      def closure():(Int)=>Int={
+        var factory=1
+        val x=(x:Int)=>{
+          factory+=1
+          x*factory
+        }
+        x
+      }
 # 柯里化
 * 柯里化从直观上看就是将一个接收多个参数的函数改造为只接收一个参数
   并且返回一个函数，返回的函数接收其他参数，一直到接收最后一个参数
-* 可以惰性求值,知道所有的参数到齐后才能得到最终的结果
+* 可以惰性求值,直到所有的参数到齐后才能得到最终的结果
   中间过程得到的只是一个函数的地址
   2019-12-30:有点疑问?执行addSugar(1)的时候返回的是一个函数,那我的那个变量存储在哪里,毕竟我返回的只是一个函数啊
   通过在jvisualvm中查看内存发现其实返回的是一个对象.
