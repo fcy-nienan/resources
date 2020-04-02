@@ -527,6 +527,7 @@
     stop :停止屏幕输出；
     susp : terminal stop当前程序。
 # rev命令
+    字符串反转
     反转字符串
     echo 'A B C D' | rec
     
@@ -583,3 +584,6 @@
     sed '/^\s*\n$/d' data     删除文件中的空行 ^表示文件开头,$表示文件结尾,\s表示空格,/d表示删除
     sed -n 18p fileName 查看第18行数据
     sed -n '1,8p' fileName 查看第1-8行数据
+# sort命令
+    根据某一分隔符分割，根据第二列去重
+    sort -n -k 2 -t : Plan.txt
