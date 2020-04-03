@@ -322,3 +322,8 @@ wchan
                                               of holding a syscall kernel lock... */  
     #endif   
     };
+    
+linux kernel
+https://www.tldp.org/LDP/tlk/tlk.html
+proc文件系统
+https://www.kernel.org/doc/Documentation/filesystems/proc.txt
