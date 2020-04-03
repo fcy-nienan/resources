@@ -126,7 +126,11 @@
     combOp: (U, U) => U): RDD[(K, U)] = self.withScope {
     根据key进行聚合操作,使用方法类似下面的aggregate算子
 * glom  
-    将RDD的每一行合并为一个数组
+    Return an RDD created by coalescing all elements within each partition into an array.
+    将RDD的每一个分区的数据合并为一个数组
+    var rdd1=sc.range(1,100000000,1,100)
+    rdd1.glom.count   //100
+    
 ## shuffle
 ### join
 * join  
@@ -306,6 +310,10 @@
     }
     ```
     去重	(k,v),去重时相同的key不同的value是不同的数据,只有key和value都相同才去掉  
+    命令式编程怎么去重?
+    通过hashMap
+    
+    
     ```
     scala> val rdd=sc.parallelize(1 to 100,5)
     rdd: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[0] at parallelize at <console>:24  

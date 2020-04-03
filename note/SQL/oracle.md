@@ -34,6 +34,10 @@
     that is, when all conditions in the WHERE clause are met.
     Since our condition requires that ROWNUM is greater than 2,
     no rows are selected and ROWNUM is never incremented beyond 1.
+    
+    https://docs.oracle.com/cd/B14117_01/server.101/b10759/pseudocolumns008.htm
+    
+    https://blogs.oracle.com/oraclemagazine/on-rownum-and-limiting-results
 # 导入导出
     exp zxmdapp/passwd@10.180.178.4:1522/cisdb file=~/security_user.dmp
     imp zxmdapp/passwd@10.180.178.4:1522/cisdb file=~/security_user.dmp
