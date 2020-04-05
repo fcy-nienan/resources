@@ -310,3 +310,58 @@ scala.collection.ListBuffer
     相当于LinkedList
     val buff=new LinkedList
     buff+=3
+# 算子
+## flatten 
+    扁平化
+    var x=List(List(1,2),List(3,4))
+    x.flatten
+    List[Int]=List(1,2,3,4)
+    降维,将一个二维数组降为一维
+## flatMap
+    对元素先进行map,然后执行flatten降维
+    scala> val x=List("hello world","I am a boy!")
+    x: List[String] = List(hello world, I am a boy!)
+    
+    scala> x.flatten
+    res0: List[Char] = List(h, e, l, l, o,  , w, o, r, l, d, I,  , a, m,  , a,  , b, o, y, !)
+    
+    scala> x.flatMap(e=>e.split(" "))
+    res1: List[String] = List(hello, world, I, am, a, boy!)
+# grouped
+    对一维的数据升维
+    scala> var x=List(1,2,3,4,5)
+    x: List[Int] = List(1, 2, 3, 4, 5)
+
+    scala> x.grouped(2).toList
+    res3: List[List[Int]] = List(List(1, 2), List(3, 4), List(5))
+    
+    scala> x.grouped(1).toList
+    res4: List[List[Int]] = List(List(1), List(2), List(3), List(4), List(5))
+# zip
+    将两个一维度的集合合并为一个一维度的元组
+    scala> var x=List(1,2,3)
+    x: List[Int] = List(1, 2, 3)
+    
+    scala> var y=List(4,5,6)
+    y: List[Int] = List(4, 5, 6)
+    
+    scala> x.zip(y)
+    res7: List[(Int, Int)] = List((1,4), (2,5), (3,6))
+# unzip
+    将一个一维度的元组分解为多个一维度的集合
+    scala> var x=List(1,2,3)
+    x: List[Int] = List(1, 2, 3)
+    
+    scala> var y=List(4,5,6)
+    y: List[Int] = List(4, 5, 6)
+    
+    scala> var z=x.zip(y)
+    z: List[(Int, Int)] = List((1,4), (2,5), (3,6))
+    
+    scala> z.unzip
+    res10: (List[Int], List[Int]) = (List(1, 2, 3),List(4, 5, 6))
+# 统计字符出现的次数,并按照次数降序排列
+    var arrs=Array("this is a demo","good good study","day day up") 
+    arr.flatMap(_.split(" ")).flatten.groupBy(e=>e).mapValues(_.size).toList.sortBy(_._2).reverse
+
+    
