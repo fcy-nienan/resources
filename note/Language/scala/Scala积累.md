@@ -34,6 +34,16 @@ var finalResult = 0 //0默认值
 }
 ```
 # Option
+    ```
+    Represents optional values. Instances of `Option`
+    are either an instance of $some or the object $none.
+    ```
+    
+    your function should instead return an instance of an Option, where the instance is either:
+    An instance of the Scala Some class
+    An instance of the Scala None class
+    Because Some and None are both children of Option
+    
 # Some    
     ```
     Class `Some[A]` represents existing values of type
