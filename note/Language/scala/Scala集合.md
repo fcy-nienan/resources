@@ -2,14 +2,29 @@
     A有一个方法f()
     B和C都继承A并且都实现了f方法
     然后D继承B和C并且没有重写f方法,那么D该使用哪个方法
-# 函数
-
 # 闭包
-
+    函数式中实现成员变量的方式
+    栈的某一刻快照
+    Every function in JavaScript maintains a link to its outer lexical environment. 
+    A lexical environment is a map of all the names (eg. variables, parameters) within a scope, 
+    with their values.
+      def main(args: Array[String]): Unit = {
+        val intToInt = closure()
+        println(intToInt(1))
+        println(intToInt(2))
+      }
+      def closure():(Int)=>Int={
+        var factory=1
+        val x=(x:Int)=>{
+          factory+=1
+          x*factory
+        }
+        x
+      }
 # 柯里化
 * 柯里化从直观上看就是将一个接收多个参数的函数改造为只接收一个参数
   并且返回一个函数，返回的函数接收其他参数，一直到接收最后一个参数
-* 可以惰性求值,知道所有的参数到齐后才能得到最终的结果
+* 可以惰性求值,直到所有的参数到齐后才能得到最终的结果
   中间过程得到的只是一个函数的地址
   2019-12-30:有点疑问?执行addSugar(1)的时候返回的是一个函数,那我的那个变量存储在哪里,毕竟我返回的只是一个函数啊
   通过在jvisualvm中查看内存发现其实返回的是一个对象.
@@ -295,3 +310,58 @@ scala.collection.ListBuffer
     相当于LinkedList
     val buff=new LinkedList
     buff+=3
+# 算子
+## flatten 
+    扁平化
+    var x=List(List(1,2),List(3,4))
+    x.flatten
+    List[Int]=List(1,2,3,4)
+    降维,将一个二维数组降为一维
+## flatMap
+    对元素先进行map,然后执行flatten降维
+    scala> val x=List("hello world","I am a boy!")
+    x: List[String] = List(hello world, I am a boy!)
+    
+    scala> x.flatten
+    res0: List[Char] = List(h, e, l, l, o,  , w, o, r, l, d, I,  , a, m,  , a,  , b, o, y, !)
+    
+    scala> x.flatMap(e=>e.split(" "))
+    res1: List[String] = List(hello, world, I, am, a, boy!)
+# grouped
+    对一维的数据升维
+    scala> var x=List(1,2,3,4,5)
+    x: List[Int] = List(1, 2, 3, 4, 5)
+
+    scala> x.grouped(2).toList
+    res3: List[List[Int]] = List(List(1, 2), List(3, 4), List(5))
+    
+    scala> x.grouped(1).toList
+    res4: List[List[Int]] = List(List(1), List(2), List(3), List(4), List(5))
+# zip
+    将两个一维度的集合合并为一个一维度的元组
+    scala> var x=List(1,2,3)
+    x: List[Int] = List(1, 2, 3)
+    
+    scala> var y=List(4,5,6)
+    y: List[Int] = List(4, 5, 6)
+    
+    scala> x.zip(y)
+    res7: List[(Int, Int)] = List((1,4), (2,5), (3,6))
+# unzip
+    将一个一维度的元组分解为多个一维度的集合
+    scala> var x=List(1,2,3)
+    x: List[Int] = List(1, 2, 3)
+    
+    scala> var y=List(4,5,6)
+    y: List[Int] = List(4, 5, 6)
+    
+    scala> var z=x.zip(y)
+    z: List[(Int, Int)] = List((1,4), (2,5), (3,6))
+    
+    scala> z.unzip
+    res10: (List[Int], List[Int]) = (List(1, 2, 3),List(4, 5, 6))
+# 统计字符出现的次数,并按照次数降序排列
+    var arrs=Array("this is a demo","good good study","day day up") 
+    arr.flatMap(_.split(" ")).flatten.groupBy(e=>e).mapValues(_.size).toList.sortBy(_._2).reverse
+
+    

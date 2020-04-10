@@ -81,6 +81,7 @@
     加了SESSION,当前的session之后的所有session都是该级别
     啥都没加就是下一个session是设置的隔离级别 
 # mysql的日志
+    You can observe it by toggling on the mysql logging (by SET global general_log = 1) which would log into a file each statement sent to the mysql server
     bin日志,数据改动的记录
     redo日志,数据写之前记录
     undo日志,数据写之后记录

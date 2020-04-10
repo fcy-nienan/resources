@@ -345,6 +345,7 @@
     reduce只能返回和x相同的值且x没有初始值  
     fold可以设置初始值但返回类型还是固定的  
     aggregate可以设置初始值并且返回不同的类型  
+    aggregate对每个分区的数据进行归约,然后将每个分区的结果拿来,再次进行归约,两次归约的初始值都是设定的
     核心代码:  
     ```
     def aggregate[U: ClassTag](zeroValue: U)(seqOp: (U, T) => U, combOp: (U, U) => U): U = withScope 
@@ -361,7 +362,8 @@
     res8: Float = 5.5
     ```
     解释:  
-        上面的job提交了4个Task来执行  
+        上面的jo
+        b提交了4个Task来执行  
         假如各个Task所执行的分区数据是(1,2),(3,4),(5,6,7),(8,9,10)  
         每个Task都执行seqOp函数  
         SeqOp函数中x的类型是(m1,m2),且我们指定了其初始值(0,0)  

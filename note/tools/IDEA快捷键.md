@@ -3,6 +3,8 @@
 Eclipse
 Ctrl+Shift+x    大写
 Ctrl+Shift+y    小写
+IDEA大小写
+Ctrl+Shift+u
 
 Alt+V垂直分屏
 Alt+H水平分屏
