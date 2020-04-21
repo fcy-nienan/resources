@@ -37,3 +37,34 @@ var t=range(10,20,2)创建区间数组10-20,间隔2
 # 疑问
     我很好奇Scala不可变集合是否是通过链表实现的
     但是debug中并没有发现集合对象中有相应的next和prev等指针
+# def和val和var
+>>https://stackoverflow.com/questions/4437373/use-of-def-val-and-var-in-scala
+
+    def定义方法
+    val定义一个固定的变量
+    var定义一个可变的变量
+    至于有时候看着def似乎能定义变量那其实是定义方法,只是有很多语法糖
+# scala中的apply,update,unapply
+    下面三个方法都需要定义在半生类对象中
+
+    val list=List(1,2,3,4,5)
+    上述实际上是调用了List的apply方法,不用写new
+    
+    val array=Array(1,2,3,4,5)
+    array(2)=10
+    上述赋值实际调用的是Array的update方法
+    
+    val value=User("fcy","nienan")
+    println(value)
+    val User(name)=value
+    println(name)
+    实际调用的是val name=User.unapply(value)
+    也就是在一个对象中抽取指定变量
+# scala不定参数
+    def apply(x:Int*){
+    
+    }
+# scala参数默认值
+    def apply(x:Int,y:Int=3){
+    
+    }

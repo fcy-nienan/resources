@@ -364,4 +364,4 @@ scala.collection.ListBuffer
     var arrs=Array("this is a demo","good good study","day day up") 
     arr.flatMap(_.split(" ")).flatten.groupBy(e=>e).mapValues(_.size).toList.sortBy(_._2).reverse
 
-    
+# scala命令行可以直接输入 :paste   

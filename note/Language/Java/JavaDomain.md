@@ -411,3 +411,23 @@ Iterable
     putVal,removeVal,clear三个方法会改变该值
     迭代器持有一份该迭代器创建时的modCount的只并记录
     每次迭代的时候比较当前modCount和记录的值是否相等,如果不相等抛出异常
+# java path
+    1. rt.jar
+        rt.jar 默认就在Root Classloader的加载路径里面的，而在Claspath配置该变量是不需要的；同时jre/lib目录下的
+    
+        其他jar:jce.jar、jsse.jar、charsets.jar、resources.jar都在Root Classloader中
+    
+    2. tools.jar
+    
+        tools.jar 是系统用来编译一个类的时候用到的，即执行javac的时候用到
+    
+        javac XXX.java
+    
+        实际上就是运行
+    
+        java -Calsspath=%JAVA_HOME%\lib\tools.jar xx.xxx.Main XXX.java
+    
+        javac就是对上面命令的封装 所以tools.jar 也不用加到classpath里面
+    
+    3. dt.jar
+        dt.jar是关于运行环境的类库,主要是swing的包   在用到swing时最好加上。
