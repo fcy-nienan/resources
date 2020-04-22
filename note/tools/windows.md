@@ -81,3 +81,12 @@ rmdir /S /Q
     
     
     上述的172.16.0.22这个一般也能通过ipconfig这个命令查询到，这个就是本地电脑的某一个网络地址
+# windows下网络命令
+    输入netsh可一层一层显示
+    
+    输入
+    netsh interface ip 
+    可显示命令信息
+    netsh interface tcp同理
+# Windows下删除目录
+    rd命令
