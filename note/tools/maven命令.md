@@ -76,3 +76,14 @@ mvn dependency:tree 查看当前项目依赖
       </execution>
    </executions>
    </plugin>
+   
+# maven多个源的优先级
+    本地仓库
+    setting.xml
+    pom.xml
+    中央仓库
+# maven的多个setting.xml
+    用mvn help:effective-settings可以查看当前生效的settings.xml：
+
+    mvn -X命令可以查看settings.xml文件的读取顺序：
+
