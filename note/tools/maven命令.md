@@ -76,3 +76,12 @@ mvn dependency:tree 查看当前项目依赖
       </execution>
    </executions>
    </plugin>
+   
+# maven的profile
+
+# maven打包跳过测试
+    mvn package -Dmaven.test.skip=true 
+    mvn install -Dmaven.test.skip=true
+# maven
+    通过profiles属性定义不同环境下的属性
+    通过resources标签定义哪些目录哪些文件会被打包
