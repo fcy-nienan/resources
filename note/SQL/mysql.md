@@ -135,3 +135,9 @@
     rows	rows	Estimate of rows to be examined
     filtered	filtered	Percentage of rows filtered by table condition
     Extra	None	Additional information
+# mysql查看已定义的函数
+    SHOW FUNCTION STATUS LIKE 'hello';
+    SHOW  CREATE FUNCTION hello;
+# mysql按照中文拼音排序
+    order by (name using gbk) asc;
+    

@@ -132,3 +132,15 @@
     而我错误的写成了executeUpdate
 # dba_data_files表信息
     https://docs.oracle.com/cd/B19306_01/server.102/b14237/statviews_3083.htm#REFRN23049
+# 查看Oracle定义的函数源码
+    SELECT * FROM  USER_PROCEDURES;
+    SELECT * FROM USER_SOURCE WHERE NAME = 'COMPUTERFEE';
+# oracle按照中文拼音排序
+    nlssort (name ,nsl_sort='schinese_pinyin_m');
+# oracle查看from后面的是表还是视图
+    select * from all_objects;
+# 查看建视图语句
+    select * from user_views 
+# 连接字符串
+    select id||'-'||name||'-' from user;
+    select  

@@ -119,3 +119,5 @@ git中忽略指定文件夹或者文件
 　　执行完后/home/用户名/.gitconfig 会新增一项  
 　　helper = store  
 　　这时再执行git push/pull的时候就不会在要求你输入密码了。    
+# git删除untracked文件
+    git clean -fd

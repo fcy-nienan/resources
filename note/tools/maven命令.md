@@ -94,3 +94,4 @@ mvn dependency:tree 查看当前项目依赖
     用mvn help:effective-settings可以查看当前生效的settings.xml：
 
     mvn -X命令可以查看settings.xml文件的读取顺序：
+    
