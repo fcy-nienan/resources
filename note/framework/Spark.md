@@ -170,7 +170,7 @@ sc.textFile("D:\\data\\",10).count
 # spark-shell
 spark-shell --name fcy local[6]   6个线程
 # Spark相关概念
-## overview
+## 
     spark提供了两种抽象:RDD和共享变量
 * RDD(resilient distributed dataset)    
     1. 一个可以并行操作的跨集群节点的数据集合
