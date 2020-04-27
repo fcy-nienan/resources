@@ -22,11 +22,13 @@
 ### 显示
 ![GC图片](../resources/photo/gc-collector.gif "图片的标题")
 ![alt中文好像不显示啊](../resources/photo/unknow.gif "图片不存在,并且我的环境是中文不行")
+
 # 链接
 ### 写法  
 ```[谷歌](http://www.google.com)```  
 ### 显示  
 [谷歌](http://www.google.com)
+
 # 引用
 ### 写法  
 ```
@@ -37,6 +39,7 @@
 ### 显示  
 >这是一段引用文字
 >>这又是引用呢
+>>
 >>>这还是引用呢。。。
 # 列表
 ### 写法
