@@ -19,9 +19,6 @@
         也就是这个字段时varchar(255),如果不设置这个他会输出255个字符,设置了之后就会只输出有值的部分
         set warp off;
         set linesize 160;
-
-# 查看建表语句  desc table_name
-
 # how oracle works?
     you want to get data with a filter and rownum=2,
     first Oracle executes the sql with filter and get the first record,
@@ -42,7 +39,7 @@
     exp zxmdapp/passwd@10.180.178.4:1522/cisdb file=~/security_user.dmp
     imp zxmdapp/passwd@10.180.178.4:1522/cisdb file=~/security_user.dmp
 # 外键删除出错
-    这是因为在建立外键关联的时候妹纸设置级联删除，也就是
+    这是因为在建立外键关联的时候没有设置级联删除，也就是
     在设置外键的时候没有加上on delete cascade限定
 # 序列号
     create sequence zxmd.seq_v_activity_id
@@ -144,3 +141,9 @@
 # 连接字符串
     select id||'-'||name||'-' from user;
     select  
+# 查看建表语句
+    select dbms_metadata.get_ddl('TABLE','EMPLOYEES') from dual;
+# char和varchar和varchar2
+    char是定长的
+    varchar是标准的sql类型,变长
+    varchar2是Oracle的类型,变长
