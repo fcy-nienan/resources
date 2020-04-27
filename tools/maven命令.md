@@ -77,6 +77,14 @@ mvn dependency:tree 查看当前项目依赖
    </executions>
    </plugin>
    
+# maven的profile
+
+# maven打包跳过测试
+    mvn package -Dmaven.test.skip=true 
+    mvn install -Dmaven.test.skip=true
+# maven
+    通过profiles属性定义不同环境下的属性
+    通过resources标签定义哪些目录哪些文件会被打包
 # maven多个源的优先级
     本地仓库
     setting.xml
@@ -86,4 +94,4 @@ mvn dependency:tree 查看当前项目依赖
     用mvn help:effective-settings可以查看当前生效的settings.xml：
 
     mvn -X命令可以查看settings.xml文件的读取顺序：
-
+    

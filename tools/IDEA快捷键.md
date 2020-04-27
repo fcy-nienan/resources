@@ -27,3 +27,6 @@ Alt+A          截图(qq)
 Alt+S          识图
 Alt+D          录制
 删除QQ的Ctrl+Alt+L锁定
+# idea中的WebApplication Exploded和web Application Archive
+    第一个以文件夹的形式发布
+    第二个以war的形式发布
