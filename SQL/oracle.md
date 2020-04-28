@@ -8,11 +8,11 @@
     conn user/passwd@ip:port/service
     如果密码含有英文则可以将其用双引号括起来
     conn user/"pass@pass"@ip:port/service
-
+    
     sqlplus控制台乱码
     select userenv('language') from dual
     export NLS_LANG='$RESULT'
-
+    
     sqlplus输出不友好
         设置不输出标题头:set heading off;
         setting wrap will not your data and it will display properly !
@@ -25,7 +25,7 @@
     give it the rownum 1,
     and then compare it the rownum filter rownum=2, which doesn't match, so discard record,
     then get second record, give it rownum=1(if the first record is matched then the rownum will  be 2)  too, then do the compare............
-
+    
     When assigning ROWNUM to a row,
     Oracle starts at 1 and only only increments the value when a row is selected;
     that is, when all conditions in the WHERE clause are met.
@@ -93,12 +93,13 @@
 # Oracle连接数
     --当前连接数
     select count(*) from v$process;
-    
-    
-    --允许最大连接数 （默认是150）
-    select value from v$parameter where name = 'processes';
-    
-    alter system set processes = 300 scope =spfile; 
+
+
+​    
+​    --允许最大连接数 （默认是150）
+​    select value from v$parameter where name = 'processes';
+​    
+​    alter system set processes = 300 scope =spfile; 
 # oracle maximum open cursor exceeded
     关闭prepareSment和ResultSet 
 # jdbc占位符
@@ -106,7 +107,7 @@
     jdbc会自动为占位符加上单引号，所以如果是字符串类型的话不需要特殊处理
     那其他数字类型的加了占位符会相等吗？能成功赋值吗？
 # 查询正在执行的sql和session
-    
+
     SELECT b.sid oracleID,
            b.username 登录Oracle用户名,
            b.serial#,
@@ -147,3 +148,11 @@
     char是定长的
     varchar是标准的sql类型,变长
     varchar2是Oracle的类型,变长
+# Oracle中的字符查找函数
+	select instr('helloworld','l') from dual; --返回结果：3    默认第一次出现“l”的位置
+# oracle分组连接函数
+	listagg(column,',') within group(order by column)
+# 日期增加函数
+```添加
+add_months(sysdate,1)
+```
