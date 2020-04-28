@@ -2,12 +2,12 @@ git中的remoteName统一命名为fcy
 git中远程建三个分支  master  release develop  
 git中本地建一个分支  wind  
 
-git中的origin的意思      远程仓库在本地的别名  
-git remote查看当前远程仓库  
-git remote add test git://github.com/wingrai/test.git添加远程仓库  
-git remote rename oldName newName       远程仓库重命名  
-git remote rm label                     删除远程仓库  
-git remote show label  
+# git中的origin的意思      远程仓库在本地的别名  
+# git remote查看当前远程仓库  
+# git remote add test git://github.com/wingrai/test.git添加远程仓库  
+# git remote rename oldName newName       远程仓库重命名  
+# git remote rm label                     删除远程仓库  
+# git remote show label  显示远程仓库信息
     * remote remoteName  
       Fetch URL: https://github.com/windrai/pratice.git  
       Push  URL: https://github.com/windrai/pratice.git  
@@ -19,21 +19,24 @@ git remote show label
       Local ref configured for 'git push':使用git push 缺省提交  
         master pushes to master (fast-forwardable)  
 # 刚下载时需要配置这些user.name和user.email  
-git config --list查看配置信息  
-git config --global user.name "name"配置用户名  
-git config --global user.email 807715333@qq.com配置邮箱  
-git config --global -l                  显示全局配置信息  
-git config --system -l                  显示系统配置信息  
-git config --local -l                   显示本地配置信息  
+    git config --list查看配置信息  
+    git config --global user.name "name"配置用户名  
+    git config --global user.email 807715333@qq.com配置邮箱  
+    git config --global -l                  显示全局配置信息  
+    git config --system -l                  显示系统配置信息  
+    git config --local -l                   显示本地配置信息  
+# 克隆指定分支
+    git clone -b name url       
+# 分支操作            
+    git branch -m old new                   本地分支重命名  
+    git branch branchName                   创建本地分支  
+    git branch -a                           列出所有分支  
+    git branch -d br3						删除本地br3分支  
+    git branch -D br3                       强制删除b  
 
-bit clone -b name url                   克隆指定分支  
-git branch -m old new                   本地分支重命名  
-git branch branchName                   创建本地分支  
-git push label localName:remoteName     提交本地分支到远程分支  
 git add .                               将本地所有代码加入到暂存区  
 git checkout .                          取消所有本地变更  
 git commit -m 'msg'                     提交到本地  
-git branch -a                           列出所有分支  
 git checkout branchName                 切换分支  
 git push origin localName:remoteName	提交本地分支到原创分支  
 git fetch origin master:br3				将远程的master分支拉下来并在本地创建br3分支  
@@ -41,27 +44,32 @@ git merge br3							将br3分支与本地分支合并(最新的是br3分支)
 git merge br3 -s theirs  
 git diff br3    						查看当前分支与br3分支有何不同  
 git diff branchName branchName          比较两个分支有何不同  
-git branch -d br3						删除本地br3分支  
-git branch -D br3                       强制删除b  
 
 git add remote label address            添加远程仓库路径并命名为label  
 git push origin --delete branchName     删除远程分支  
 git push origin localName:newName       创建远程分支  
-git push --set-upstream originName localName:remoteNamegit  
+# upstream相关
+    git的upstream                            当前分支与远程分支的关联  
+    git branch -u fcy/master                将当前分支的upstream指定为远程的master分支  
+    查看upstream?  
+        git remote show fcy  
+        cat .git/config  
+    例如要把push和pull的默认分支设置为dev，那么：git branch --set-upstream-to=origin/dev dev  
+    git config --global push.default "current"   还可以设置为upstream  
+    git branch -vv                            查看当前分支的upstream  
+      
+    git push --set-upstream originName localName:remoteNamegit  
+    关联本地分支和远程分支,使得可以直接通过git push提交,其实最终修改的也是gitconfig文件,命令行可以通过git config --list看到
 git push                                如果没指定originName则会在远程仓库创建一个和本地分支同名的分支  
 git push -f fcy wind:develop            强行推送  
+HEAD本地指针
+    回退的时候可以用到
+    git reset -hard HEAD^^^^^
+    一个^代表往前一个版本
 HEAD远程指针?  
 git remote set-head origin master        将HEAD指针指向master分支  
 git remote set-head origin -d            删除这个指针  
-git的upstream                            当前分支与远程分支的关联  
-git branch -u fcy/master                将当前分支的upstream指定为远程的master分支  
-查看upstream?  
-    git remote show fcy  
-    cat .git/config  
-例如要把push和pull的默认分支设置为dev，那么：git branch --set-upstream-to=origin/dev dev  
-git config --global push.default "current"   还可以设置为upstream  
-git branch -vv                            查看当前分支的upstream  
-  
+
 git回退  
     撤销暂存区内容  
     撤销修改了的文件  

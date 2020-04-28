@@ -39,7 +39,7 @@
 + -XX:+UseCMSCompactAtFullCollection：使用并发收集器时，开启对年老代的压缩
 + -XX:CMSFullGCsBeforeCompaction=0：上面配置开启的情况下，这里设置多少次Full GC后，对年老代进行压缩
 + -XX:+DisableExplicitGC可以让System.gc()不起作用。
-+ -XX:+PrintFlagsInitial与-XX:+PrintFlagsFinal
++ -XX:+PrintFlagsInitial与-XX:+PrintFlagsFinal  打印默认参数值
 + -XX:+PrintCommandLineFlags参数
 + 开启(-XX:+UseCompressedOops) 可以压缩指针。 
 + 关闭(-XX:-UseCompressedOops) 可以关闭压缩指针。 
