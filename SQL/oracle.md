@@ -97,10 +97,17 @@
 
 
 ​    
+<<<<<<< HEAD
     --允许最大连接数 （默认是150）
     select value from v$parameter where name = 'processes';
     
     alter system set processes = 300 scope =spfile; 
+=======
+​    --允许最大连接数 （默认是150）
+​    select value from v$parameter where name = 'processes';
+​    
+​    alter system set processes = 300 scope =spfile; 
+>>>>>>> tmp
 # oracle maximum open cursor exceeded
     关闭prepareSment和ResultSet 
 # jdbc占位符
@@ -149,3 +156,11 @@
     char是定长的
     varchar是标准的sql类型,变长
     varchar2是Oracle的类型,变长
+# Oracle中的字符查找函数
+	select instr('helloworld','l') from dual; --返回结果：3    默认第一次出现“l”的位置
+# oracle分组连接函数
+	listagg(column,',') within group(order by column)
+# 日期增加函数
+```添加
+add_months(sysdate,1)
+```

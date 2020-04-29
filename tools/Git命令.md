@@ -79,7 +79,7 @@ git commit后执行了git reset --hard HEAD~1回退到了上一个版本
 此时本地最新的代码丢失了  
 可以通过git reflog查看历史操作系统  
 然后通过git reset --hard versionID回退到最新的代码那次提交  
-  
+
 git有三个区域  
 工作区  
 暂存区  
@@ -88,7 +88,7 @@ git有三个区域
 我们是修改工作区的文件  
 然后执行git add .后将其变更的文件加入到了暂存区  
 然后执行git commit后将所有变更的文件加入到了实力版本  此时就是一个版本的快照  
-  
+
 执行git reset --hard versionId后重置HEAD指针并清空暂存区和工作区  
 执行git reset --soft versionID后重置HEAD指针并保留暂存区和工作区  
 执行git reset --mixed versionID后重置HEAD指针并清空暂存区保留工作区(默认选项)  
@@ -96,7 +96,7 @@ git有三个区域
 git diff 命令  
 暂存区     工作区     历史版本    某个历史版本      某两次提交   远程某个版本  
 可比较上面某两个的差别  
-  
+
 git reset和git revert  
 git reset是通过移动HEAD指针并删除落后的分支 向前移动  
 git revert是通过新建要给新的分支           向后移动  
@@ -118,14 +118,14 @@ git中忽略指定文件夹或者文件
     git@github.com: Permission denied (publickey).
     fatal: Could not read from remote repository.
 4. 进入用户的home目录
-2. 编辑 .git-credentials文件 
-3. 按照以下格式输入内容：   
-　　```https://{username}：{password}@github.com  ```  
-　　其中username，password，github.com 都换成你自己的内容  
-4. 保存退出后执行下面命令  
-　　git config --global credential.helper store  
-　　执行完后/home/用户名/.gitconfig 会新增一项  
-　　helper = store  
+2. 编辑 .git-credentials文件
+3. 按照以下格式输入内容：  
+　　```https://{username}：{password}@github.com  ``` 
+　　其中username，password，github.com 都换成你自己的内容 
+4. 保存退出后执行下面命令 
+　　git config --global credential.helper store
+　　执行完后/home/用户名/.gitconfig 会新增一项
+　　helper = store
 　　这时再执行git push/pull的时候就不会在要求你输入密码了。    
 # git删除untracked文件
     git clean -fd

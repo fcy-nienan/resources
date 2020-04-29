@@ -57,23 +57,24 @@
     but InnoDB does not release the row locks that were stored in memory after the savepoint.
     
     https://www.w3resource.com/mysql/mysql-transaction.php
-    
-    
-    设置事务隔离级别
-    SET [GLOBAL | SESSION] TRANSACTION
-        transaction_characteristic [, transaction_characteristic] ...
-    	
-    transaction_characteristic:      
-        ISOLATION LEVEL level    
-      | READ WRITE    
-      | READ ONLY    
-    
-    level:       
-      REPEATABLE READ     
-      | READ COMMITTED     
-      | READ UNCOMMITTED     
-      | SERIALIZABLE
-      
+
+
+​    
+​    设置事务隔离级别
+​    SET [GLOBAL | SESSION] TRANSACTION
+​        transaction_characteristic [, transaction_characteristic] ...
+​    	
+​    transaction_characteristic:      
+​        ISOLATION LEVEL level    
+​      | READ WRITE    
+​      | READ ONLY    
+​    
+​    level:       
+​      REPEATABLE READ     
+​      | READ COMMITTED     
+​      | READ UNCOMMITTED     
+​      | SERIALIZABLE
+​      
     With the GLOBAL keyword, the statement applies globally for all subsequent sessions. Existing sessions are unaffected.
     With the SESSION keyword, the statement applies to all subsequent transactions performed within the current session.
     Without any SESSION or GLOBAL keyword, the statement applies to the next (not started) transaction performed within the current session.
@@ -140,4 +141,18 @@
     SHOW  CREATE FUNCTION hello;
 # mysql按照中文拼音排序
     order by (name using gbk) asc;
-    
+# 类似与oracle中nvl函数
+	select IFNULL(0,10);
+# mysql中的字符串查找函数
+	select instr("abcdefg",'b');
+# groupby分组连接函数
+	group_concat(column order by column separator ',') 
+# 日期增加函数
+	date_add(now(),interval 1 second)
+	date_add(now(),interval 1 minute)
+	date_add(now(),interval 1 hour)
+	date_add(now(),interval 1 day)
+	date_add(now(),interval 1 week)
+	date_add(now(),interval 1 month)
+	date_add(now(),interval 1 quarter)
+	date_add(now(),interval 1 year)

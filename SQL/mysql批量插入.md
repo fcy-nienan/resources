@@ -1,4 +1,5 @@
 # useServerPrepStmts=false&rewriteBatchedStatements=true
+
     在MySQL中批量插入的时候可以加上上述两个参数缩短一些插入时间
 # 使用上述参数
 ## mysql.url=jdbc:mysql://127.0.0.1:3306/fcy?useServerPrepStmts=false&rewriteBatchedStatements=true  
@@ -45,7 +46,7 @@
     23:53:41.357 [pool-1-thread-1] INFO Faker.BatchInsert - start commit batch count:1000000   
     23:53:41.995 [pool-1-thread-1] INFO Faker.BatchInsert - end commit batch count:1000000   
     count : 1000000 -- commitThreshold : 50000 -- time : 137    
-    
+
 插入100万数据,提交阈值5万,消耗时间137秒
 # 不使用上述参数
 ## mysql.url=jdbc:mysql://127.0.0.1:3306/fcy
@@ -92,7 +93,7 @@
     00:00:44.143 [pool-1-thread-1] INFO Faker.BatchInsert - start commit batch count:1000000   
     00:00:48.375 [pool-1-thread-1] INFO Faker.BatchInsert - end commit batch count:1000000   
     count : 1000000 -- commitThreshold : 50000 -- time : 199 
-    
+
 插入100万数据,提交阈值5万,消耗时间199秒
 # 原理:mysql重写提交的语句
 将
@@ -101,6 +102,14 @@ insert into x values (a1)
 insert into x values (an)
 重写成
 insert into x values (a1),...,(an)
-# 参考
-https://stackoverflow.com/questions/2993251/jdbc-batch-insert-performance
 
+## 参考
+https://stackoverflow.com/questions/2993251/jdbc-batch-insert-performance
+# 是否需要关闭Statement和ResultSet
+>The reason I say its good practice... For example, if for some reason you are using a "primitive" type of database pooling and you call connection.close(), the connection will be returned to the pool and the ResultSet/Statement will never be closed and then you will run into many different new problems!
+
+	如果在使用连接池的时候你只调用了connection.close()方法而没有关闭Statement和ResultSet
+	那么你将会遇到许多不同的新问题
+>You should close ResultSet and Statement explicitly because Oracle has problems previously with keeping the cursors open even after closing the connection. If you don't close the ResultSet (cursor) it will throw an error like Maximum open cursors exceeded
+
+    这个我也碰到过，在Oracle中没关闭statement和resultSet后抛出异常
