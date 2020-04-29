@@ -1,4 +1,5 @@
-# AVL树  
+# AVL树
+
 ## 完全二叉树  
 定义:complete binary tree is a binary tree in which every level of the tree 
 is completely filled except the last level

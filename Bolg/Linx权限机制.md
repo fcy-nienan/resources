@@ -1,4 +1,5 @@
-# /etc/group文件 
+# /etc/group文件
+
 + 文件作用:存储用户的组信息 
 + 文件内容格式:group_name:Password:GroupID,GroupList
     + group_name: It is the name of group. If you run ls -l command, you will see this name printed in the group field.
@@ -34,7 +35,7 @@
     /etc/passwd文件
     jboss:x:1001:1002::/home/jboss:/bin/bash
     dcosuser:x:1002:1003::/home/dcosuser:/bin/bash
-
+    
     /etc/group文件
     jboss5:x:1002:
     dcos:x:1003:
@@ -72,7 +73,7 @@
     [root@fcy home]# ll
     total 8
     drwxr---w- 2 dcosuser dcos   4096 Feb 25 02:02 dcosuser
-
+    
     [jboss@fcy home]$ ll dcosuser/
     ls: cannot open directory dcosuser/: Permission denied
     
@@ -157,7 +158,7 @@
     [jboss@fcy home]$ date > dcosuser/1.txt
     
     [jboss@fcy home]$ touch dcosuser/2.txt
-    
+
 网络上大都是这样的描述:  
 If you have read permission for a directory, you may list ls the directories contents.  
 If you have write permission for a directory, you can create new entries (files/folders/etc).  
