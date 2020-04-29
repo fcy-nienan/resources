@@ -94,20 +94,14 @@
 # Oracle连接数
     --当前连接数
     select count(*) from v$process;
-
-
-​    
-<<<<<<< HEAD
-    --允许最大连接数 （默认是150）
-    select value from v$parameter where name = 'processes';
-    
-    alter system set processes = 300 scope =spfile; 
-=======
 ​    --允许最大连接数 （默认是150）
 ​    select value from v$parameter where name = 'processes';
 ​    
 ​    alter system set processes = 300 scope =spfile; 
->>>>>>> tmp
+​    --允许最大连接数 （默认是150）
+​    select value from v$parameter where name = 'processes';
+​    
+​    alter system set processes = 300 scope =spfile; 
 # oracle maximum open cursor exceeded
     关闭prepareSment和ResultSet 
 # jdbc占位符

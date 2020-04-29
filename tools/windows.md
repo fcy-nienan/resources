@@ -78,8 +78,9 @@ rmdir /S /Q
     如第二条
     10.0.0.0        255.0.0.0     172.16.0.254     172.16.0.220     36
     10网段的掩码是255.0.0.0,访问10网段地址的请求将通过172.16.0.220这个接口地址发送到172.16.0.254网关
-    
-    
+
+
+​    
     上述的172.16.0.22这个一般也能通过ipconfig这个命令查询到，这个就是本地电脑的某一个网络地址
 # windows下网络命令
     输入netsh可一层一层显示
@@ -90,3 +91,17 @@ rmdir /S /Q
     netsh interface tcp同理
 # Windows下删除目录
     rd命令
+# Windows下显示所有环境变量
+	set命令可以显示所有环境变量
+# Windows下小工具命令行
+	snippingtool   截图
+	Win+Shift+S    框选截屏
+	mspaint 		画图板
+	notepad			记事板
+	calc			计算器
+	services.msc	服务
+	diskmgmt.msc	磁盘管理
+	compmgmt.msc	计算机管理
+	perfmon.msc		性能监视器
+	devmgmt.msc		设备管理器
+	

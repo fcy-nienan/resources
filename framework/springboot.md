@@ -16,7 +16,9 @@ Authentication, to represent the principal in a Spring Security-specific manner.
 GrantedAuthority, to reflect the application-wide permissions granted to a principal.
 UserDetails, to provide the necessary information to build an Authentication object from your application’s DAOs or other source of security data.
 UserDetailsService, to create a UserDetails when passed in a String-based username (or certificate ID or the like).
+
 # 基本认证流程
+
 1. 用户提供用户名和密码
 2. 系统成功验证用户名和密码
 3. 加载该用户的上下文信息(角色权限等)

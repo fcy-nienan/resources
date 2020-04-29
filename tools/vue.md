@@ -1,4 +1,5 @@
 # 为什么需要VNode
+
     传统的操作dom的方式
     var arr = [1,2,3,4]
     function render(data){
@@ -41,7 +42,7 @@
     <div class="test">
         <span class="demo">hello,VNode</span>
     </div>
-
+    
     那如何渲染呢，啥时候渲染呢，怎么发现变动然后渲染了？
     通过传统的创建DOM节点
     发现变动并渲染是通过相应的算法递归比对，然后更新值，又因为值被双向绑定了，所以其他值也就变了
@@ -68,4 +69,4 @@
     VM671:1 nienanfcy
     
     类似于JavaScript已经提供了对变量值改变的监听方法
-   
+
