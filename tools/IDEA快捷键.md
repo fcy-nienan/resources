@@ -30,3 +30,9 @@ Alt+D          录制
 # idea中的WebApplication Exploded和web Application Archive
     第一个以文件夹的形式发布
     第二个以war的形式发布
+# idea中的tomcat中的资源更新
+	on update action   手动触发!
+	如下图,红色的刷新按钮,点击的时候会弹出对话框(tomcat界面show dialog默认选中)
+![idea图片](../resources/photo/idea-update-action.PNG)
+
+	on framework deactivation	框架失去焦点(也就是从idea切换到了其他应用)
