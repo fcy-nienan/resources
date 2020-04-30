@@ -435,3 +435,12 @@ Iterable
 	一个是Exception一个是Error
 	NoClassDefFoundError是jvm加载某一个类的时候报的错误
 	ClassNotFoundException是通过Class.forName等加载类的时候报出的错误
+
+
+	NoClassDefFoundError是程序编译时正常，然后运行的时候jvm试图加载一个类，然而这个类找不到了
+>It is thrown by the Java Runtime System.
+
+	ClassNotFoundException是我们自己手动加载一些类的时候报出的异常
+
+>It is thrown by the application itself. It is thrown by the methods like Class.forName(), loadClass() and findSystemClass().
+
