@@ -4,4 +4,4 @@
 		ApplicationContext context=new ClassPathXmlApplicationContext("application-context.xml");
 	    String[] beanDefinitionNames = context.getBeanDefinitionNames();
 	    int beanDefinitionCount = context.getBeanDefinitionCount();
-	通过SpringBoot
+	通过SpringBootActuator管理
