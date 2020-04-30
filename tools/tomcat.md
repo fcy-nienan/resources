@@ -1,0 +1,8 @@
+# Catalina_HOME和Catalina_Base两个变量的区别
+
+	解决的问题是你在本机安装了一个tomcat,但你想在本机运行多个tomcat实例(注意是tomcat实例而不是tomcat中的webapp项目)
+	CATALINA_HOME是Tomcat的安装目录，CATALINA_BASE是Tomcat的工作目录
+
+# jsp页面访问
+	jsp页面访问了才会在work目录下生成相应的java文件和编译后的class文件
+	work/Catalina/localhost目录

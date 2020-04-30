@@ -55,7 +55,7 @@ String s=s+x 会被替换成 s = (new StringBuilder()).append(s).append(k).toStr
     @Retention  标注注解的生命周期(源码,编译时,运行时)
     @Document   标注注解是否能文档化
     @Inherited  标注注解是否能被继承
-
+    
     NOTE:
         注解时被动的元数据,永远不会产生主动的行为,
         也就是我们必须在某个地方写如何处理注解
@@ -157,7 +157,7 @@ openjdk
     CallStatic<Type>Method:调用返回值类型为Type的static方法
     
     jobject相当于java层面的this指针，代表的是当前对象实例，如果是本地方法的话代表的就是当前Class实例
-    
+
 
 
 Java中和c中使用\r控制字符会将光标移动到该行的起始位置,然后会清空改行,环境是
@@ -242,7 +242,7 @@ System.out.println()使用了synchronized
     那么核心线程存活时间为keepAliveTime
     如果没设置allowCoreThreadTimeOut
     那么只是非核心线程的存活时间为keepAliveTime
-
+    
     getTask方法中,flag=允许核心线程超时|是否是核心线程
 
 
@@ -259,13 +259,13 @@ String变量赋值为null,那么常量池中的数据会清除吗?还是说gc只
 # HashMap
 	ContainsKey
 		if (e.hash == hash &&
-                        ((k = e.key) == key || (key != null && key.equals(k))))
-                        return e;
+	                    ((k = e.key) == key || (key != null && key.equals(k))))
+	                    return e;
 	先比较哈希码 在比较引用和equals方法
 	ContainsValue
 		if ((v = e.value) == value ||
-                        (value != null && value.equals(v)))
-                        return true;
+	                    (value != null && value.equals(v)))
+	                    return true;
 	先比较引用，再比较equals方法
 	capacity table数组的长度
 	size  table数组实际存储的元素数量
@@ -277,12 +277,12 @@ String变量赋值为null,那么常量池中的数据会清除吗?还是说gc只
 	TREEIFY_THRESHOLD	默认的树化的阈值8
 	UNTREEIFY_THRESHOLD		resize后树变为链表的阈值
 		if (hc <= UNTREEIFY_THRESHOLD)
-                    tab[index + bit] = hiHead.untreeify(map);
-                else {
-                    tab[index + bit] = hiHead;
-                    if (loHead != null)
-                        hiHead.treeify(tab);
-                }
+	                tab[index + bit] = hiHead.untreeify(map);
+	            else {
+	                tab[index + bit] = hiHead;
+	                if (loHead != null)
+	                    hiHead.treeify(tab);
+	            }
 	MIN_TREEIFY_CAPACITY	树化时的最小capacity容量，如果一个桶中的bin大于TREEIFY_THRESHOLD默认树化阈值8的时候，如果table数组的capacity小于MIN_TREEIFY_CAPACITY
 							则会进行扩容，当capacity>MIN_TREEIFY_CAPACITY的时候才进行树化
 # 权限修饰符
@@ -384,7 +384,7 @@ String变量赋值为null,那么常量池中的数据会清除吗?还是说gc只
     不会被回收掉,可能会造成内存泄漏
 * 虚引用
     + 暂时不知道干啥的
-     
+    
 # 反射
     一个类的方法有  自身的(继承来的并重写也是自身的)，继承来的，重写接口的
     getMethods()返回所有public方法,包括继承来的
@@ -431,3 +431,7 @@ Iterable
     
     3. dt.jar
         dt.jar是关于运行环境的类库,主要是swing的包   在用到swing时最好加上。
+# classNotFoundException和NoClassDefFoundError
+	一个是Exception一个是Error
+	NoClassDefFoundError是jvm加载某一个类的时候报的错误
+	ClassNotFoundException是通过Class.forName等加载类的时候报出的错误
