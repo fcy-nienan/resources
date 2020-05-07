@@ -75,12 +75,12 @@
 ​      | READ UNCOMMITTED     
 ​      | SERIALIZABLE
 ​      
-    With the GLOBAL keyword, the statement applies globally for all subsequent sessions. Existing sessions are unaffected.
-    With the SESSION keyword, the statement applies to all subsequent transactions performed within the current session.
-    Without any SESSION or GLOBAL keyword, the statement applies to the next (not started) transaction performed within the current session.
-    加了GLOBAL,随后的所有session都是该级别,已经存在的不受影响
-    加了SESSION,当前的session之后的所有session都是该级别
-    啥都没加就是下一个session是设置的隔离级别 
+​    With the GLOBAL keyword, the statement applies globally for all subsequent sessions. Existing sessions are unaffected.
+​    With the SESSION keyword, the statement applies to all subsequent transactions performed within the current session.
+​    Without any SESSION or GLOBAL keyword, the statement applies to the next (not started) transaction performed within the current session.
+​    加了GLOBAL,随后的所有session都是该级别,已经存在的不受影响
+​    加了SESSION,当前的session之后的所有session都是该级别
+​    啥都没加就是下一个session是设置的隔离级别 
 # mysql的日志
     You can observe it by toggling on the mysql logging (by SET global general_log = 1) which would log into a file each statement sent to the mysql server
     bin日志,数据改动的记录
@@ -156,3 +156,5 @@
 	date_add(now(),interval 1 month)
 	date_add(now(),interval 1 quarter)
 	date_add(now(),interval 1 year)
+# 根据字段查询表明
+	使用information_schema.COLUMNS表中的信息
