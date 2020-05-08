@@ -5,9 +5,6 @@
     *.frm是描述了表的结构，*.MYD保存了表的数据记录，*.MYI则是表的索引
     直接放在mysql的data目录下就能在MySQL命令行看到表了
 # 命令
-    alter table tableName add column id int;
-    为没有id的表赋值一个递增id
-    
     修改列名
     alter table tableName change column oldName newName varchar(255)
     
@@ -20,6 +17,7 @@
     查看表的索引
     show idnex from tableName;
     
+    新建表
     create table tt as 
     select @rownum:=@rownum+1 as id,
     username,
@@ -27,17 +25,14 @@
     email,
     cardno from new12306;
     
-    alter table tt rename to new12306;
-    
+    查看变量
     show variables like '%secure%';
     
+    导出表数据
     select * from new12306 into outfile '12306.txt' 
     fields terminated by ',' enclosed by '"'
     lines terminated by '\r\n';
     默认位置为mysql当前库中的表数据文件路径
-    
-    ERROR 1290 (HY000): The MySQL server is running with the –secure-file-priv option so it cannot execute this statement.
-    设置安全目录:secure-file-priv="D:/"
 # mysql的事务
     默认是自动提交
     如果要手动提交的话需要 start transaction
@@ -81,22 +76,6 @@
 ​    加了GLOBAL,随后的所有session都是该级别,已经存在的不受影响
 ​    加了SESSION,当前的session之后的所有session都是该级别
 ​    啥都没加就是下一个session是设置的隔离级别 
-# mysql的日志
-    You can observe it by toggling on the mysql logging (by SET global general_log = 1) which would log into a file each statement sent to the mysql server
-    bin日志,数据改动的记录
-    redo日志,数据写之前记录
-    undo日志,数据写之后记录
-    
-    为啥要有这些日志,写的操作时包裹在事务中的,
-    有可能发生事务写入前崩溃了,事务写入后崩溃了      1212而无人管很多方面v,基本你要我如何答题郭敬明v购买决策过后就明白你
-    1
-    2写之前记录一下,写入redo日志
-    3写入数据,写入数据库
-    4写之后记录一下,写入undo日志
-    5
-    详细考虑一下这几个时间段
-    1,系统崩溃,不管,数据啥也没改变
-    2,写完了系统崩溃
 # mysql for loop
     ITERATE can appear only within LOOP, REPEAT, and WHILE statements. ITERATE means “start the loop again.”
 
@@ -124,17 +103,17 @@
     修改该值为mysql的安装路径
 # mysql执行计划
     https://dev.mysql.com/doc/refman/8.0/en/explain-output.html
-    id	select_id	The SELECT identifier
-    select_type	None	The SELECT type
-    table	table_name	The table for the output row
-    partitions	partitions	The matching partitions
-    type	access_type	The join type
-    possible_keys	possible_keys	The possible indexes to choose
-    key	key	The index actually chosen
-    key_len	key_length	The length of the chosen key
-    ref	ref	The columns compared to the index
-    rows	rows	Estimate of rows to be examined
-    filtered	filtered	Percentage of rows filtered by table condition
+    id		The SELECT identifier   
+    select_type		The SELECT type		
+    table		The table for the output row	
+    partitions		The matching partitions		
+    type	access_type	The join type		
+    possible_keys	The possible indexes to choose	
+    key		The index actually chosen	
+    key_len		The length of the chosen key	
+    ref		The columns compared to the index	
+    rows		Estimate of rows to be examined
+    filtered		Percentage of rows filtered by table condition
     Extra	None	Additional information
 # mysql查看已定义的函数
     SHOW FUNCTION STATUS LIKE 'hello';
@@ -156,5 +135,5 @@
 	date_add(now(),interval 1 month)
 	date_add(now(),interval 1 quarter)
 	date_add(now(),interval 1 year)
-# 根据字段查询表明
+# 根据字段查询表名
 	使用information_schema.COLUMNS表中的信息
