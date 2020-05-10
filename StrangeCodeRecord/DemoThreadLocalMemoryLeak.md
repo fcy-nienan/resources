@@ -1,4 +1,5 @@
 2019-12-26
+
 1. 本来是打算看一下ThreadLocal的内存泄露问题的,然后写下了如下的代码
     ```
     public class DemoWeakReferenceMemoryLeak {
@@ -127,4 +128,68 @@ getTask从某个阻塞队列取任务来执行,阻塞队列一般都用了AQS的
         被后面的catch到了并抛出了,然后执行了finally中的afterExecute方法
         ,然后执行到了getTask方法上并阻塞了,通过jstack命令也发现阻塞在该方法上,
         从运行结果上来看就是直接卡着不动了,也不输出了
-    5. 所以,JVM层面是如何调用我们的run方法的?
+# 内存泄漏问题(2020/03/12)
+>内存泄漏（Memory Leak）是指程序中己动态分配的堆内存由于某种原因程序未释放或无法释放，造成系统内存的浪费，导致程序运行速度减慢甚至系统崩溃等严重后果。---百度百科
+
+	在ThreadLocal中就是由于Entry中的key是虚引用，这个引用在没有强引用的情况下会被GC回收掉,如果被回收掉了那么在Map中的value也就访问不到了，无法释放内存也无法被访问，也就是造成了内存泄漏
+	Entry中的key是相应的ThreadLocal实例，这个实例在没有强引用的情况下会被GC回收掉，导致无法访问到相应的Value
+	
+	可以通过调用相应的remove方法，他会删除指定的entry并且清除某些key为null的entry
+
+```
+        private void remove(ThreadLocal<?> key) {
+            Entry[] tab = table;
+            int len = tab.length;
+            int i = key.threadLocalHashCode & (len-1);
+            for (Entry e = tab[i];
+                 e != null;
+                 e = tab[i = nextIndex(i, len)]) {
+                if (e.get() == key) {
+                    e.clear();
+                    expungeStaleEntry(i);
+                    return;
+                }
+            }
+        }
+```
+```
+        private int expungeStaleEntry(int staleSlot) {
+            Entry[] tab = table;
+            int len = tab.length;
+
+            // expunge entry at staleSlot
+            tab[staleSlot].value = null;
+            tab[staleSlot] = null;
+            size--;
+
+            // Rehash until we encounter null
+            Entry e;
+            int i;
+            for (i = nextIndex(staleSlot, len);
+                 (e = tab[i]) != null;
+                 i = nextIndex(i, len)) {
+                ThreadLocal<?> k = e.get();
+                if (k == null) {
+                    e.value = null;
+                    tab[i] = null;
+                    size--;
+                } else {
+                    int h = k.threadLocalHashCode & (len - 1);
+                    if (h != i) {
+                        tab[i] = null;
+
+                        // Unlike Knuth 6.4 Algorithm R, we must scan until
+                        // null because multiple entries could have been stale.
+                        while (tab[h] != null)
+                            h = nextIndex(h, len);
+                        tab[h] = e;
+                    }
+                }
+            }
+            return i;
+        }
+```
+expungeStaleEntry方法清除陈旧的Entry
+不知道他的index怎么分布的
+(e = tab[i]) != null
+这好像只是删除一段范围内key为null的Entry

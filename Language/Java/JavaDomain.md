@@ -4,12 +4,11 @@ Random.nextInt(20) 生成0-19的随机数([0,19]不包括20)
 
 ![Java操作符优先级](../../resources/photo/java-operator-precedence.PNG "操作符优先级")
 
-Java的每个方法有张异常表
-异常造成的性能消耗很小
+Java的每个方法有张异常表,异常造成的性能消耗很小
 
 java中的int转byte是直接取int值的最后八位,不带符号位
 int 129= 00000000 00000000 00000000 10000001
-int x=(byte)(129)= 10000001 减一 10000000 取反 01111111 等于-127
+int x=(byte)(129)= (10000001 减一 10000000 取反 01111111 )等于-127
 那byte自动补位成为int类型呢?
 这个是按byte值的符号位扩展的
 这样能保证十进制时运算时正确的
@@ -40,9 +39,6 @@ String s=s+x 会被替换成 s = (new StringBuilder()).append(s).append(k).toStr
     separator是单个路径中不同父子目录中的分隔符,linux is '/' and windows is '\'
     pathSeparator是多个路径之间的分隔符,linux is ':' and windows is ';'
     至于后面的Char表示的是字符型,没有Char的是字符串型
-
-如果没写构造函数那么会默认生成一个无参构造函数
-如果写了的话那么就会存在已经写了的构造函数,无参构造函数就会不存在
 
 # 多个流的关闭顺序
     Closing the wrapper stream automatically closes the inner stream.
@@ -158,20 +154,6 @@ openjdk
     
     jobject相当于java层面的this指针，代表的是当前对象实例，如果是本地方法的话代表的就是当前Class实例
 
-
-
-Java中和c中使用\r控制字符会将光标移动到该行的起始位置,然后会清空改行,环境是
-    linux+c
-    windows10+java1.8
-\b会删除上一个字符,环境
-    linux+c
-    windows10+java1.8
-个人感觉是\b和\r是移动了文件指针到指定位置
-然后输出的也是开始和结束之间的内容
-其他index上还是有原来的内容,并没有被清楚掉
-
-
-
 # ArrayList
     DEFAULT_CAPACITY=10
     使用DEFAULTCAPACITY_EMPTY_ELEMENTDATA作为默认空数组
@@ -215,10 +197,6 @@ System.exit(0)
 System.exit(-1) by convention,a nonzero status code indicates abnormal termination
 
 System.out.println()使用了synchronized
-而日志logger.info()没使用synchronized
-但几次测试都是System.out.println()快
-
-
 
 # shutDown()
     当线程池调用该方法时,线程池的状态则立刻变成SHUTDOWN状态。
@@ -248,10 +226,6 @@ System.out.println()使用了synchronized
 
 String变量赋值为null,那么常量池中的数据会清除吗?还是说gc只回收这个string变量
 复制为null下一次gc的时候会被回收
-
-# TreeMap
-	Comparator
-	Comparable
 # LinkedHashMap
 	顺序访问
 	在每个节点加入两个指针

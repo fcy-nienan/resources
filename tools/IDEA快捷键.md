@@ -27,6 +27,7 @@ Alt+A          截图(qq)
 Alt+S          识图
 Alt+D          录制
 删除QQ的Ctrl+Alt+L锁定
+
 # idea中的WebApplication Exploded和web Application Archive
     第一个以文件夹的形式发布
     第二个以war的形式发布
@@ -36,3 +37,6 @@ Alt+D          录制
 ![idea图片](../resources/photo/idea-update-action.PNG)
 
 	on framework deactivation	框架失去焦点(也就是从idea切换到了其他应用)
+# idea中部署的tomcat项目
+	catabase目录在~/.Ideaxxxx/system/tomcat
+	存放jsp和css、js文件的目录是artifact打包的目录

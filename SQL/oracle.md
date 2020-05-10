@@ -158,3 +158,8 @@
 ```添加
 add_months(sysdate,1)
 ```
+# 根据字段名查询表
+	user_tab_columns表
+# trunc函数
+	select trunc(sysdate) from dual;
+	2020-05-09 00:00:00
