@@ -17,3 +17,11 @@ cpu更新内存中的数据到磁盘(页缓存)
     write-through
     write-back
     write-post
+
+# 三阶段提交
+	canCommit
+		类似于两阶段提交的准备阶段
+	prepareCommit
+		记录undo日志和redo日志
+	doCommit
+		执行真正的事务操作
