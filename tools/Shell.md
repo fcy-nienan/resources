@@ -11,6 +11,7 @@
     如果控制台乱码先查看登录控制台的软件是否有编码格式的设置,
     如果不存在或者设置了并且重新连接了也无效可以通过export LANG=en_US.UTF-8命令设置      
 # locale
+
     代表某一地域内的人们的语言习惯和传统
     /etc/sysconfig/i18n/
     /usr/lib/locale/
@@ -221,9 +222,9 @@
     屏蔽别人 ping 你的主机      net.ipv4.icmp_echo_ignore_all = 1
     执行以下命令使变动立即生效
     /sbin/sysctl -p
-
+    
     /sbin/sysctl -w net.ipv4.route.flush=1
-
+    
     输出所有变量  sysctl -a
 # iostat命令
     iostat -d 2 6    每隔两秒输出io信息,总共输出6次
@@ -319,13 +320,13 @@
     从右边开始到最后一个.删除掉
     echo ${name%%.*}  // hello
     expr substr $name 1 3 // hel
-    
+
 # shell循环
     for((i=0;i<10;i++))
     do
     echo $i
     done
-
+    
     while [ true ]
     do
         if [ ${num} -gt 3 ];then
@@ -403,9 +404,9 @@
 # shell控制语句
     if [ $num -gt 1 ]
     then
-
+    
     else
-
+    
     fi
     if [ 1 -eq 1
     if ((1==1));then
@@ -472,31 +473,31 @@
      每个iNode节点都有编号
      INode节点信息
      stat查看文件的INode信息
-	File		'Dockerfile'		文件名
-	Size		'422'				文件大小
-	Blocks		'8'					文件块
-	IO Block	'4096'				
-	Device		'fd01h/64769d'		设备
-	Inode		2108221				Inode号
-	Links		1					链接数
-	Access		(0644/-rw-r--r--)	访问权限
-	Uid			(0/root)			用户id
-	Gid			(0/root)			组id
-	Access		2018-11-22 21:45:09	上次访问时间
-	Modify							上次修改时间
-	Change							元数据的修改时间
-	Birth							创建时间
+    File		'Dockerfile'		文件名
+    Size		'422'				文件大小
+    Blocks		'8'					文件块
+    IO Block	'4096'				
+    Device		'fd01h/64769d'		设备
+    Inode		2108221				Inode号
+    Links		1					链接数
+    Access		(0644/-rw-r--r--)	访问权限
+    Uid			(0/root)			用户id
+    Gid			(0/root)			组id
+    Access		2018-11-22 21:45:09	上次访问时间
+    Modify							上次修改时间
+    Change							元数据的修改时间
+    Birth							创建时间
     目录也是一种文件,结构简单,就是一系列目录项列表,每个目录项由两部分组成
-	所包含文件的文件名
-	改文件名对于的inode号码
+    所包含文件的文件名
+    改文件名对于的inode号码
     硬连接
-	在inode节点的链接上加一,然后以另一个文件名访问该节点的数据,该该文件的内容修改会影响所有的文件名,但是删除一个文件名,并不一定会删除该文件,只是把该inode节点的链接数减一,如果该inode节点的链接数为0,则系统会回收该节点,但是并不会清楚该节点的数据,只有当其他数据需要存储在该节点的时候这里的数据才会被覆盖掉
-	目录文件的链接数
-		创建一个目录的时候,会默认生成两个目录项, .和..,
-		前者的inode就是当前目录文件的inode号码
-		后者的inode就是当前目录的父目录的inode号码
-		等同于硬连接
-		所以一个目录的硬链接总数等于其子目录项加上2
+    在inode节点的链接上加一,然后以另一个文件名访问该节点的数据,该该文件的内容修改会影响所有的文件名,但是删除一个文件名,并不一定会删除该文件,只是把该inode节点的链接数减一,如果该inode节点的链接数为0,则系统会回收该节点,但是并不会清楚该节点的数据,只有当其他数据需要存储在该节点的时候这里的数据才会被覆盖掉
+    目录文件的链接数
+    	创建一个目录的时候,会默认生成两个目录项, .和..,
+    	前者的inode就是当前目录文件的inode号码
+    	后者的inode就是当前目录的父目录的inode号码
+    	等同于硬连接
+    	所以一个目录的硬链接总数等于其子目录项加上2
     软链接就是文件的内容是是另一个文件的路径,相当于windows下的快捷方式
     系统indoe是有限的,所以可能系统空间还够但不能存放数据,
     文件夹太多了,每创建一个文件都需要一个inode节点
@@ -530,7 +531,7 @@
     字符串反转
     反转字符串
     echo 'A B C D' | rec
-    
+
 # seq命令
     生成数
     seq start
@@ -580,7 +581,7 @@
     读文件	r	    [line-address]r file	将指定的文件读取到匹配行之后
     写文件	w	    [address]w file	        将匹配地址的所有行输出到指定的文件中
     退出	    q	    [line-address]q	        读取到匹配的行之后即退出
-
+    
     sed '/^\s*\n$/d' data     删除文件中的空行 ^表示文件开头,$表示文件结尾,\s表示空格,/d表示删除
     sed -n 18p fileName 查看第18行数据
     sed -n '1,8p' fileName 查看第1-8行数据
