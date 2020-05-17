@@ -129,3 +129,7 @@ git中忽略指定文件夹或者文件
 　　这时再执行git push/pull的时候就不会在要求你输入密码了。    
 # git删除untracked文件
     git clean -fd
+# git fetch的时候报错non-fast-forward
+	本地有两个分支 tmp1 tmp2
+	执行 git fetch origin dev:tmp1的时候报错non-fast-forward
+	执行 git fetch origin dev:tmp3正常
