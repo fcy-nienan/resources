@@ -33,6 +33,7 @@ UserDetailsService, to create a UserDetails when passed in a String-based userna
 4. 通过调用SecurityContextHolder.getContext().setAuthentication(…)建立安全上下文
 
 # web认证流程
+
 1. 你访问一个页面或者点击一个链接
 2. 发送一个请求给服务器,服务器判断出你正在访问受保护的资源
 3. 此时你还没有认证,服务器的响应暗示你必须认证,响应可以是一个页面或者一个code值

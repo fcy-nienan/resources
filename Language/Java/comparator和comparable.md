@@ -1,4 +1,5 @@
-# comparator接口和comparable  
+# comparator接口和comparable
+
 多个对象之间的排序需要一个排序规则  
 int,short,long,double等基本数据类型有默认的排序规则  
 但自定义的类就没有，这个排序规则需要我们自己去定义  
@@ -11,7 +12,7 @@ class orderbyage implements comparator根据年龄排序
 使用方法:  
 Arrays.sort(allStudents,orderbyname_instance);  
 Arrays.sort(allStudents,orderbyage_instance);  
-  
+
 comparator接口的比较方法返回值老是忘记，记录一下:  
 >a negative integer, zero, or a positive integer as the
 first argument is less than, equal to, or greater than the
