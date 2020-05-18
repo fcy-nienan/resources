@@ -179,6 +179,11 @@ b+=4->5
     var set7=set5.&(set6)
     set7=set5.intersect(set6)
     println(set7)//Set(5,2,3,4)
+    
+    求差集
+	Set(1,2,3) -- Set(2,4) //Set(1,3)
+	Set(1,2,3) &~ Set(2,4) 
+	Set(1,2,3) diff Set(2,4)
 
     java的add
     set7+=4
@@ -331,7 +336,7 @@ scala.collection.ListBuffer
     对一维的数据升维
     scala> var x=List(1,2,3,4,5)
     x: List[Int] = List(1, 2, 3, 4, 5)
-
+    
     scala> x.grouped(2).toList
     res3: List[List[Int]] = List(List(1, 2), List(3, 4), List(5))
     

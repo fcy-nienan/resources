@@ -588,3 +588,9 @@
 # sort命令
     根据某一分隔符分割，根据第二列去重
     sort -n -k 2 -t : Plan.txt
+# 修改ssh端口
+	修改/etc/ssh/sshd_config文件
+	Port 22
+	Port 521314
+	执行命令 service ssh restart
+	然后就可以通过521314端口去登录了,当然22端口也行

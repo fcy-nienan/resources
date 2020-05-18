@@ -171,5 +171,7 @@
     %Y  年，4 位
     %y  年，2 位
 # mysql中移除结尾的0
-	cast(1.234000 as char)+0
+	select cast(1.234000 as char)+0        //1.234
 >https://stackoverflow.com/questions/7968531/remove-trailing-zeros-in-decimal-value-with-changing-length
+
+# sql不加orderby 按照什么排序?
