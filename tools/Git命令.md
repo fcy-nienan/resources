@@ -133,3 +133,19 @@ git中忽略指定文件夹或者文件
 	本地有两个分支 tmp1 tmp2
 	执行 git fetch origin dev:tmp1的时候报错non-fast-forward
 	执行 git fetch origin dev:tmp3正常
+# git
+	|-- HEAD # 记录当前处在哪个分支里
+    |-- config # 项目的配置信息，git config命令会改动它
+    |-- description # 项目的描述信息
+    |-- hooks/ # 系统默认钩子脚本目录
+    |-- index # 索引文件
+    |-- logs/ # 各个refs的历史信息
+    |-- objects/ # Git本地仓库的所有对象 (commits, trees, blobs, tags)
+    |-- refs/ # 标识每个分支指向了哪个提交(commit)
+# 合并策略
+	git merge tmp -s resolve
+    resolve
+    recursive
+    octopus
+    ours
+    subtree
