@@ -1,4 +1,5 @@
 # 三个端口
+
 zkClient连接zkServer的端口
 Leader和followers数据交流的端口
 followers选举的端口
@@ -32,7 +33,7 @@ zookeeper的选举
     两种模式，恢复和广播模式
         当leader节点崩溃或者leader丢失太多follower时进入恢复模式，需要选举出一个新的leader
         选举算法有两种basic paxos和fast paxos,默认时fast paxos
-
+    
     事务的一致性，递增的事务id，leaderId+递增计数
     服务器的状态
         leader

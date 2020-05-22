@@ -78,6 +78,7 @@ mvn dependency:tree 查看当前项目依赖
    </plugin>
 
 # maven的profile
+	定义不同的环境(开发，测试，生产)
 
 # maven打包跳过测试
     mvn package -Dmaven.test.skip=true 
@@ -95,3 +96,18 @@ mvn dependency:tree 查看当前项目依赖
     
     mvn -X命令可以查看settings.xml文件的读取顺序：
 # scope属性解析
+	scope元素的作用：控制 dependency 元素的使用范围
+	compile（默认）
+含义：compile 是默认值，如果没有指定 scope 值，该元素的默认值为 compile。被依赖项目需要参与到当前项目的编译，测试，打包，运行等阶段。打包的时候通常会包含被依赖项目。
+
+provided
+含义：被依赖项目理论上可以参与编译、测试、运行等阶段，相当于compile，但是再打包阶段做了exclude的动作。
+适用场景：例如， 如果我们在开发一个web 应用，在编译时我们需要依赖 servlet-api.jar，但是在运行时我们不需要该 jar 包，因为这个 jar 包已由应用服务器提供，此时我们需要使用 provided 进行范围修饰。
+
+runtime
+含义：表示被依赖项目无需参与项目的编译，但是会参与到项目的测试和运行。与compile相比，被依赖项目无需参与项目的编译。
+适用场景：例如，在编译的时候我们不需要 JDBC API 的 jar 包，而在运行的时候我们才需要 JDBC 驱动包。
+
+test
+含义： 表示被依赖项目仅仅参与测试相关的工作，包括测试代码的编译，执行。
+适用场景：例如，Junit 测试
