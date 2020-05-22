@@ -1,4 +1,4 @@
-boolean             Z  
+boolean           Z  
 byte                B  
 short               S  
 int                 I  
@@ -6,7 +6,7 @@ long                J
 float               F  
 double              D  
 void                V  
-引用                 String-->Ljava/lang/String  
+引用                 String-->Ljava/lang/String;  
 数组                 int[]--->[I
 可以看到除了long和boolean不同外,其他都是相应类型的第一个字母  
 long是J,boolean是Z,引用是L开头然后跟上类的全路径名加一个';'号
