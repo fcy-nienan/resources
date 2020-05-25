@@ -1,4 +1,5 @@
 # sqlplus使用
+
     登录sqlplus zxmd/Cpic\@4321@10.186.72.158:1521/cisdb
     导入数据@E:\\1.sql
     alter table table_name drop column field_name
@@ -165,8 +166,8 @@ add_months(sysdate,1)
 	2020-05-09 00:00:00
 # row_number() over(partition by 列名1 order by 列名2 desc)
 	SELECT USER_NAME,
-       SCHOOL,
-       DEPART,
-       ROW_NUMBER() OVER(PARTITION BY USER_NAME ORDER BY SCHOOL, DEPART 	DESC)
+	   SCHOOL,
+	   DEPART,
+	   ROW_NUMBER() OVER(PARTITION BY USER_NAME ORDER BY SCHOOL, DEPART 	DESC)
   	FROM USER_M;
   	表示根据 列名1 分组，然后在分组内部根据 列名2 排序，而此函数计算的值就表示每组内部排序后的顺序编号,可以用于去重复值

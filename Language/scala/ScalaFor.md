@@ -1,4 +1,5 @@
 # scala的for语法
+
 ## for有四种写法
 + for loop with ranges  
 + for loop with collections 
