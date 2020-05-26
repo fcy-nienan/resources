@@ -102,12 +102,9 @@
 ​    select value from v$parameter where name = 'processes';
 ​    
 ​    alter system set processes = 300 scope =spfile; 
+
 # oracle maximum open cursor exceeded
     关闭prepareSment和ResultSet 
-# jdbc占位符
-    update table set name=? ,age=? where id=?
-    jdbc会自动为占位符加上单引号，所以如果是字符串类型的话不需要特殊处理
-    那其他数字类型的加了占位符会相等吗？能成功赋值吗？
 # 查询正在执行的sql和session
 
     SELECT b.sid oracleID,
@@ -165,8 +162,8 @@ add_months(sysdate,1)
 	2020-05-09 00:00:00
 # row_number() over(partition by 列名1 order by 列名2 desc)
 	SELECT USER_NAME,
-       SCHOOL,
-       DEPART,
-       ROW_NUMBER() OVER(PARTITION BY USER_NAME ORDER BY SCHOOL, DEPART 	DESC)
+	   SCHOOL,
+	   DEPART,
+	   ROW_NUMBER() OVER(PARTITION BY USER_NAME ORDER BY SCHOOL, DEPART 	DESC)
   	FROM USER_M;
   	表示根据 列名1 分组，然后在分组内部根据 列名2 排序，而此函数计算的值就表示每组内部排序后的顺序编号,可以用于去重复值

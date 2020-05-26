@@ -25,6 +25,9 @@
     email,
     cardno from new12306;
     
+    只更新一条
+    UPDATE t1 SET c=c+1 WHERE a=1 OR b=2 LIMIT 1;
+    
     查看变量
     show variables like '%secure%';
     
@@ -175,3 +178,49 @@
 >https://stackoverflow.com/questions/7968531/remove-trailing-zeros-in-decimal-value-with-changing-length
 
 # sql不加orderby 按照什么排序?
+	按照数据物理存储
+# 索引
+## 新增索引
+	alter table new12306 add INDEX index_username(username);
+## 删除索引
+	drop index index_username on new12306;
+	新增组合索引
+	ALTER TABLE `table` ADD INDEX name_city_age (name,city,age); 
+	全文索引
+	ALTER TABLE article ADD FULLTEXT index_content(content)
+# mysql大数据量
+## 插入技巧
+	load data infile
+	插入前移除索引,插入后重建索引
+	insert into table (col1,col2) values (val1,val2),(val3,val4);
+## 插入更新
+	INSERT INTO t1 (a,b,c) VALUES (1,2,3) ON DUPLICATE KEY UPDATE c=c+1;
+	REPLACE INTO test VALUES (1, 'New', '2014-08-20 18:47:42');
+	https://dev.mysql.com/doc/refman/5.7/en/replace.html
+	尝试插入数据,由于主键重复或者唯一索引而报错时，删除这条冲突的数据并且插入新的数据
+
+	创建临时表，先更新临时表，然后从临时表中update
+    create temporary table tmp(id int(4) primary key,dr varchar(50));
+    insert into tmp values  (0,'gone'), (1,'xx'),...(m,'yy');
+    update test_tbl, tmp set test_tbl.dr=tmp.dr where test_tbl.id=tmp.id;
+​    
+	UPDATE categories 
+	SET dingdan = CASE id 
+	    WHEN 1 THEN 3 
+	    WHEN 2 THEN 4 
+	    WHEN 3 THEN 5 
+	END, 
+	title = CASE id 
+	    WHEN 1 THEN 'New Title 1'
+	    WHEN 2 THEN 'New Title 2'
+	    WHEN 3 THEN 'New Title 3'
+	END
+	WHERE id IN (1,2,3)
+
+​	其他思路
+​		配置mysql的日志，缓冲区，等信息
+
+# mysql查询数据并返回给客户端
+	获取一行，写到 net_buffer 中。这块内存的大小是由参数 net_buffer_length 定义的，默认是 16k。重复获取行，直到 net_buffer 写满，调用网络接口发出去。如果发送成功，就清空 net_buffer，然后继续取下一行，并写入 net_buffer。如果发送函数返回 EAGAIN 或 WSAEWOULDBLOCK，就表示本地网络栈（socket send buffer）写满了，进入等待。直到网络栈重新可写，再继续发送
+	
+	如果客户端A性能慢，迟迟不去读取socket receive buffer，server端就不能发送，此时如果客户端A要读取的数据被其他线程频繁update，由于mvcc的实现，这个变更会记录到undo log，大量的日志会不会使io飙升？可能比较极端才会吧。如果此时客户端性能恢复，服务端要读取最新数据，并通过undo log计算较早的版本，是不是要也占用大量的cpu资源或者io资源

@@ -26,5 +26,16 @@ https://stackoverflow.com/questions/4140448/difference-between-and-in-servlet-ma
 
 
 
+https://time.geekbang.org/column/intro/139?code=4WJqZ1Li-NcKqeoaSUYtndaTkiX07wVYoGc8y9Fh9z8%3D
 
 
+
+https://blog.csdn.net/wuseyukui/article/details/72312574
+
+
+
+https://blog.csdn.net/nuoWei_SenLin/article/details/86734931
+
+
+
+http://tutorials.jenkov.com/java-nio/selectors.html

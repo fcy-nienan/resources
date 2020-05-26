@@ -28,9 +28,9 @@
     不活动时间”表示的是用户没有登录活动但账号仍能保持有效的最大天数。
     失效时间”字段给出的是一个绝对的天数，如果使用了这个字段，那么就给出相应账号的生存期。期满后，该账号就不再是一个合法的账号，也就不能再用来登录了。
 
-# rwx权限认识
+# rwx权限对目录进行测试
 当前测试用户jboss,dcosuser
-所属用户组jboss5,dcos
+	   所属用户组jboss5,dcos
 
     /etc/passwd文件
     jboss:x:1001:1002::/home/jboss:/bin/bash
@@ -40,7 +40,7 @@
     jboss5:x:1002:
     dcos:x:1003:
     
-    测试项:rwx的子集(LeetCode中78题)
+    测试项:rwx的子集
     r
     w
     x
@@ -50,17 +50,20 @@
     wx
     目录中的文件全部777权限
 ### R权限
+    以root用户查看当前目录信息
     [root@fcy home]# ll
     total 8
     drwxr--r-- 2 dcosuser dcos   4096 Feb 25 02:02 dcosuser
     
-    R权限只能读取到文件名,文件其他信息无法读取到
+    切换到jboss用户并且访问dcosuser目录下的文件
+    
+    R权限只能读取到文件名,文件其他信息无法读取到(也就是只能查看目录项的内容?)
     [jboss@fcy home]$ ll dcosuser/
     ls: cannot access dcosuser/1.txt: Permission denied
     total 0
     -????????? ? ? ? ?            ? 1.txt
     
-    有R权限且文件权限是777为啥不能查看文件内容?
+    无法查看文件内容
     [jboss@fcy home]$ cat dcosuser/1.txt
     cat: dcosuser/1.txt: Permission denied
     
@@ -163,6 +166,7 @@
 If you have read permission for a directory, you may list ls the directories contents.  
 If you have write permission for a directory, you can create new entries (files/folders/etc).  
 If you have execute permission for a directory, you may change chdir into that directory.  
+
 >https://stackoverflow.com/questions/15355958/what-does-the-x-mean-in-rwx-on-a-directory
 
 >"Execute" is the traversal permission on a directory. 
@@ -219,11 +223,23 @@ r,w,x对一个目录来说究竟意味着什么?
 目录也是一个文件,r意味着能够读取,但是没有x权限你并不能干点其他的  
 x权限正式定义为搜索权限  
 cat需要,cd需要  
-在一个目录上有r权限没有x权限你能做的事不多  
+在一个目录上有r权限没有x权限你能做的事不多，ls只能看到名字，ls -l都不能正常显示呢  
 在一个目录上只有w权限是完全无用的,我还没看到有其他文档对这进行详细描述  
 只有w权限没有x权限啥也干不了  
 
 这东西具体影响到哪些命令只能实际用的时候去测试了  
+
+
+
+2020/4/28:
+
+​	R权限可以定义为对  目录的inode节点内容的查看权限
+
+​	W权限可以定义为对  目录的inode节点内容的写入权限
+
+​   X权限可以定义为对  目录的inode节点下文件的搜索和执行权限
+
+暂时是这样认为的，对错不知道，更加准确具体估计要去抠源码
 
 # 遇到的问题
 ## /usr/bin/id: cannot find name for user ID 1002
