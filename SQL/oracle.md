@@ -1,4 +1,5 @@
 # sqlplus使用
+
     登录sqlplus zxmd/Cpic\@4321@10.186.72.158:1521/cisdb
     导入数据@E:\\1.sql
     alter table table_name drop column field_name

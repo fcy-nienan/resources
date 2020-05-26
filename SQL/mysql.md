@@ -1,4 +1,5 @@
 # frm,MYD,MYI
+
     frm是表的schema
     MYD是数据文件
     MYI是索引
