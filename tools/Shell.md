@@ -1,4 +1,5 @@
 # vim
+
     vim查找上一个N,查找下一个n
     vim清空所有内容 dg   Esc+Shift+:+%d
     vim全局替换     :%s#ttt#kkk     将所有的ttt替换为kkk      #作为分隔符 %代表全局替换 s代表替换

@@ -1,4 +1,5 @@
 # Jpa标签
+
 ```
 <Jpa:repositories base-package="com.fcy.JpaDemo.Dao"
                       entity-manager-factory-ref="entityManagerFactory"
