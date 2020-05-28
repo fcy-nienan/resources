@@ -103,6 +103,8 @@ insert into x values (an)
 重写成
 insert into x values (a1),...,(an)
 
+
+
 ## 参考
 https://stackoverflow.com/questions/2993251/jdbc-batch-insert-performance
 # 是否需要关闭Statement和ResultSet

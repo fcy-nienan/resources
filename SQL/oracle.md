@@ -103,12 +103,9 @@
 ​    select value from v$parameter where name = 'processes';
 ​    
 ​    alter system set processes = 300 scope =spfile; 
+
 # oracle maximum open cursor exceeded
     关闭prepareSment和ResultSet 
-# jdbc占位符
-    update table set name=? ,age=? where id=?
-    jdbc会自动为占位符加上单引号，所以如果是字符串类型的话不需要特殊处理
-    那其他数字类型的加了占位符会相等吗？能成功赋值吗？
 # 查询正在执行的sql和session
 
     SELECT b.sid oracleID,

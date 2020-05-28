@@ -93,6 +93,14 @@ git有三个区域
 执行git reset --soft versionID后重置HEAD指针并保留暂存区和工作区  
 执行git reset --mixed versionID后重置HEAD指针并清空暂存区保留工作区(默认选项)  
 
+
+
+git reset --hard commitID
+
+回退到commitID后的时间段,清除暂存区和工作区
+
+
+
 git diff 命令  
 暂存区     工作区     历史版本    某个历史版本      某两次提交   远程某个版本  
 可比较上面某两个的差别  

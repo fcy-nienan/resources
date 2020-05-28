@@ -1,5 +1,7 @@
+
+# 资源网址
 搜狐开源镜像站
-http://mirrors.sohu.com/ 
+http://mirrors.sohu.com/  
 网易开源镜像站
 http://mirrors.163.com/ 
 阿里云开源镜像站
@@ -33,7 +35,6 @@ http://mirrors.cqu.edu.cn/
 
 https://wiki.centos.org/Download
 
-
 以下针对各个版本的ISO镜像文件，进行一一说明：
 CentOS-7-x86_64-DVD-1708.iso               标准安装版，一般下载这个就可以了（推荐）
 CentOS-7-x86_64-NetInstall-1708.iso        网络安装镜像（从网络安装或者救援系统）  
@@ -51,7 +52,6 @@ CentOS 6
 wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-6.repo
 CentOS 7
 wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
-
 
 linux信息http://www.linfo.org/index.html
 Linux信息https://www.kernel.org/doc/Documentation/filesystems/proc.txt

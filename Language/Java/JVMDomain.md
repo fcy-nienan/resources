@@ -71,3 +71,16 @@ APT编译时注解
 javaagent原理
 javassist运行时修改字节码
 javaattach
+
+
+
+
+
+# HashMap的三个方法
+```
+	// Callbacks to allow LinkedHashMap post-actions
+    void afterNodeAccess(Node<K,V> p) { }
+    void afterNodeInsertion(boolean evict) { }
+    void afterNodeRemoval(Node<K,V> p) { }
+```
+	之前一直以为这三个方法可以被重写，今天突然发现不对，default修饰符,包内访问,子类访问不了，另外注释也写明白了，这是被LinkedHashMap调用的
