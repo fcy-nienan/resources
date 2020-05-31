@@ -40,3 +40,42 @@ Alt+D          录制
 # idea中部署的tomcat项目
 	catabase目录在~/.Ideaxxxx/system/tomcat
 	存放jsp和css、js文件的目录是artifact打包的目录
+# idea自动生成注释
+IDEA默认的   /** Enter
+	
+自定义的
+
+* Editor--Live Templates
+* Template text设置为
+	```
+	*
+	* @Description: $description$
+	* $params$
+	* @return $return$
+	* @Author: fcy
+	* @Date: $date$
+	*/
+	```
+* Abbreviation设置为n (这个是自定义的)
+* Description设置为方法注释
+* Expand with选择为Tab
+* 勾选Reformat according to style
+* 勾选Shorten FQ names 
+* 点击Edit Variables
+
+| Names | 	Expresion | Default value | Skip if defined|
+| -- | -- | -- | -- |
+| description | | | + |
+| params | | | + |
+| return | methodReturnType() | | + |
+| date | date() | | + |
+
+* 其中params的Expression填写为(groovy脚本)
+`
+groovyScript("     def result='';     def params=\"${_1}\".replaceAll('[\\\\[|\\\\]|\\\\s]', '').split(',').toList();     for(i = 0; i < params.size(); i++) {         if(i!=0)result+= ' * ';         result+='@param ' + params[i] + ': ' + ((i < (params.size() - 1)) ? '\\n' + '\\t' : '');     };     return result", methodParameters())
+`
+
+
+* Expression代表生成注释的值
+* Skip if defined :如果勾选了,生成注释后光标不会再该变量上,如果没勾选你的话生成注释后光标会在该变量上
+* 上面所有设置好了后光标停在某个方法上   按键/   按键n  按键Tab   ,注释就自动生成了

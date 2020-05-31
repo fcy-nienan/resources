@@ -42,4 +42,12 @@
 * -XX:+UseParallelOldGC
 相当于” Parallel Scavenge” + “ParallelOld”，都是多线程并行处理；
 * -XX:+UseConcMarkSweepGC,相当于"ParNew" + "CMS" + "Serial Old",CMS可能会Concurrent Mode Failure,失败采用SerialOld
+# 碰到的问题
+## 异常:GC overhead limit exceeded
+	垃圾收集频繁发生,但是回收的对象却很少,GC效率不高,避免陷入恶性循环
+	快速失败
+>Exception in thread thread_name: java.lang.OutOfMemoryError: GC Overhead limit exceeded Cause: The detail message "GC overhead limit exceeded" indicates that the garbage collector is running all the time and Java program is making very slow progress. After a garbage collection, if the Java process is spending more than approximately 98% of its time doing garbage collection and if it is recovering less than 2% of the heap and has been doing so far the last 5 (compile time constant) consecutive garbage collections, then a java.lang.OutOfMemoryError is thrown. This exception is typically thrown because the amount of live data barely fits into the Java heap having little free space for new allocations.
+Action: Increase the heap size. The java.lang.OutOfMemoryError exception for GC Overhead limit exceeded can be turned off with the command line flag -XX:-UseGCOverheadLimit.
+
+    花费了98%的时间进行垃圾回收并且只回收了不到2%的空间,最少进行了5此连续的垃圾回收
 

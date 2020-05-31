@@ -14,7 +14,7 @@ default生命周期
     verify      ensure the quality of the result of the integration-test of the project are met
     install     install the package into the repository
     deploy      copy the package to the remote repository for sharing with other developers or projects
-site生命周期
+site生命周期   生成项目的站点文档
     pre-site
     site
     post-site
@@ -111,3 +111,39 @@ runtime
 test
 含义： 表示被依赖项目仅仅参与测试相关的工作，包括测试代码的编译，执行。
 适用场景：例如，Junit 测试
+
+# 快照和版本
+    版本（Version）的情况下，如果Maven以前下载过指定的版本文件，比如说data-service:1.0，Maven将不会再从仓库下载新的可用的1.0文件。若要下载更新的代码，data-service的版本需要升到1.1。
+
+快照（Snapshot）的情况下，每次app-ui团队构建他们的项目时，Maven将自动获取最新的快照(data-service:1.0-SNAPSHOT)。
+
+Maven会根据模块的版本号（pom.xml文件中的version）中是否带有-SNAPSHOT来判断是快照版本还是正式版本。如果是快照版本，那么在mvn deploy时会自动发布到快照版本库中，而使用快照版本的模块，在不更改版本号的情况下，直接编译打包时，Maven会自动从镜像服务器上下载最新的快照版本。如果是正式发布版本，那么在mvn deploy时会自动发布到正式版本库中，而使用正式版本的模块，在不更改版本号的情况下，编译打包时如果本地已经存在该版本的模块则不会主动去镜像服务器上下载
+
+Maven中的仓库分为两种，Snapshot快照仓库和Release发布仓库。Snapshot快照仓库用于保存开发过程中的不稳定版本，Release正式仓库则是用来保存稳定的发行版本。定义一个组件/模块为快照版本，只需要在pom.xml文件中在该模块的版本号后加上-SNAPSHOT即可（注意这里必须是大写），如下所示：
+
+<groupId>fcy</groupId>
+<artifactId>Util</artifactId>
+<version>1.0-SNAPSHOT</version>
+<packaging>jar</packaging>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

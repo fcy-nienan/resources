@@ -5,6 +5,7 @@
     vim全局替换     :%s#ttt#kkk     将所有的ttt替换为kkk      #作为分隔符 %代表全局替换 s代表替换
     :set ff=unix
 # 编码格式
+
     在vim中敲命令:set fileencoding即可显示当前文件编码格式
     在vim中敲命令:set fileencoding=utf-8即可将当前文件编码改为utf-8
     通过iconv命令将文件由GBK转为utf-8(必须指定原始文件和目标文件的编码格式和原始文件名和目标文件名)
@@ -83,6 +84,7 @@
     cat /proc/cpuinfo
     cat /proc/meminfo
 # find命令
+
     find . -type f -size -3k -exec ls -l {} \;  查找大小3k以内的文件并显示
     find . -type f -size +3k -exec ls -l {} \;  查找大小3k以上的文件并显示
     find ./ -mmin +2 2分钟以上的文件
@@ -595,3 +597,27 @@
 	Port 521314
 	执行命令 service ssh restart
 	然后就可以通过521314端口去登录了,当然22端口也行
+# Linux防火墙
+	iptables和firewalld
+	service iptables status
+	
+	systemctl status firewalld
+	service firewalld start
+	service firewalld stop
+	service firewalld restart
+	
+	firewall-cmd --list-all
+	firewall-cmd --permanent --add-port=80/tcp
+	firewall-cmd --permanent --remove-port=80/tcp
+	firewall-cmd --query-port=80/tcp
+# vfstp 
+	配置文件目录 /etc/vsftpd
+	文件目录  /var/ftp
+# netstat 命令显示的:::*
+	::: 这三个: 的前两个”::“，是“0:0:0:0:0:0:0:0”的缩写，相当于IPv6的“0.0.0.0”，就是本机的所有IPv6地址，第三个:是IP和端口的分隔符
+	
+	
+	
+	
+	
+	

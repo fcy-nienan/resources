@@ -4,7 +4,9 @@
 定义:complete binary tree is a binary tree in which every level of the tree 
 is completely filled except the last level
 除了最后一层外每个节点都是完全被填充的
+
 ## 满二叉树
+
 定义:a binary tree T is full if each node is either a leaf or possesses exactly two child nodes
 也就是每个节点有两个子节点或者该节点是某个叶子几点
 ## 注意

@@ -177,7 +177,123 @@ openjdk
        ((k = p.key) == key || (key != null && key.equals(k))))
           e = p;
     (哈希相同&&(引用相等||两边的equals方法返回的string相等))
+# HashMap为什么容量总是为2的次幂
+	put数据的时候是通过hash(key)&(len-1)确定下表的
+	如果len是2的次幂,那么len-1必定是111111这种格式的
+	那么x&111111必定是111111范围的所有数字
+	而如果len不是2的次幂,那么len-1的二进制必定有0存在
+	那么x&1110111就会有某个数字永远不会作为下标,浪费空间
+	
+	另外HashMap有一个方法tableSizeFor   他会自动算出x最近的2的次幂的值
+	所以如果你指定Hash Map的size为13  那么扩容的阈值会是16
+```
+    public HashMap(int initialCapacity, float loadFactor) {
+        if (initialCapacity < 0)
+            throw new IllegalArgumentException("Illegal initial capacity: " +
+                                               initialCapacity);
+        if (initialCapacity > MAXIMUM_CAPACITY)
+            initialCapacity = MAXIMUM_CAPACITY;
+        if (loadFactor <= 0 || Float.isNaN(loadFactor))
+            throw new IllegalArgumentException("Illegal load factor: " +
+                                               loadFactor);
+        this.loadFactor = loadFactor;
+        this.threshold = tableSizeFor(initialCapacity);
+    }
+# HashMap的成员变量
+## 全局
+```
+    /**
+     * The default initial capacity - MUST be a power of two.
+     */
+    static final int DEFAULT_INITIAL_CAPACITY = 1 << 4; // aka 16
+	默认初始化容量
+    /**
+     * The maximum capacity, used if a higher value is implicitly specified
+     * by either of the constructors with arguments.
+     * MUST be a power of two <= 1<<30.
+     */
+    static final int MAXIMUM_CAPACITY = 1 << 30;
+	最大容量
+    /**
+     * The load factor used when none specified in constructor.
+     */
+    static final float DEFAULT_LOAD_FACTOR = 0.75f;
+	默认装载因子
+    /**
+     * The bin count threshold for using a tree rather than list for a
+     * bin.  Bins are converted to trees when adding an element to a
+     * bin with at least this many nodes. The value must be greater
+     * than 2 and should be at least 8 to mesh with assumptions in
+     * tree removal about conversion back to plain bins upon
+     * shrinkage.
+     */
+    static final int TREEIFY_THRESHOLD = 8;
+	当hash碰撞成链表时树化阈值
+    /**
+     * The bin count threshold for untreeifying a (split) bin during a
+     * resize operation. Should be less than TREEIFY_THRESHOLD, and at
+     * most 6 to mesh with shrinkage detection under removal.
+     */
+    static final int UNTREEIFY_THRESHOLD = 6;
+	当重新hash(resize方法)的时候,反树化阈值   将一个树转化为链表
+    /**
+     * The smallest table capacity for which bins may be treeified.
+     * (Otherwise the table is resized if too many nodes in a bin.)
+     * Should be at least 4 * TREEIFY_THRESHOLD to avoid conflicts
+     * between resizing and treeification thresholds.
+     */
+    static final int MIN_TREEIFY_CAPACITY = 64;
+    只有容量大于等于这个值的时候才树化
+```
+## 成员变量
+```
+    /**
+     * The table, initialized on first use, and resized as
+     * necessary. When allocated, length is always a power of two.
+     * (We also tolerate length zero in some operations to allow
+     * bootstrapping mechanics that are currently not needed.)
+     */
+    transient Node<K,V>[] table;
 
+    /**
+     * Holds cached entrySet(). Note that AbstractMap fields are used
+     * for keySet() and values().
+     */
+    transient Set<Map.Entry<K,V>> entrySet;
+
+    /**
+     * The number of key-value mappings contained in this map.
+     */
+    transient int size;实际数量
+
+    /**
+     * The number of times this HashMap has been structurally modified
+     * Structural modifications are those that change the number of mappings in
+     * the HashMap or otherwise modify its internal structure (e.g.,
+     * rehash).  This field is used to make iterators on Collection-views of
+     * the HashMap fail-fast.  (See ConcurrentModificationException).
+     */
+    transient int modCount;用户快速失败
+
+    /**
+     * The next size value at which to resize (capacity * load factor).
+     *
+     * @serial
+     */
+    // (The javadoc description is true upon serialization.
+    // Additionally, if the table array has not been allocated, this
+    // field holds the initial array capacity, or zero signifying
+    // DEFAULT_INITIAL_CAPACITY.)
+    int threshold;   表中数组table.length*loadFactor
+
+    /**
+     * The load factor for the hash table.
+     *
+     * @serial
+     */
+    final float loadFactor;代表有多满   越大也就意味着到后面put的时候更容易冲突,越小代表着大量的空间浪费,不停的扩容去了,表中数据过于稀疏
+```
+```
 # 线程池的execute和submit方法
     execute是具体实现类的方法并且返回值为void
     submit是抽象线程类的方法并且通过FutureTask包装了并且返回了该对象然后可以通过该对象来控制该线程
