@@ -45,7 +45,11 @@ docker logs -f containerID
 -t: 为容器重新分配一个伪输入终端，通常与 -i 同时使用；
 
 --name="nginx-lb":  给容器命名
+
+-v  挂载目录    主机目录:容器目录    /opt/docker_v/mysql/conf:/etc/mysql/conf.d：**将主机/opt/docker_v/mysql/conf目录挂载到容器的/etc/mysql/conf.d
+
 ## 没接触过的
+
 -a stdin: 指定标准输入输出内容类型，可选 STDIN/STDOUT/STDERR 三项；
 
 --dns 8.8.8.8: 指定容器使用的DNS服务器，默认和宿主一致；
