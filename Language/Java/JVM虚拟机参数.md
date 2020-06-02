@@ -48,3 +48,5 @@
 + -ea开启断言
 + -XX:+TraceClassLoading打印加载的类
 + -XX:hashCode选择使用哪种hash算法
++ https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/parallel.html#default_heap_size
++ 当OOM发生后内存释放了吗？

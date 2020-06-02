@@ -34,7 +34,7 @@ Alt+D          录制
 # idea中的tomcat中的资源更新
 	on update action   手动触发!
 	如下图,红色的刷新按钮,点击的时候会弹出对话框(tomcat界面show dialog默认选中)
-![idea图片](../resources/photo/idea-update-action.PNG)
+![idea图片](../resources/photo/idea/idea-update-action.PNG)
 
 	on framework deactivation	框架失去焦点(也就是从idea切换到了其他应用)
 # idea中部署的tomcat项目
@@ -79,3 +79,8 @@ groovyScript("     def result='';     def params=\"${_1}\".replaceAll('[\\\\[|\\
 * Expression代表生成注释的值
 * Skip if defined :如果勾选了,生成注释后光标不会再该变量上,如果没勾选你的话生成注释后光标会在该变量上
 * 上面所有设置好了后光标停在某个方法上   按键/   按键n  按键Tab   ,注释就自动生成了
+# idea省电模式
+	File-->Power Save Mode
+	class文件的图标会变
+
+![省电模式](../resources/photo/idea/idea-power-save-mode.PNG)

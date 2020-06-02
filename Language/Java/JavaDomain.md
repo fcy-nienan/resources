@@ -206,19 +206,19 @@ openjdk
      * The default initial capacity - MUST be a power of two.
      */
     static final int DEFAULT_INITIAL_CAPACITY = 1 << 4; // aka 16
-	默认初始化容量
+    默认初始化容量
     /**
      * The maximum capacity, used if a higher value is implicitly specified
      * by either of the constructors with arguments.
      * MUST be a power of two <= 1<<30.
      */
     static final int MAXIMUM_CAPACITY = 1 << 30;
-	最大容量
+    最大容量
     /**
      * The load factor used when none specified in constructor.
      */
     static final float DEFAULT_LOAD_FACTOR = 0.75f;
-	默认装载因子
+    默认装载因子
     /**
      * The bin count threshold for using a tree rather than list for a
      * bin.  Bins are converted to trees when adding an element to a
@@ -228,14 +228,14 @@ openjdk
      * shrinkage.
      */
     static final int TREEIFY_THRESHOLD = 8;
-	当hash碰撞成链表时树化阈值
+    当hash碰撞成链表时树化阈值
     /**
      * The bin count threshold for untreeifying a (split) bin during a
      * resize operation. Should be less than TREEIFY_THRESHOLD, and at
      * most 6 to mesh with shrinkage detection under removal.
      */
     static final int UNTREEIFY_THRESHOLD = 6;
-	当重新hash(resize方法)的时候,反树化阈值   将一个树转化为链表
+    当重新hash(resize方法)的时候,反树化阈值   将一个树转化为链表
     /**
      * The smallest table capacity for which bins may be treeified.
      * (Otherwise the table is resized if too many nodes in a bin.)
@@ -254,18 +254,18 @@ openjdk
      * bootstrapping mechanics that are currently not needed.)
      */
     transient Node<K,V>[] table;
-
+    
     /**
      * Holds cached entrySet(). Note that AbstractMap fields are used
      * for keySet() and values().
      */
     transient Set<Map.Entry<K,V>> entrySet;
-
+    
     /**
      * The number of key-value mappings contained in this map.
      */
     transient int size;实际数量
-
+    
     /**
      * The number of times this HashMap has been structurally modified
      * Structural modifications are those that change the number of mappings in
@@ -274,7 +274,7 @@ openjdk
      * the HashMap fail-fast.  (See ConcurrentModificationException).
      */
     transient int modCount;用户快速失败
-
+    
     /**
      * The next size value at which to resize (capacity * load factor).
      *
@@ -285,7 +285,7 @@ openjdk
     // field holds the initial array capacity, or zero signifying
     // DEFAULT_INITIAL_CAPACITY.)
     int threshold;   表中数组table.length*loadFactor
-
+    
     /**
      * The load factor for the hash table.
      *
@@ -293,6 +293,7 @@ openjdk
      */
     final float loadFactor;代表有多满   越大也就意味着到后面put的时候更容易冲突,越小代表着大量的空间浪费,不停的扩容去了,表中数据过于稀疏
 ```
+
 ```
 # 线程池的execute和submit方法
     execute是具体实现类的方法并且返回值为void
@@ -533,4 +534,25 @@ Iterable
 	ClassNotFoundException是我们自己手动加载一些类的时候报出的异常
 
 >It is thrown by the application itself. It is thrown by the methods like Class.forName(), loadClass() and findSystemClass().
+# BitSet
+	BitSet是通过long数组扩展的，一个long有8字节，64bit，
+	存储Integer.Max_Value的最大值需要   
+	
+	0-64 个数组全部set了
+	length是65
+	size是128
+	length方法是元素个数
+	size是多少位，由于一个long64bit,所以set了65个是发生了数组扩展，然后变成了两个long，128bit
+	
+	bitSet.set(12);
+	bitSet.nextSetBit(0)//12
+	bitSet.nextSetBit(12)//12
+	bitSet.nextSetBit(13)//-1
+	
+	返回下一个为true的位置
+	nextSetBit		
+	返回下一个为false的位置
+	nextClearBit	
+	fromIndex the index to start checking from (inclusive)
+	the index of the next set bit, or {@code -1} if there  is no such bit
 
