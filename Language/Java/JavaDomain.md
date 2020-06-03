@@ -536,23 +536,45 @@ Iterable
 >It is thrown by the application itself. It is thrown by the methods like Class.forName(), loadClass() and findSystemClass().
 # BitSet
 	BitSet是通过long数组扩展的，一个long有8字节，64bit，
-	存储Integer.Max_Value的最大值需要   
-	
-	0-64 个数组全部set了
-	length是65
-	size是128
-	length方法是元素个数
-	size是多少位，由于一个long64bit,所以set了65个是发生了数组扩展，然后变成了两个long，128bit
-	
+
+## length方法返回的是当前long数组最大的被设置的bit位的下标
+		BitSet bitSet=new BitSet();
+		bitSet.set(13)   100000 00000000 现在length方法返回14
+		bitSet.set(3)    100000 00001000 现在length方法返回14
+		bitSet.set(15) 10100000 00001000 现在length方法返回16
+## size是多少位，由于一个long64bit,所以set了65个是发生了数组扩展，然后变成了两个long，128bit
+		BitSet bitSet=new BitSet();
+		bitSet.set(63)   现在size方法返回64
+		bitSet.set(64)   现在size方法返回128
+		bitSet.set(65) 	 现在size方法返回128
+## nextSetBit和nextClearBit
 	bitSet.set(12);
 	bitSet.nextSetBit(0)//12
 	bitSet.nextSetBit(12)//12
 	bitSet.nextSetBit(13)//-1
 	
-	返回下一个为true的位置
-	nextSetBit		
-	返回下一个为false的位置
-	nextClearBit	
+	返回从index开始下一个为true的位置(包括index)
+	nextSetBit(index)
+	返回从index开始下一个为false的位置(包括index)
+	nextClearBit(index)
 	fromIndex the index to start checking from (inclusive)
 	the index of the next set bit, or {@code -1} if there  is no such bit
+## 作用
+1. 统计一组大数据中没有出现过的数；
+	将这组数据映射到BitSet，然后遍历BitSet，对应位为0的数表示没有出现过的数据。
 
+2. 对大数据进行排序；
+
+    将数据映射到BitSet，遍历BitSet得到的就是有序数据。
+
+3. 在内存对大数据进行压缩存储等等。
+
+    一个GB的内存空间可以存储85亿多个数，可以有效实现数据的压缩存储，节省内存空间开销。
+## 其他问题
+	set方法的参数是int类型，这个有限制大小，int最大值大约是21亿，需要2147483647/64=33554431个long类型来存储
+	需要的空间大小33554431*8/1024/1024~=256M
+	
+	BitSet的long类型数组最大long[] y=new long[Integer.MAX_VALUE];所需空间2147483647*8/1024/1024~=16384M(这个一般应该用不到，内存都要都16G了)
+	最高位下标2147483647*64=137438953408,
+	但是我们通过方法最多只能设置2147483647位
+	
