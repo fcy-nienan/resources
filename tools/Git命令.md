@@ -35,7 +35,8 @@
     git fetch origin master:br3				将远程的master分支拉下来并在本地创建br3分支  
 ## 分支比较
     git diff br3    						查看当前分支与br3分支有何不同  
-    git diff branchName branchName          比较两个分支有何不同  
+    git diff branchName branchName            比较两个分支有何不同  
+    git diff branchName branchName filePath   比较两个分支某一具体文件差异
 ## 分支CRUD
 	git checkout branchName                 切换分支  
 	git add remote label address            添加远程仓库路径并命名为label  
@@ -48,19 +49,14 @@
 	git branch -D br3                       强制删除b 
 	git remote rename oldName newName       远程仓库重命名 
 # git合并
-	git merge tmp -s resolve
-	合并策略
-+ resolve
-+ recursive
-+ octopus
-+ ours
-+ subtree
+	git merge tmp -s resolve				合并tmp分支并指定合并策略位resolve
+	合并策略  resolve,recursive,octopus,ours,subtree
 	git merge br3							将br3分支与本地分支合并(最新的是br3分支)  
-	git merge br3 -s theirs  
+	git merge br3 -s theirs 
+	git reset --hard						git放弃merge 
 # upstream相关
     git的upstream                            当前分支与远程分支的关联  
     git branch -u fcy/master                将当前分支的upstream指定为远程的master分支  
-    git reset --hard						git放弃merge
 # upstream
         git remote show fcy  
         cat .git/config  

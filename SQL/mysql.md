@@ -230,7 +230,7 @@
 	如果客户端A性能慢，迟迟不去读取socket receive buffer，server端就不能发送，此时如果客户端A要读取的数据被其他线程频繁update，由于mvcc的实现，这个变更会记录到undo log，大量的日志会不会使io飙升？可能比较极端才会吧。如果此时客户端性能恢复，服务端要读取最新数据，并通过undo log计算较早的版本，是不是要也占用大量的cpu资源或者io资源
 # mysql行转列
 ## 原始数据
-![mysql行转列](../resources/photo/mysql-row-to-column-one.png)
+![mysql行转列](../resources/photo/mysql/mysql-row-to-column-one.png)
     select  name,
       sum(case when subject = 'php' then marks else 0 end) php,
       sum(case when subject = 'java' then marks else 0 end) java,
@@ -240,4 +240,4 @@
 
 ##转换后的数据
 
-![mysql行转列结果](../resources/photo/mysql-row-to-column-two.png)
+![mysql行转列结果](../resources/photo/mysql/mysql-row-to-column-two.png)
