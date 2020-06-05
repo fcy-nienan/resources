@@ -39,3 +39,7 @@ https://blog.csdn.net/nuoWei_SenLin/article/details/86734931
 
 
 http://tutorials.jenkov.com/java-nio/selectors.html
+
+https://docs.oracle.com/en/java/javase/14/docs/specs/man/jar.html
+
+https://docs.oracle.com/javase/7/docs/technotes/tools/windows/jar.html
