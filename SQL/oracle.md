@@ -1,10 +1,8 @@
 # sqlplus使用
 
     登录sqlplus zxmd/Cpic\@4321@10.186.72.158:1521/cisdb
-    导入数据@E:\\1.sql
-    alter table table_name drop column field_name
-
-
+    导入数据 @E:\\1.sql
+    
     sqlplus /nolog
     conn user/passwd@ip:port/service
     如果密码含有英文则可以将其用双引号括起来
@@ -20,7 +18,7 @@
         也就是这个字段时varchar(255),如果不设置这个他会输出255个字符,设置了之后就会只输出有值的部分
         set warp off;
         set linesize 160;
-# how oracle works?
+# rownum,how oracle works?
     you want to get data with a filter and rownum=2,
     first Oracle executes the sql with filter and get the first record,
     give it the rownum 1,
@@ -95,22 +93,17 @@
 # Oracle连接数
     --当前连接数
     select count(*) from v$process;
-​    --允许最大连接数 （默认是150）
-​    select value from v$parameter where name = 'processes';
-​    
-​    alter system set processes = 300 scope =spfile; 
-​    --允许最大连接数 （默认是150）
-​    select value from v$parameter where name = 'processes';
-​    
-​    alter system set processes = 300 scope =spfile; 
-
+    --允许最大连接数 （默认是150）
+    select value from v$parameter where name = 'processes';
+    查询oracle的连接数
+    select count(*) from v$session;
 # oracle maximum open cursor exceeded
     关闭prepareSment和ResultSet 
 # 查询正在执行的sql和session
 
     SELECT b.sid oracleID,
            b.username 登录Oracle用户名,
-           b.serial#,
+           b.serial,
            spid 操作系统ID,
            paddr,
            sql_text 正在执行的SQL,
@@ -118,18 +111,11 @@
     FROM v$process a, v$session b, v$sqlarea c
     WHERE a.addr = b.paddr
        AND b.sql_hash_value = c.hash_value
-       
-    查询oracle的连接数
-    select count(*) from v$session;
-    查询oracle当前的的并发连接数
-    select count(*) from v$session where status='ACTIVE';
-    查询允许的最大连接数
-    select value from v$parameter where name = 'processes';
 # java.sql.SQLException: 批处理中出现错误: batch must be either executed or cleared
     应该是使用executeBatch
     而我错误的写成了executeUpdate
 # dba_data_files表信息
-    https://docs.oracle.com/cd/B19306_01/server.102/b14237/statviews_3083.htm#REFRN23049
+>https://docs.oracle.com/cd/B19306_01/server.102/b14237/statviews_3083.htm#REFRN23049
 # 查看Oracle定义的函数源码
     SELECT * FROM  USER_PROCEDURES;
     SELECT * FROM USER_SOURCE WHERE NAME = 'COMPUTERFEE';
@@ -163,8 +149,8 @@ add_months(sysdate,1)
 	2020-05-09 00:00:00
 # row_number() over(partition by 列名1 order by 列名2 desc)
 	SELECT USER_NAME,
-	   SCHOOL,
-	   DEPART,
-	   ROW_NUMBER() OVER(PARTITION BY USER_NAME ORDER BY SCHOOL, DEPART 	DESC)
-  	FROM USER_M;
-  	表示根据 列名1 分组，然后在分组内部根据 列名2 排序，而此函数计算的值就表示每组内部排序后的顺序编号,可以用于去重复值
+	SCHOOL,
+	DEPART,
+	ROW_NUMBER() OVER(PARTITION BY USER_NAME ORDER BY SCHOOL, DEPART 	DESC)
+	FROM USER_M;
+	表示根据 列名1 分组，然后在分组内部根据 列名2 排序，而此函数计算的值就表示每组内部排序后的顺序编号,可以用于去重复值

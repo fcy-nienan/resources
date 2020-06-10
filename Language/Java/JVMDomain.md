@@ -111,3 +111,18 @@ sun.jnu.encoding affects the name of file;
     void afterNodeRemoval(Node<K,V> p) { }
 ```
 	之前一直以为这三个方法可以被重写，今天突然发现不对，default修饰符,包内访问,子类访问不了，另外注释也写明白了，这是被LinkedHashMap调用的
+# 对象占用字节
+|	Primitive Type|Memory Required(bytes)	|
+| -----	| -----|
+|boolean                      	|1|
+|byte                            	|1|
+|short                           	|2|
+|char                            	|2|
+|int                               	|4|
+|float                            	|4|
+|long                            	|8|
+|double    	|8|
+数组对象的对象头还有一个数组大小4字节
+# 对象头
+	MarkWord:8字节或者4字节(操作系统位)
+	ClassPointer:8字节或者4字节(压缩指针)

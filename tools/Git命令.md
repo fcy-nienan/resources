@@ -1,7 +1,3 @@
-# 本人习惯
-    git中的remoteName统一命名为fcy  
-    git中远程建三个分支  master  release develop  
-    git中本地建一个分支  wind  
 # 远程仓库
 
      git中的origin的意思      远程仓库在本地的别名  

@@ -155,6 +155,15 @@
     	s      //进程的领导者（在它之下有子进程）；
     	l      //多线程，克隆线程（使用 CLONE_THREAD, 类似 NPTL pthreads）；
     	+      //位于后台的进程组；
+# Linux的内存
+top命令显示的内存包括系统分配的缓存
+ps命令显示实际的内存
+>top includes what's cached in buffers and whatnot. PS does not. If you want your actual usage by the application, use ps. If you want the total used by the application including what the system reserves for it .. use top
+>
+
+1. VIRT is the virtual size of a process, which is the sum of the memory it is actually using, memory it has mapped into itself (for instance a video cards’s RAM for the X server), files on disk that have been mapped into it (most notably shared libraries), and memory shared with other processes. VIRT represents how much memory the process is able to access at the present moment.
+2. RES is the resident size, which is an accurate representation of how much actual physical memory a process is consuming. (This number corresponds directly to top‘s %MEM column.) This amount will virtually always be less than the VIRT size, since most programs depend on the C library.
+3. SHR indicates how much of the VIRT size is actually sharable, so it includes memory and libraries that could be shared with other processes. In the case of libraries, it does not necessarily mean that the entire library is resident. For example, if a program only uses a few functions in a library, the whole library is mapped and counted in VIRT and SHR, but only the parts of the library file that contain the functions being used are actually loaded in and counted under RES.
 # 终端类型
     1.串行端口终端（/dev/ttySn）
     2.伪终端（/dev/pty/）
@@ -615,9 +624,10 @@
 	文件目录  /var/ftp
 # netstat 命令显示的:::*
 	::: 这三个: 的前两个”::“，是“0:0:0:0:0:0:0:0”的缩写，相当于IPv6的“0.0.0.0”，就是本机的所有IPv6地址，第三个:是IP和端口的分隔符
-	
-	
-	
-	
-	
-	
+
+
+​	
+​	
+​	
+​	
+​	
