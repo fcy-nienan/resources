@@ -96,6 +96,7 @@ mvn dependency:tree 查看当前项目依赖
     
     mvn -X命令可以查看settings.xml文件的读取顺序：
 # scope属性解析
+
 	scope元素的作用：控制 dependency 元素的使用范围
 	compile（默认）
 含义：compile 是默认值，如果没有指定 scope 值，该元素的默认值为 compile。被依赖项目需要参与到当前项目的编译，测试，打包，运行等阶段。打包的时候通常会包含被依赖项目。
@@ -125,6 +126,77 @@ Maven中的仓库分为两种，Snapshot快照仓库和Release发布仓库。Sna
 <artifactId>Util</artifactId>
 <version>1.0-SNAPSHOT</version>
 <packaging>jar</packaging>
+
+# 使用maven打可执行包
+
+## 依赖包放置到外部目录
+
+```
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>org.b3log.solo.Server</mainClass>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>target/lib</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+```
+## 将依赖也打入包
+
+这两个配置可以不用加入,具体作用观察一下jar中META-INF/MANIFEST.MF文件内容就知道了
+		<addClasspath>true</addClasspath>
+
+>Whether to create a Class-Path manifest entry. The default value is false.
+
+<classpathPrefix>lib/</classpathPrefix>
+>A text that will be prefixed to all your Class-Path entries. The default value is ""
+
+```
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>org.b3log.solo.Server</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>assembly</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+```
 
 
 

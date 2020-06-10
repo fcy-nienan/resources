@@ -76,8 +76,19 @@ GC日志中的PSYoungGen（PS是指Parallel Scavenge）为Eden+FromSpace，
 其中，PSYoungGen中的Eden:FromSpace为8:1，
 这包括8192K的Eden和1024K的FromSpace。	
 
-
-
+# 使用原生java命令编译并打包
+## 编译单个
+    javac -d ./target/class ./src/test.java
+    编译src目录下的test文件并将生成的class文件放置到targe/class目录下
+    cd target/class
+    运行test文件
+    java com.fcy.test
+## 编译多个
+    javac -d ./target/class -encoding utf-8 -cp .;xxx.jar ./src/*.java
+    指定生成的class文件放置到target/class目录下,指定依赖的包xxx.jar,编译src目录下的所有java文件
+    cd ./target/class
+    java -Dfile.encoding=UTF-8 -classpath xxx.jar com.fcy.test
+    指定依赖的jar包xxx.jar,运行com.fcy.test类
 
 
 

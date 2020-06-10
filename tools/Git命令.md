@@ -3,6 +3,7 @@
     git中远程建三个分支  master  release develop  
     git中本地建一个分支  wind  
 # 远程仓库
+
      git中的origin的意思      远程仓库在本地的别名  
      git remote				查看当前远程仓库  
      git remote add test git://github.com/wingrai/test.git	添加远程仓库 
@@ -130,10 +131,12 @@
 # git删除untracked文件
     git clean -fd
 # git fetch的时候报错non-fast-forward
+
 	本地有两个分支 tmp1 tmp2
 	执行 git fetch origin dev:tmp1的时候报错non-fast-forward
 	执行 git fetch origin dev:tmp3正常
 # git
+
 	|-- HEAD # 记录当前处在哪个分支里
 	|-- config # 项目的配置信息，git config命令会改动它
 	|-- description # 项目的描述信息
