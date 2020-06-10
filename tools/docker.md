@@ -1,24 +1,19 @@
 https://docs.docker.com/engine/reference/commandline/inspect/
 
-docker attach container_id
-docker rm 
+docker rm 	移除容器
 docker rm -f containe_id   强制移除
-docker rmi
-docker ps
-docker images
-docker ps -as
-docker rm $(docker ps -qa)
+docker rmi     移除镜像
+docker images	查看所有镜像
+docker ps -as    查看所有容器
+docker rm $(docker ps -qa) docker移除所有运行得容器
 docker run -it containerId /bin/bash    进入docker
-docker cp 89s894d832kl:/www/web.xml ./
-docker查看网络信息    docker inspect image_id | grep IPAddress
-
-docker查看容器被杀的原因 docker inspect image_id -f '{{json .State}}'
-
-查看启动日志
-docker logs -f containerID
+docker cp 89s894d832kl:/www/web.xml ./	复制容器内的文件到本地
+docker inspect image_id | grep IPAddress	查看网络信息    
+docker inspect image_id -f '{{json .State}}' 	docker查看容器被杀的原因 
+docker logs -f containerID	查看启动日志
+docker status id   实时监控dockers内存CPU等情况
 
 # docker网络
-
     docker network --help
 ## Bridge模式和Host模式
 * No “Port Mapping” is required when the docker “host” network driver will be used.

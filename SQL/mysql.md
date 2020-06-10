@@ -182,7 +182,7 @@
 >https://stackoverflow.com/questions/7968531/remove-trailing-zeros-in-decimal-value-with-changing-length
 
 # sql不加orderby 按照什么排序?
-	按照数据物理存储
+	按照数据物理存储(不确定)
 # 索引
 ## 新增索引
 	alter table new12306 add INDEX index_username(username);
@@ -228,6 +228,8 @@
 	获取一行，写到 net_buffer 中。这块内存的大小是由参数 net_buffer_length 定义的，默认是 16k。重复获取行，直到 net_buffer 写满，调用网络接口发出去。如果发送成功，就清空 net_buffer，然后继续取下一行，并写入 net_buffer。如果发送函数返回 EAGAIN 或 WSAEWOULDBLOCK，就表示本地网络栈（socket send buffer）写满了，进入等待。直到网络栈重新可写，再继续发送
 	
 	如果客户端A性能慢，迟迟不去读取socket receive buffer，server端就不能发送，此时如果客户端A要读取的数据被其他线程频繁update，由于mvcc的实现，这个变更会记录到undo log，大量的日志会不会使io飙升？可能比较极端才会吧。如果此时客户端性能恢复，服务端要读取最新数据，并通过undo log计算较早的版本，是不是要也占用大量的cpu资源或者io资源
+# 拼音排序重庆变成了zhong庆排到了最后
+order by convert(if(orgName='重庆分公司'),'冲庆分公司',orgName) using gbk)
 # mysql行转列
 ## 原始数据
 ![mysql行转列](../resources/photo/mysql/mysql-row-to-column-one.png)
