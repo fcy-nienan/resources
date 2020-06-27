@@ -1,4 +1,5 @@
 # winsows10的快捷键Ctrl+Alt+S和IDEA的快捷键冲突
+
 Ctrl+Alt+S出现一个框选录屏区域  
 没找到Windows的这个快捷键在哪设置  
 只能更改IDEA的快捷键了

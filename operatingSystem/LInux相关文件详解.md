@@ -1,4 +1,5 @@
-# /etc/group文件 
+# /etc/group文件
+
 + 文件作用:存储用户的组信息 
 + 文件内容格式:group_name:Password:GroupID,GroupList
     + group_name: It is the name of group. If you run ls -l command, you will see this name printed in the group field.
