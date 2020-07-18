@@ -6,6 +6,7 @@
     *.frm是描述了表的结构，*.MYD保存了表的数据记录，*.MYI则是表的索引
     直接放在mysql的data目录下就能在MySQL命令行看到表了
 # 命令
+
     修改列名
     alter table tableName change column oldName newName varchar(255)
     
@@ -40,6 +41,10 @@
     fields terminated by ',' enclosed by '"'
     lines terminated by '\r\n';
     默认位置为mysql当前库中的表数据文件路径
+    
+    /* 延迟30秒执行，防止锁释放 */
+    SELECT SLEEP(30);
+    
 # mysql的事务
     默认是自动提交
     如果要手动提交的话需要 start transaction
@@ -59,7 +64,6 @@
     but InnoDB does not release the row locks that were stored in memory after the savepoint.
     
     https://www.w3resource.com/mysql/mysql-transaction.php
-
 
 ​    设置事务隔离级别
 ​    SET [GLOBAL | SESSION] TRANSACTION
@@ -81,9 +85,20 @@
 ​    Without any SESSION or GLOBAL keyword, the statement applies to the next (not started) transaction performed within the current session.
 ​    加了GLOBAL,随后的所有session都是该级别,已经存在的不受影响
 ​    加了SESSION,当前的session之后的所有session都是该级别
-​    啥都没加就是下一个session是设置的隔离级别 
+​    啥都没加就是下一个事务是设置的隔离级别 
+
+# 查看当前事务隔离级别
+
+	select @@tx_isolation;
+# 查看系统当前隔离级别
+	select @@global.tx_isolation;
+# 查看当前会话隔离级别
+	select @@session.tx_isolation;
+# 设置隔离级别
+SET [SESSION|GLOBAL] TRANSACTION ISOLATION LEVEL [READ UNCOMMITTED|READ COMMITTED|REPEATABLE READ|SERIALIZABLE]
 
 # mysql for loop
+
     ITERATE can appear only within LOOP, REPEAT, and WHILE statements. ITERATE means “start the loop again.”
 
 

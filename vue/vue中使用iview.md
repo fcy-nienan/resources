@@ -1,4 +1,5 @@
 # 安装
+
     进入项目目录
     执行npm install iview --save  
 # 编辑main.js
@@ -6,7 +7,7 @@
     有些是
         import iView from 'iview'
     当前我的版本是
-    
+
 ```
     import Vue from 'vue'
     import App from './App'

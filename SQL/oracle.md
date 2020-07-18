@@ -154,3 +154,17 @@ add_months(sysdate,1)
 	ROW_NUMBER() OVER(PARTITION BY USER_NAME ORDER BY SCHOOL, DEPART 	DESC)
 	FROM USER_M;
 	表示根据 列名1 分组，然后在分组内部根据 列名2 排序，而此函数计算的值就表示每组内部排序后的顺序编号,可以用于去重复值
+# oracle的事务
+	读未提交 可以读到其他事务还没提交的数据
+	读已提交 只能读到其他事务已经提交了的数据,这样会产生两次读取到的数据不一致
+	可重复读 多次读取的事务是相同的
+	序列化
+	
+	设置一个事务的隔离级别：
+	    　　　　 Set transaction isolation level read committed;
+	    　　　　 Set transaction isolation level serializable;
+	    　　　　 Set transaction read only;
+	设置整个会话的隔离级别：
+	     　　　　Alter session set isolation level serializable;
+	     　　　　Alert session set isolation level read committed;
+	
