@@ -11,6 +11,7 @@
 + hbase hbck 'prop_veh_manags'查看hbase健康状况
 
 # 从数据的角度分析
+
 一个表多个region
 一个region代表多少行数据
 最开始只有一个region
@@ -42,6 +43,7 @@ Store又由两部分组成
     StoreFile(HFile):
 
 # 如何查询
+
 有一个Meta Table保存在Zookeeper上,里面存了所有Region的信息
 这个表的结构类似于
 key:rowKey,regionId
@@ -54,6 +56,7 @@ value:regionServer
 MemStore达到指定大小flush到磁盘
 
 # 合并
+
 ## Minor Compaction
 将几个小的HFile合并为一个大的HFile
 ## Major Compaction

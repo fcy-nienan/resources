@@ -107,18 +107,22 @@ hadoop fs -du -h /
     网络地址   
     存储方式(虽然定义了一系列的枚举值,但默认是磁盘)
 # Secondary NameNode
+
 周期性的合并edit到fimage,较少namenode启动时间
 Secondary namenode is just a helper for Namenode.
 It gets the edit logs from the namenode in regular intervals and applies to fsimage.
 Once it has new fsimage, it copies back to namenode.
 Namenode will use this fsimage for the next restart, which will reduce the startup time.
 Secondary Namenode's whole purpose is to have a checkpoint in HDFS. Its just a helper node for namenode. That’s why it also known as checkpoint node.
+
 # standby namenode
+
 当activeNameNode挂了的时候自动切换到standby namenode
-merging fsimage and edits-log files. (Secondary-namenode's work)
+merging fsimage and edits-log files. (Secondary-namenode's work)X
 receive online updates of the file system meta-data, apply them to its memory state and persist them on disks just like the name-node does.
 Thus at any time the Backup node contains an up-to-date image of the namespace both in memory and on local disk(s).
 Cluster will switch over to the new name-node (this standby-node) if the active namenode dies.
+
 # Checkpoint Node
 周期性的创建检查点,从activeNameNode下载fsimage和edit log并合并他们,然后再上传到activiNameNode
 # BackupNode

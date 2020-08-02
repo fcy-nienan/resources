@@ -1,4 +1,5 @@
 # spark参数
+
 1. num-executors		executor的数量
 2. executor-memory	executor的内存
 3. executor-cores	executor中task的数量
@@ -8,6 +9,7 @@
 7. spark.shuffle.memoryFraction
 8. spark.serializer=org.apache.spark.serializer.KryoSerializer   更改默认的序列化机制(默认是Java的序列化)
 # 理解
+
 每个Worker上存在一个或多个CoarseGrainedExecutorBackend进程，
 每个进程包含一个Executor对象，该对象持有一个线程池，每个线程可以执行一个Task
 (5+4)/9     9:当前stage的task的数量，5：已完成的task数量，4：等待执行的task数量。
@@ -20,6 +22,7 @@ shuffle是Spark将多个分区的数据重新分组重新分布数据的机制�
 shuffle是一个复杂且代价较高的操作，它需要完成将数据在executor和机器节点之间进行复制的工作
 通过action触发job
 通过宽窄依赖划分stage
+
 # 多个不同stage之间可以同时执行吗?
     不可以,stage之间是有执行顺序的,只有上一个执行完了才能执行下一个
 # 根据宽窄依赖划分stage,那比如reduceByKey是在哪一个stage中
@@ -43,6 +46,7 @@ shuffle是一个复杂且代价较高的操作，它需要完成将数据在exec
       }
      上面的runJob会触发job提交
 # 两种stage
+
 ShuffleMapStage
 ResultStage
 Each Stage can either be a shuffle map stage, 
@@ -72,6 +76,7 @@ firstJobId
 callSite
     CallSite represents a place in user code. It can have a short and a long form
     这东西代表一个用户代码的位置,它可以有一个长短格式
+
 # 两种Task
     A Spark job consists of one or more stages. 
     The very last stage in a job consists of multiple ResultTasks, 
@@ -101,6 +106,7 @@ driver-core 3
 actually: 
     16Containers 161Cores 656384M
     656384M/1024=641G
+
 # core,task
 如果资源不够需要分批运行  
     如果有四个Map任务需要运行,只有两个core,那么需要分两批运行
@@ -114,6 +120,7 @@ actually:
 优化3: 文件格式变为二进制,再序列化的二进制数据上进行排序,提供了对外内存供使用
     分区数不能超过一定大小(2^24-1),shuffle阶段不能有aggregate操作
 优化4: 统一优化2和优化3,自动选择合适的方式
+
 # 在1M的内存中对100亿条记录进行排序
     假设1M内存能装1亿条记录
     那么我们需要取100次并把每次排序的结果输出到一个文件中
@@ -140,6 +147,7 @@ actually:
     从driver端获取分区信息
     spark puts the data on HDDs only once during shuffles ,MR do it 2 times
 # task和分区
+
 D:\\data\\目录下有三个文件
     2020/01/08  23:56       634,776,175 12306.txt   605M 
     2020/01/07  12:34         8,100,002 data.txt    7.7M
@@ -249,7 +257,7 @@ val rdd=sc.parallelize(Array(1 to 10)):Rdd[Range.Inclusive]
     select * from a union all select * from b;
     差集
     select * from a except select * from b;
-
+    
     streamlter buildlter
     两张表
     streamlter为大表
@@ -387,7 +395,7 @@ val rdd=sc.parallelize(Array(1 to 10)):Rdd[Range.Inclusive]
             }
           }
         }
-        
+
 # spark数据本地行
     本地缓存
     本地磁盘

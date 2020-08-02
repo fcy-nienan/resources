@@ -14,6 +14,7 @@ public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement
 + spring需要知道这个对象需要哪些依赖
 
 # Bean和BeanDefinition
+
 	BeanDefinition是对象的定义,spring管理对象需要我们定义对象的属性(如何创建,依赖等)
 	Bean是Spring根据BeanDefinition通过某种代理创建出来的对象
 # BeanFactory和ApplicationContext

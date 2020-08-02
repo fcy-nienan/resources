@@ -165,9 +165,12 @@
 ## 分区器在哪里别调用呢,shuffle的那一部分是如何处理的呢?
 
 # MapReducer的过程
+
 ## Input Files
+
 输入文件格式可以是任意的,一行一行的日志文件或者日志文件
 ## InputFormat
+
 InputFormat定义了如何拆分和读取这些文件。可以以文件或者一些对象作为输入,数据的来源很多
 可以在各类文件系统的文件中,数据库中,网络中,文件的格式也大不相同
 所以在此层做了一个抽象
@@ -208,8 +211,10 @@ Although it is not mandatory for RecordReader to stays in between the boundaries
 Then, after running setup(), the nextKeyValue() will repeat on the context. This populates the key and value objects for the mapper. By way of context, framework retrieves key-value from record reader. Then pass to the map() method to do its work. Hence, input (key-value) to the map function processes as per the logic mentioned in the map code. When the record gets to the end of the record, the nextKeyValue() method returns false.
 
 ## Mapper
+
 它处理由RecordReader产生的记录并且生成中间的key-value对。
 Hadoop并不存储Mapper的输出到HDFS上，Mapper将输出传递给COmbiner被进一步处理
+
 ## Combiner
 这是一个小型的Reducer,在本地对Mapper的输出执行聚合操作，它尽可能的缩小
 在Mapper和Reducer中间传输的数据，Combiner的输出作为Partitioner的输入

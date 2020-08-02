@@ -36,9 +36,11 @@ var t=range(10,20,2)创建区间数组10-20,间隔2
     Scala中的闭包最终还是翻译成了Java中的一个匿名对象
     这也是spark中一些算子可以接受闭包并扔到executor中执行的前提之一
 # 疑问
+
     我很好奇Scala不可变集合是否是通过链表实现的
     但是debug中并没有发现集合对象中有相应的next和prev等指针
 # def和val和var
+
 >https://stackoverflow.com/questions/4437373/use-of-def-val-and-var-in-scala
 
     def定义方法
@@ -46,6 +48,7 @@ var t=range(10,20,2)创建区间数组10-20,间隔2
     var定义一个可变的变量
     至于有时候看着def似乎能定义变量那其实是定义方法,只是有很多语法糖
 # scala中的apply,update,unapply
+
     下面三个方法都需要定义在半生类对象中
     
     val list=List(1,2,3,4,5)

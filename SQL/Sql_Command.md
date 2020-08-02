@@ -1,15 +1,17 @@
-
 # mysql将数据导入文件
+
     SELECT * FROM passwd INTO OUTFILE '/tmp/runoob.txt'
     FIELDS TERMINATED BY ',' ENCLOSED BY '"'
     LINES TERMINATED BY '\r\n';
 # leetcode习题
+
 + 查询结果的第几行通过limit 1,1获取
 + 查询结果为NULL通过函数IFNULL
 + 列选择中用if: select a.Score,sum(if(b.Score>=a.Score,1,0)) as Rank
 ## 查询第二高的薪水
     select IFNULL((select distinct(Salary) from employee order by Salary desc limit 1,1),null) as SecondHighestSalary
 ## 第N高的薪水
+
     CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
     BEGIN
     set N=N-1;

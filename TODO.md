@@ -45,3 +45,13 @@ https://docs.oracle.com/en/java/javase/14/docs/specs/man/jar.html
 https://docs.oracle.com/javase/7/docs/technotes/tools/windows/jar.html
 
 https://www.cnblogs.com/peida/p/12071197.html
+
+
+
+
+
+显示所有表
+
+​	sqlite3	.tables
+
+​	mysql	show tables
