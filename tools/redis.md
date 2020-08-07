@@ -8,3 +8,7 @@
 redis-server --service-uninstall    移除服务
 
 redis-server --service-install redis.windows.conf    安装为服务
+
+
+
+redis设置密码		config set require pass 121212
