@@ -2,9 +2,7 @@
      invoke  active_record
       create    db/migrate/20200803125353_create_groups.rb
       create    app/models/group.rb
-      
-      
-      
+
     Model, Controller 中 Concerns 目录存放公用方法
 
 
@@ -213,10 +211,3 @@ bundle install
 > 保存并加载可在命令行中执行的任务。任务在 Rails 的各组件中定义。如果想添加自己的任务，不要修改这个文件，把任务保存在 lib/tasks 文件夹中。
 
 这就是rails程序的目录结构，明确每一个文件夹及文件的功能，对后面rails的学习开发是至关重要的，毕竟rails是“惯例优于设置”的，不同功能的文件放在对应的文件夹下，才更符合rails的开发
-
-
-
-作者：vito1994
-链接：https://www.jianshu.com/p/4078e0bf9c20
-来源：简书
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
