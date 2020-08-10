@@ -57,3 +57,19 @@ puts params
 puts "sdfsdf #{params}"
 puts params.inspect
 ```
+
+# gem和bundler的区别
+
+> > The main difference is that **Rubygems** (invoked with the command `gem`) manages all the gems (gemsets if you are using RVM) for a single machine, whereas **Bundler** (`bundle`) manages a gem set for a single application (its purpose being to deploy on multiple machines)
+
+> > The `Gemfile` is where you specify which gems you want to use, and lets you specify which versions.
+
+> > The `Gemfile.lock` file is where Bundler records the exact versions that were installed. This way, when the same library/project is loaded on another machine, running `bundle install` will look at the `Gemfile.lock` and install the exact same versions, rather than just using the `Gemfile` and installing the most recent versions. (Running different versions on different machines could lead to broken tests, etc.) You shouldn't ever have to directly edit the lock file.
+
+> > Almost seems like running 'gem install' adds it to the global available gems (and hence terminal can run the package's commands), whereas adding it to the gemfile and running bundle install only adds it to the application. Similar to npm install --global
+
+# save and save!
+
+> > `save!` will raise an error if not successful.
+
+> > `save` will return boolean value like true or false.
