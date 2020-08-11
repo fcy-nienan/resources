@@ -73,3 +73,14 @@ puts params.inspect
 > > `save!` will raise an error if not successful.
 
 > > `save` will return boolean value like true or false.
+
+# 访问路径
+
+[http://127.0.0.1:4200/api/homework_papers.json?search%5Border%5D%5B%5D=homework_papers.updated_at%20DESC&page=1&per=10&access_token=RM-5VsnC51YjI7vpFT-v0tzA9mIfTrd8CoiYyPMYdg0&user_session_key=JRdhhjBX66DrM8JWglUcpBOyh2zm1IqcGGQl4F343gAFIH3ZUmOnHmqbtHlWt0QOFHGPD%2Fj%2F6ja4IRojh%2F0cw%3D%3D](http://127.0.0.1:4200/api/homework_papers.json?search[order][]=homework_papers.updated_at DESC&page=1&per=10&access_token=RM-5VsnC51YjI7vpFT-v0tzA9mIfTrd8CoiYyPMYdg0&user_session_key=JRdhhjBX66DrM8JWglUcpBOyh2zm1IqcGGQl4F343gAFIH3ZUmOnHmqbtHlWt0QOFHGPD%2Fj%2F6ja4IRojh%2F0cw%3D%3D)
+```
+GET /api/homework_papers(.:format)  api/homework_papers#index
+```
+
+# Sidekiq
+
+提供执行定时/异步任务的后台任务处理系统
