@@ -19,9 +19,13 @@ app/views/fruits/_footer.html.erb
 <%= render :partial => 'footer' %>
 ```
 
+# 新增字段
 
+rails generate migration add_x_and_y_to_articles x:string y:string
 
+rails generate migration add_test_to_post test:string
 
+rails generate migration add_course_student_remind_and_course_student_remind_interval_and_course_teacher_remind_and_course_teacher_remind_interval_to_course_plan course_student_remind:boolean course_student_remind_interval:string course_teacher_remind:boolean course_teacher_remind_interval:string
 
 ## 带参数的partial
 
@@ -84,3 +88,17 @@ GET /api/homework_papers(.:format)  api/homework_papers#index
 # Sidekiq
 
 提供执行定时/异步任务的后台任务处理系统
+
+# PaperTrail
+
+Track changes to your models, for auditing or versioning. See how a model looked at any stage in its lifecycle, revert it to any version, or restore it after it has been destroyed
+
+# ActsAsParanoid
+
+A Rails plugin to add soft delete.
+
+This gem can be used to hide records instead of deleting them, making them recoverable later.
+
+# 回退版本
+
+bin/rails db:rollback     回退到上一个版本

@@ -186,3 +186,7 @@ irb(main):155:0> Fcy.new.helloworld 3
 # defined?
 
 ​	是否定义了某某某方法，变量
+
+```
+user_homework.checking_type.teacher?    checking_type的值是否等于teacher
+```
