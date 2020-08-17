@@ -26,13 +26,9 @@ rvm 是一个命令行工具，可以提供一个便捷的多版本 Ruby 环境�
 查看默认的数据库		rails db
 
 The method **self.up** is used when migrating to a new version, **self.down** is used to roll back any changes if needed
-# ruby中的@是实例变量
-
-# ruby中的@@是类变量
-
-# ruby中的 :name  是Symbol类型(具体意思可以同常量表,符号表,枚举值等)
 
 # def render(*args) 这是什么参数?
+
 	*号的作用
 	
 	"name"*2
@@ -128,6 +124,7 @@ The method **self.up** is used when migrating to a new version, **self.down** is
 if you call Klazz.extend(Mod), now Klazz has Mod's methods (as class methods)
 if you call obj.extend(Mod), now obj has Mod's methods (as instance methods), but no other instance of of obj.class has those methods added.
 extend is a public method
+
 ## include
 	include - By default, it mixes in the specified module's methods as instance methods in the target module/class. e.g.
 
