@@ -102,3 +102,17 @@ This gem can be used to hide records instead of deleting them, making them recov
 # 回退版本
 
 bin/rails db:rollback     回退到上一个版本
+
+# params
+
+params.require（：person）.permit（：name，：age）
+>https://stackoverflow.com/questions/18424671/what-is-params-requireperson-permitname-age-doing-in-rails-4
+params控制器看起来像一个哈希，但实际上它的一个实例ActionController::Parameters，它提供了多种方法，如require和permit。
+
+require方法确保存在特定的参数，如果未提供，require方法将引发错误。它返回ActionController::Parameters传入的密钥的一个实例require。
+
+permit方法返回参数对象的副本，只返回允许的键和值。当创建一个新的ActiveRecord模型时，只有允许的属性被传递到模型中。
+# 写法
+period_id, course_id = params[:period_id], params[:course_id]
+
+ CommentTemplate.eager_load(:comment_category).where(comment_categories: {comment_type: ['standard', 'creation']}).update_all(comment_label: "normal")

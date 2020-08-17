@@ -142,3 +142,7 @@
 	|-- objects/ # Git本地仓库的所有对象 (commits, trees, blobs, tags)
 	|-- refs/ # 标识每个分支指向了哪个提交(commit)
 
+# git撤销某次更改
+
+git revert commitId
+
