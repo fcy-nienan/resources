@@ -4,6 +4,10 @@
     vim清空所有内容 dg   Esc+Shift+:+%d
     vim全局替换     :%s#ttt#kkk     将所有的ttt替换为kkk      #作为分隔符 %代表全局替换 s代表替换
     :set ff=unix
+# 查看占用端口
+
+lsof -i:3000
+
 # 编码格式
 
     在vim中敲命令:set fileencoding即可显示当前文件编码格式

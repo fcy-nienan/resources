@@ -116,3 +116,9 @@ permit方法返回参数对象的副本，只返回允许的键和值。当创�
 period_id, course_id = params[:period_id], params[:course_id]
 
  CommentTemplate.eager_load(:comment_category).where(comment_categories: {comment_type: ['standard', 'creation']}).update_all(comment_label: "normal")
+
+# save和save！
+
+save失败返回ni l
+
+Save!失败抛出异常
