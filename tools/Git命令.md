@@ -146,3 +146,9 @@
 
 git revert commitId
 
+# git 提交单个文件
+
+git commit filename -m "message" 
+
+git push
+
