@@ -122,3 +122,7 @@ period_id, course_id = params[:period_id], params[:course_id]
 save失败返回ni l
 
 Save!失败抛出异常
+
+# pluck(:id)
+
+纵向取值
