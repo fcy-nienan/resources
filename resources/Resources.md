@@ -61,3 +61,15 @@ Mysql手册https://dev.mysql.com/doc/refman/8.0/en/assignment-operators.html
 w3resources https://www.w3resource.com/
 
 jmx包下载http://www.java2s.com/Code/Jar/j/Downloadjmxtoolsjar.htm
+
+
+
+
+
+# Windows中文对照码
+
+https://docs.microsoft.com/en-us/openspecs/office_standards/ms-oe376/6c085406-a698-4e12-9d4d-c3b0ee3dbc4a
+
+中文  2052
+
+英文 1033
