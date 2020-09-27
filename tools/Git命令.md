@@ -95,6 +95,8 @@
 	git reset和git revert  
 	git reset是通过移动HEAD指针并删除落后的分支 向前移动  
 	git revert是通过新建要给新的分支           向后移动  
+	
+	git reset HEAD  取消add
 # 比较
     git diff 命令  
     暂存区     工作区     历史版本    某个历史版本      某两次提交   远程某个版本

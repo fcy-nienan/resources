@@ -18,7 +18,7 @@ createdb weixindb -O weixinadmin -E UTF8 -e
 
 psql -U weixinadmin -d weixindb -h 127.0.0.1
 
-
+dropdb -h 127.0.0.1 -p 5432 -U mozhou mozhou_uat
 
 查看所有表信息
 
