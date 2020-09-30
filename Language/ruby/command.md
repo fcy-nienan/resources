@@ -241,6 +241,8 @@ createdb databaseName -O username -E UTF8 -e
 
 psql -U username -d databaseName -h 127.0.0.1
 
+psql -U mozhou -d mozhou_uat -h 127.0.0.1
+
 查看所有连接的用户：
 
 ```
@@ -260,7 +262,8 @@ select count(*) from pg_stat_activity;
 ## 导出数据
 
 ```text
-pg_dump --host xxxxx.com --port 5432 --username fcy  > fcy.sql fcydb
+pg_dump --host 101.132.47.47 --port 5432 --username mozhou  > mozhou.sql mozhou_uat
+pg_dump --host s2-mozhou-tech.moshuokejiao.com --port 5432 --username mozhou_uat  > fcy.sql mozhou_uat
 ```
 xxxxx.com服务器上5432端口
 

@@ -126,3 +126,18 @@ Save!失败抛出异常
 # pluck(:id)
 
 纵向取值
+
+# where用法
+
+```rb
+Movie.where('release > ?', DateTime.now)
+where("LENGTH(title) > 20")
+Book.where("LENGTH(title) > ?", params[:min_length])
+Book.where("LENGTH(title) > :min", min: params[:min_length])
+Book.where.not(category: "Java")
+Book.where.not(title: nil)
+Book.where(category: "Programming").or(Book.where(category: "Ruby"))
+Book.where(id: [1,2,3])
+	SELECT "books".* FROM "books" WHERE "books"."id" IN (1, 2, 3)
+```
+
