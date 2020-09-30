@@ -1,4 +1,5 @@
 # Promise
+
 ```
 	new Promise(function (resolve,reject){
 		if(1>2){
