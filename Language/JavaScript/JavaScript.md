@@ -4,3 +4,11 @@
 
 
 ​    
+
+# javascript数组包含
+
+x=['a','b','c']
+
+x.includes('c') // true
+
+x.includes('d') // false

@@ -409,6 +409,7 @@ ps命令显示实际的内存
     find /cpic/jtzxmd -type d -exec mkdir -p /home/jtaom{} \;   复制目录结构
     find / -name java -type f 2>/dev/null   将大量出现的Permission Denied重定向到另一个目录
     find / -name "TR-*.xlsx" 会递归搜索指定目录下的子目录
+    find . -name "*.html" -or -name "*.ts" -or -name "*.scss" -or -name "*.css" |xargs grep -v "^$"|wc -l  统计代码行数(空白行不统计)
 # shell文件的三个时间
     atime(access time)   最后访问时间
     ctime(change time)   最后变更时间(文件属性,文件的metadata被修改时)
