@@ -119,6 +119,7 @@ The method **self.up** is used when migrating to a new version, **self.down** is
 	require,load,include,extend等的区别
 	load 和 require 是 Kernel 提供的类加载接口，extend 和 include 是互相引用的接口，有本质区别
 ## extend
+
 	extend - adds the specified module's methods and constants to the target's metaclass (i.e. the singleton class) e.g.
 
 if you call Klazz.extend(Mod), now Klazz has Mod's methods (as class methods)
@@ -126,6 +127,7 @@ if you call obj.extend(Mod), now obj has Mod's methods (as instance methods), bu
 extend is a public method
 
 ## include
+
 	include - By default, it mixes in the specified module's methods as instance methods in the target module/class. e.g.
 
 if you call class Klazz; include Mod; end;, now all instances of Klazz have access to Mod's methods (as instance methods)
