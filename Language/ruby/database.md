@@ -8,6 +8,12 @@ pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
 关闭：
 pg_ctl -D /usr/local/var/postgres stop -s -m fast
 
+mac开机自启：
+
+```cpp
+brew services start postgresql //如果用Homebrew安装了postgresql：
+```
+
 新建一个数据库用户
 
 createuser weixinadmin -P

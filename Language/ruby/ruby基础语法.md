@@ -190,3 +190,10 @@ irb(main):155:0> Fcy.new.helloworld 3
 ```
 user_homework.checking_type.teacher?    checking_type的值是否等于teacher
 ```
+
+# 方法调用
+
+"123".chop    移除字符串中的最后一个字符
+
+“12
+
