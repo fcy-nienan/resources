@@ -141,3 +141,24 @@ Book.where(id: [1,2,3])
 	SELECT "books".* FROM "books" WHERE "books"."id" IN (1, 2, 3)
 ```
 
+# Order用法
+
+```
+User.order(:name)
+# SELECT "users".* FROM "users" ORDER BY "users"."name" ASC
+
+User.order(email: :desc)
+# SELECT "users".* FROM "users" ORDER BY "users"."email" DESC
+
+User.order(:name, email: :desc)
+# SELECT "users".* FROM "users" ORDER BY "users"."name" ASC, "users"."email" DESC
+
+User.order('name')
+# SELECT "users".* FROM "users" ORDER BY name
+
+User.order('name DESC')
+# SELECT "users".* FROM "users" ORDER BY name DESC
+
+User.order('name DESC, email')
+# SELECT "users".* FROM "users" ORDER BY name DESC, email
+```
