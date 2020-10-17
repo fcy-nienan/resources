@@ -194,10 +194,53 @@ ps命令显示实际的内存
 # ltrace命令   跟踪调用了那些glibc函数
     ltrace ls -l 123.txt
 # proc目录
+
+> > https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/proc.html
+
     cmdline
+    /proc/PID/cmdline
+    输入的完整命令行信息
+    Command line arguments.
+    
+    /proc/PID/cpu
+    Current and last cpu in which it was executed.
+    
+    /proc/PID/cwd
+    启动程序的时候当前工作目录
+    Link to the current working directory.
+    
+    /proc/PID/environ
+    环境变量信息
+    Values of environment variables.
+    
+    /proc/PID/exe
+    当前程序的完整目录,一个链接
+    Link to the executable of this process.
+    
+    /proc/PID/fd
+    拥有的文件描述符
+    Directory, which contains all file descriptors.
+    
+    /proc/PID/maps
+    Memory maps to executables and library files.
+    
+    /proc/PID/mem
+    Memory held by this process.
+    
+    /proc/PID/root
+    Link to the root directory of this process.
+    
+    /proc/PID/stat
+    Process status.
+    
+    /proc/PID/statm
+    Process memory status information.
+    
+    /proc/PID/status
+    Process status in human readable form.
 # linux中shell相关
     查看所有shell   cat /etc/shells
-    查看当前使用的sehll echo $SHELL
+    查看当前使用的  sehll echo $SHELL
     更换当前shell       chsh
 # man命令
     1：可执行的程序或 shell 命令
@@ -630,7 +673,6 @@ ps命令显示实际的内存
 	::: 这三个: 的前两个”::“，是“0:0:0:0:0:0:0:0”的缩写，相当于IPv6的“0.0.0.0”，就是本机的所有IPv6地址，第三个:是IP和端口的分隔符
 
 
-​	
 ​	
 ​	
 ​	
