@@ -101,6 +101,9 @@
     git diff 命令  
     暂存区     工作区     历史版本    某个历史版本      某两次提交   远程某个版本
     可比较上面某两个的差别  
+    比较两个分支的差异列表
+    git diff teacher-uat production --stat
+    
 # .gitignore
     git中忽略指定文件夹或者文件  
     在.gitignore文件中添加或者修改配置  
