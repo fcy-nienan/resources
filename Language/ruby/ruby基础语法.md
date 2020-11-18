@@ -197,3 +197,41 @@ user_homework.checking_type.teacher?    checking_type的值是否等于teacher
 
 “12
 
+# ruby中的变量
+
+Hello.constants    查看类对象的常量
+
+Hello.instance_variables	查看类对象的实例变量
+
+Hello.class_variables	查看类对象类变量
+
+Hello.new.instance_variables	查看实例对象的实例变量
+
+类变量 @@name
+
+实例变量	@name   不可以通过对象直接访问,需要写get和set方法,或者通过attr_accessor标明
+
+全局变量	$global_name
+
+常量	Host
+
+局部变量	local_variable
+
+
+
+Hello.class.ancestors
+
+```
+irb(main):049:0> Hello.class.ancestors
+=> [Class, Module, Object, Kernel, BasicObject]
+```
+
+# ruby 线程状态
+
+| 线程状态                  | 返回值   |
+| :------------------------ | :------- |
+| Runnable                  | run      |
+| Sleeping                  | Sleeping |
+| Aborting                  | aborting |
+| Terminated normally       | false    |
+| Terminated with exception | nil      |
