@@ -103,7 +103,7 @@
     可比较上面某两个的差别  
     比较两个分支的差异列表
     git diff teacher-uat production --stat
-    
+
 # .gitignore
     git中忽略指定文件夹或者文件  
     在.gitignore文件中添加或者修改配置  
@@ -157,3 +157,14 @@ git commit filename -m "message"
 
 git push
 
+# git保存当前操作
+
+git stash save
+
+git stash save -u "message"  # 不加-u新增的文件不会暂存，加了会，另外别用-a参数
+
+git stash list
+
+git stash apply stash@{0}
+
+git stash pop
