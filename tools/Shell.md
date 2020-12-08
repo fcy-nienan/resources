@@ -246,6 +246,8 @@ ps命令显示实际的内存
     查看所有shell   cat /etc/shells
     查看当前使用的  sehll echo $SHELL
     更换当前shell       chsh
+    zsh的文件 .zshrc
+    bash的文件 .bashrc
 # man命令
     1：可执行的程序或 shell 命令
     2：系统调用（由内核提供的函数）
