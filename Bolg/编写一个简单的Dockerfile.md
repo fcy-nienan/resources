@@ -158,3 +158,23 @@ drwxr-xr-x 1 root root   4096 Oct 15 19:52 ../
 root@2e145e0477d4:/fcy#
 ```
 
+# 碰到的问题
+
+## add指令不起作用
+
+这不起作用，因为`test_input.txt`不在[docker build context](https://docs.docker.com/engine/reference/builder/#usage)中。
+执行命令时，最后一个“.”表示生成上下文。Docker所做的是将上下文上传到Docker Deamon以构建图像。在您的情况下，上下文不包含`sudo docker build -t myimage .`，因此未上载，Docker找不到文件/
+有两种方法可以解决这个问题：
+在测试目录中运行命令`test_input.txt`。在这种情况下，上下文包括所有测试目录。然后修改dockerfile以解释此更改：
+
+```
+FROM python:3
+...    
+ADD code/test.py /test/code/
+ADD code/test_output.txt /test/code/
+ADD config/test_input.txt /test/configs/
+ADD logs/logfile.log /test/logs/
+```
+
+
+第二个选项是简单地将dockerfile移动到测试文件夹中，然后如上所述对其进行修改。在这种情况下，命令`sudo docker build -t myimage -f code/Dockerfile .`应该可以工作。

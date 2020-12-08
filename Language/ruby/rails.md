@@ -164,6 +164,14 @@ User.order('name DESC, email')
 # SELECT "users".* FROM "users" ORDER BY name DESC, email
 ```
 
+# 连表查询
+
+eager_load	左连接?
+
+includes	
+
+joins	内连接?
+=======
 # rails回调
 
 \> before_validation

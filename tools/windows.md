@@ -1,6 +1,7 @@
 # Windows下定时任务
-    cmd taskschd.msc
 
+    cmd taskschd.msc
+    
     set timestamp=%date:~0,4%%date:~5,2%%date:~8,2%%time:~0,2%%time:~3,2%%time:~6,2%
     echo %timestamp%
     echo %timestamp% > D:\%timestamp%
@@ -10,7 +11,7 @@
 
 # bat
     参数  %1%   %2%
-
+    
     call other.bat
     start other.bat
     call是同步调用,在一个cmd总执行
@@ -26,11 +27,17 @@
 
 
     set PATH=%PATH%;D:\Program Files\
-
+    
     使用setx设置为永久环境变量,适用于bat中：
-
+    
     setx PATH "%PATH%;D:\Program Files\"
     setx 后面的字符串最长1024
+    
+    setx ENV_NAME env_value /m
+    setx ENV_NAME env_value
+
+
+​    
 # window下查找文件
 	for /r testdir %i in (*) do @echo %i 列举testdir目录及所有子目录的所有文件
 	for /r testdir %i in (*.txt,*.jpg,*.java) do @echo %i 寻找txt,jpg,java文件
@@ -62,7 +69,7 @@
     ===========================================================================
     永久路由:
       无
-	上述的网关下的值“显示在链路上”代表的是网关地址和接口地址一样
+    上述的网关下的值“显示在链路上”代表的是网关地址和接口地址一样
 # 路由表解释
 
     如第一条
@@ -71,8 +78,8 @@
     如第二条
     10.0.0.0        255.0.0.0     172.16.0.254     172.16.0.220     36
     10网段的掩码是255.0.0.0,访问10网段地址的请求将通过172.16.0.220这个接口地址发送到172.16.0.254网关
-
-	上述的172.16.0.22这个一般也能通过ipconfig这个命令查询到，这个就是本地电脑的某一个网络地址
+    
+    上述的172.16.0.22这个一般也能通过ipconfig这个命令查询到，这个就是本地电脑的某一个网络地址
 # windows下网络命令
     输入netsh可一层一层显示
     
@@ -108,6 +115,7 @@ bat执行下面的代码
 
 ```
 # win10 家庭版 关闭Antimalware Service Executable
+
 以管理员身份运行
 ```
 reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender" /v "DisableAntiSpyware" /d 1 /t REG_DWORD /f

@@ -21,6 +21,7 @@
 ![alt中文好像不显示啊](../resources/photo/unknow.gif "图片不存在,并且我的环境是中文不行")
 ```
 ### 显示
+
 ![GC图片](../resources/photo/gc-collector.gif "图片的标题")
 ![alt中文好像不显示啊](../resources/photo/unknow.gif  "图片不存在,并且我的环境是中文不行")
 
