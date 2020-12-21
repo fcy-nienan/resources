@@ -235,3 +235,38 @@ irb(main):049:0> Hello.class.ancestors
 | Aborting                  | aborting |
 | Terminated normally       | false    |
 | Terminated with exception | nil      |
+
+# 模块的self方法
+
+> > https://stackoverflow.com/questions/32751805/when-to-use-self-in-modules-methods
+
+加了self,当include后，这个方法就是类方法
+
+没加self,当include后，这个方法是实例方法
+
+## 调用模块的方法(没加self)
+
+```
+module UsefulThings
+  def a
+    puts "aaay"
+  end
+  module_function :a
+
+  def b
+    puts "beee"
+  end
+end
+
+def test
+  UsefulThings.a
+  UsefulThings.b # Fails!  Not a module method
+end
+
+test
+```
+
+## 双冒号和点调用方法的区别
+
+> > https://en.wikipedia.org/wiki/Scope_resolution_operator#Ruby
+
