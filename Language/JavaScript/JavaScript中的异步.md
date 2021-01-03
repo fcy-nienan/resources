@@ -92,4 +92,4 @@ promise 代表着一个承诺
 
   
 
-**可以参照观察者模式进行理解promise,在then和catch中注册了相应的处理方法,而在被观察者new Promise中处理逻辑,然后调用resolve或者reject来通知来主动触发状态转变通知观察者
+**可以参照观察者模式进行理解promise,在then和catch中注册了相应的处理方法,而在被观察者new Promise中处理逻辑,然后调用resolve或者reject来通知来主动触发状态转变通知观察者**
