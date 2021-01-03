@@ -139,6 +139,7 @@ Book.where.not(title: nil)
 Book.where(category: "Programming").or(Book.where(category: "Ruby"))
 Book.where(id: [1,2,3])
 	SELECT "books".* FROM "books" WHERE "books"."id" IN (1, 2, 3)
+User.where.not(id:[1,2,3])
 ```
 
 # Order用法
@@ -294,3 +295,28 @@ puts(obj.hello('fcy hello world')) # => Matz
 	```
 
 + method_missing    当搜索不到方法时会调用method_missing方法
+
+# 关联
+
+```
+SettleRecord.eager_load(:payment_record, [last_record: [settle_record_orders: [settle_record_details: :partner]]])
+
+LEFT OUTER JOIN "payment_records" 
+ON "payment_records"."id" = "settle_records"."payment_record_id"
+LEFT OUTER JOIN "settle_records" 
+"last_records_settle_records" ON "last_records_settle_records"."last_record_id" = "settle_records"."id"
+LEFT OUTER JOIN "settle_record_orders" ON                                             "settle_record_orders"."settle_record_id" =                             "last_records_settle_records"."id"
+LEFT OUTER JOIN "settle_record_details" ON                                           "settle_record_details"."settle_record_order_id" =                                          "settle_record_orders"."id"
+LEFT OUTER JOIN "partners""partners"."id" = "settle_record_details"."partner_id"
+```
+
+
+
+```
+Category.joins(articles: [{ comments: :guest }, :tags])
+
+INNER JOIN articles ON articles.category_id = categories.id
+INNER JOIN comments ON comments.article_id = articles.id
+INNER JOIN guests ON guests.comment_id = comments.id
+INNER JOIN tags ON tags.article_id = articles.id
+```
