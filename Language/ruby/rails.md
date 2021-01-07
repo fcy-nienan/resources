@@ -320,3 +320,12 @@ INNER JOIN comments ON comments.article_id = articles.id
 INNER JOIN guests ON guests.comment_id = comments.id
 INNER JOIN tags ON tags.article_id = articles.id
 ```
+
+# sidekiq
+
+```
+bundle exec sidekiq  -C config/sidekiq.yml 调试启动方式
+bundle exec sidekiq  -C config/sidekiq.yml -d 后台启动方式
+bundle exec sidekiq  -C config/sidekiq.yml -d -e production 指定环境启动
+```
+
