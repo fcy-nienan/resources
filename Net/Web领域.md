@@ -109,10 +109,11 @@ FileServer
 	最大等待时间
 	空闲连接最大生存时间
 	每隔多少时间检查一次空闲的连接
-	
-	
-	
-	
+
+
+​	
+​	
+​	
 	spring注解学习
 	@Autowired
 		默认按照类型注入,有一个required参数,默认为true,代表当需要的bean不存在的时候报错,如果设置为false,那么当需要的bean不存在的时候不会报错
@@ -134,4 +135,3 @@ FileServer
 		是否忽略未知的字段:ignoreUnknownFields
 	@Scope
 		bean的作用域,一般都是单例,原型两种,其他的在web环境下有request,session,globalSession
-		

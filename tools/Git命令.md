@@ -121,7 +121,7 @@
     fatal: Could not read from remote repository.
 + 进入用户的home目录
 + 编辑 .git-credentials文件
-+ 按照以下格式输入内容：  
++ 按照以下格式输入内容：   
 　　```https://{username}：{password}@github.com  ``` 
 　　其中username，password，github.com 都换成你自己的内容 
 +  保存退出后执行下面命令 
@@ -130,6 +130,7 @@
 　　helper = store
 　　这时再执行git push/pull的时候就不会在要求你输入密码了。    
 # git删除untracked文件
+
     git clean -fd
 # git fetch的时候报错non-fast-forward
 
