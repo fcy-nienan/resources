@@ -139,6 +139,7 @@ Book.where.not(title: nil)
 Book.where(category: "Programming").or(Book.where(category: "Ruby"))
 Book.where(id: [1,2,3])
 	SELECT "books".* FROM "books" WHERE "books"."id" IN (1, 2, 3)
+User.where.not(id:[1,2,3])
 ```
 
 # Order用法
@@ -170,3 +171,162 @@ eager_load	左连接?
 includes	
 
 joins	内连接?
+
+joins	内连接?
+=======
+# rails回调
+
+\> before_validation
+\> before_validation_on_create
+\> after_validation
+\> after_validation_on_create
+\> before_save
+\> before_create
+\> DATABASE INSERT
+\> after_create
+\> after_save
+
+# distinct and uniq
+
+**Rails查询就像数组一样**，因此`.uniq`会产生与`.distinct`相同的结果，但是
+
+- `.distinct`是SQL查询方法
+- `.uniq`是数组方法
+
+**注意**：在Rails 5+中`Relation#uniq`已弃用，建议改为使用`Relation#distinct`。 见http://edgeguides.rubyonrails.org/5_0_release_notes.html#active-record-deprecations
+
+<强>提示：
+
+在致电`.includes`之前使用`.uniq/.distinct`可以*慢*或*加速*您的应用，因为
+
+- `uniq`不会产生额外的SQL查询
+- `distinct`会做
+
+但两个结果都是一样的
+
+示例：
+
+```
+users = User.includes(:posts)
+puts users
+# First sql query for includes
+
+users.uniq
+# No sql query! (here you speed up you app)
+users.distinct
+# Second distinct sql query! (here you slow down your app)
+```
+
+这对于制作高性能应用程序非常有用
+
+<强>提示：
+
+同样适用于
+
+- `.size` vs `.count`;
+- `present?` vs `.exists?`
+- `pluck` vs `map`
+
+# ruby的数组
+
+```
+2.6.1 :109 > t="12"
+"12"
+2.6.1 :110 > puts "#{t[0]},#{t[1]},#{t[2]}-----#{t[-1]},#{t[-2]},#{t[-3]}"
+1,2,-----2,1,
+nil
+2.6.1 :111 > 
+```
+
++ 没有常量池的概念
+```
+2.6.1 :111 > t="123"
+"123"
+2.6.1 :112 > y="123"
+"123"
+2.6.1 :113 > t.object_id
+70151270741780
+2.6.1 :114 > y.object_id
+70151533108760
+```
++ Symbols类似常量池
+```
+2.6.1 :123 > x=:yes
+:yes
+2.6.1 :124 > y=:yes
+:yes
+2.6.1 :125 > x.object_id
+17561948
+2.6.1 :126 > y.object_id
+17561948
+```
+
+```
+2.6.1 :127 > x="123"
+"123"
+2.6.1 :128 > y="123"
+"123"
+2.6.1 :129 > x.object_id
+70151533269900
+2.6.1 :130 > y.object_id
+70151533302500
+2.6.1 :131 > xs=x.to_sym
+:"123"
+2.6.1 :132 > ys=y.to_sym
+:"123"
+2.6.1 :133 > xs.object_id
+70151533402300
+2.6.1 :134 > ys.object_id
+70151533402300
+```
+
+# 反射
+
++ obj.respond_to?(:hello)  当前对象是否有hello方法,也可以使用字符串"hello"
++ obj.send(:methodName,params...)    动态调用当前对象的某个方法，也可以使用字符串
++ define_method动态定义方法，需要传递方法名和代码块
+	```
+	class Fcy
+  define_method :hello do |my_arg|
+    my_arg
+  end
+end
+obj = Rubyist.new
+puts(obj.hello('fcy hello world')) # => Matz
+
+	```
+
++ method_missing    当搜索不到方法时会调用method_missing方法
+
+# 关联
+
+```
+SettleRecord.eager_load(:payment_record, [last_record: [settle_record_orders: [settle_record_details: :partner]]])
+
+LEFT OUTER JOIN "payment_records" 
+ON "payment_records"."id" = "settle_records"."payment_record_id"
+LEFT OUTER JOIN "settle_records" 
+"last_records_settle_records" ON "last_records_settle_records"."last_record_id" = "settle_records"."id"
+LEFT OUTER JOIN "settle_record_orders" ON                                             "settle_record_orders"."settle_record_id" =                             "last_records_settle_records"."id"
+LEFT OUTER JOIN "settle_record_details" ON                                           "settle_record_details"."settle_record_order_id" =                                          "settle_record_orders"."id"
+LEFT OUTER JOIN "partners""partners"."id" = "settle_record_details"."partner_id"
+```
+
+
+
+```
+Category.joins(articles: [{ comments: :guest }, :tags])
+
+INNER JOIN articles ON articles.category_id = categories.id
+INNER JOIN comments ON comments.article_id = articles.id
+INNER JOIN guests ON guests.comment_id = comments.id
+INNER JOIN tags ON tags.article_id = articles.id
+```
+
+# sidekiq
+
+```
+bundle exec sidekiq  -C config/sidekiq.yml 调试启动方式
+bundle exec sidekiq  -C config/sidekiq.yml -d 后台启动方式
+bundle exec sidekiq  -C config/sidekiq.yml -d -e production 指定环境启动
+```

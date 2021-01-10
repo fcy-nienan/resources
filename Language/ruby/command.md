@@ -11,6 +11,10 @@
 # rvm
 rvm 是一个命令行工具，可以提供一个便捷的多版本 Ruby 环境的管理和切换
 
+rvm install 2.6.1
+
+rvm use 2.6.1
+
 # gem命令
 
 > https://guides.rubygems.org/command-reference/
@@ -76,6 +80,9 @@ The method **self.up** is used when migrating to a new version, **self.down** is
 	记录状态便于回滚
 # rails 命令
   Rails generate controller fcy index show profile
+
+​	rails g controller api/FcyController
+
   Rails  destroy controller fcy
   命令行创建的Controller大小会变成小写
   routes.rb中大小写敏感
