@@ -1,11 +1,11 @@
-    
 # Eclipse
+
     Ctrl+Shift+x    大写
     Ctrl+Shift+y    小写
 # Idea
     Ctrl+Alt+L格式化代码
     Ctrl+Alt+O优化import(将*替换为对应的类)
-	Ctrl+Shift+上下键	上移当前行   
+    Ctrl+Shift+上下键	上移当前行   
     Ctrl+Shift+U  大小写转换
     Ctrl+上  向上滚动一行
     Ctrl+下  向下滚动一行

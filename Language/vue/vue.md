@@ -5,7 +5,6 @@
     function render(data){
        function createElement(tag){
           var dom = document.createElement(tag)
-          return dom
        }
       var ul= createElement('ui')
       data.forEach((elem)=>{
