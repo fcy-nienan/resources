@@ -236,6 +236,8 @@ irb(main):049:0> Hello.class.ancestors
 | Terminated normally       | false    |
 | Terminated with exception | nil      |
 
+| Terminated with exception | nil      |
+
 # 模块的self方法
 
 > > https://stackoverflow.com/questions/32751805/when-to-use-self-in-modules-methods
@@ -270,3 +272,4 @@ test
 
 > > https://en.wikipedia.org/wiki/Scope_resolution_operator#Ruby
 
+>>>>>>> 

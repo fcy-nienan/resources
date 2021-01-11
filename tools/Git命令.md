@@ -51,15 +51,14 @@
 	git merge br3							将br3分支与本地分支合并(最新的是br3分支)  
 	git merge br3 -s theirs 
 	git reset --hard						git放弃merge 
-# upstream相关
-    git的upstream                            当前分支与远程分支的关联  
-    git branch -u fcy/master                将当前分支的upstream指定为远程的master分支  
 # upstream
+
         git remote show fcy  
         cat .git/config  
     例如要把push和pull的默认分支设置为dev，那么：git branch --set-upstream-to=origin/dev dev  
     git config --global push.default "current"   还可以设置为upstream  
     git branch -vv                            查看当前分支的upstream  
+    git branch -u fcy/master                将当前分支的upstream指定为远程的master分支  
     git push --set-upstream originName localName:remoteNamegit  
     关联本地分支和远程分支,使得可以直接通过git push提交,其实最终修改的也是gitconfig文件,命令行可以通过git config --list看到
     git push                                如果没指定originName则会在远程仓库创建一个和本地分支同名的分支  

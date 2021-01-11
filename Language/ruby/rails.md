@@ -171,6 +171,8 @@ eager_load	左连接?
 includes	
 
 joins	内连接?
+
+joins	内连接?
 =======
 # rails回调
 
@@ -328,4 +330,3 @@ bundle exec sidekiq  -C config/sidekiq.yml 调试启动方式
 bundle exec sidekiq  -C config/sidekiq.yml -d 后台启动方式
 bundle exec sidekiq  -C config/sidekiq.yml -d -e production 指定环境启动
 ```
-
