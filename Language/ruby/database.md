@@ -22,7 +22,7 @@ createuser weixinadmin -P
 createdb weixindb -O weixinadmin -E UTF8 -e
 用这个用户访问数据库
 
-psql -U weixinadmin -d weixindb -h 127.0.0.1
+psql -U mozhou -d mozhou_uat -h 127.0.0.1
 
 dropdb -h 127.0.0.1 -p 5432 -U mozhou mozhou_uat
 

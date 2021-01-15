@@ -270,7 +270,8 @@ select count(*) from pg_stat_activity;
 
 ```text
 pg_dump --host 101.132.47.47 --port 5432 --username mozhou  > mozhou.sql mozhou_uat
-pg_dump --host s2-mozhou-tech.moshuokejiao.com --port 5432 --username mozhou_uat  > fcy.sql mozhou_uat
+pg_dump --host 101.132.47.47 --port 5432 --username mozhou_uat  > fcy.sql mozhou_uat
+pg_dump -U mozhou --host 101.132.47.47 -W -F p mozhou_uat > fcy.sql
 ```
 xxxxx.com服务器上5432端口
 

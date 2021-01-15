@@ -330,3 +330,43 @@ bundle exec sidekiq  -C config/sidekiq.yml 调试启动方式
 bundle exec sidekiq  -C config/sidekiq.yml -d 后台启动方式
 bundle exec sidekiq  -C config/sidekiq.yml -d -e production 指定环境启动
 ```
+
+# skill
+
+gem unpack rails   把gem源赋值到当前目录
+
+require 'active_record'
+
+```rb
+ActiveRecord::Base.establish_connection(
+  adapter:  'postgresql', # or 'postgresql' or 'sqlite3'
+  database: 'mozhou_uat',
+  username: 'mozhou',
+  password: 'N5z4PtAbyTaVPv5g',
+  host:     's2-mozhou-tech.moshuokejiao.com'
+)
+class Order < ActiveRecord::Base
+end
+
+
+def source_for(object, method)
+  location = object.method(method).source_location
+  `code --goto #{location[0]}:#{location[1]}` if location && location[0] != '(eval)'
+  location
+end
+
+source_for(User.first,:update_attribute)
+```
+
+
+
+## code启动vscode
+
+Ctrl+Shift+P
+
+Shell command in path
+
+## ruby执行Linux命令
+
+`ls`
+
