@@ -29,7 +29,12 @@
     git checkout .                          取消所有本地变更  
     git commit -m 'msg'                     提交到本地  
     git push origin localName:remoteName	提交本地分支到原创分支  
-    git fetch origin master:br3				将远程的master分支拉下来并在本地创建br3分支  
+    git fetch origin master:br3				将远程的master分支拉下来并在本地创建br3分支 
+    git push origin --delete test     删除远程test分支
+    git branch -d localBranch         删除本地分支
+    -d 和 -D  
+    -D 是 --delete --force  的别名
+    如果你不在当前分支，-d会失败，所以首先要切换到相应的分支
 ## 分支比较
     git diff br3    						查看当前分支与br3分支有何不同  
     git diff branchName branchName            比较两个分支有何不同  
