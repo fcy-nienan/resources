@@ -348,6 +348,15 @@ ActiveRecord::Base.establish_connection(
 class Order < ActiveRecord::Base
 end
 
+def source_for(object, method)
+  location = object.method(method).source_location
+  `sed -n '9p' test.txt`
+  `# sed -n '9p;15p' passwd `
+  `sed -n '9
+  ,15p' passwd `
+  `vim #{location[0]}:#{location[1]}` if location && location[0] != '(eval)'
+  location
+end
 
 def source_for(object, method)
   location = object.method(method).source_location
@@ -356,6 +365,9 @@ def source_for(object, method)
 end
 
 source_for(User.first,:update_attribute)
+
+
+$ 是 pry 为我们提供的用于查看方法源代码的工具
 ```
 
 

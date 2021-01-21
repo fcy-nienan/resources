@@ -217,6 +217,28 @@ Hello.new.instance_variables	查看实例对象的实例变量
 
 局部变量	local_variable
 
+```
+class Fcy
+	attr_accessor :x,:y
+	def initialize(x,y)
+		@x=x
+		@y=y
+	end
+end
+def call
+	fcy=Fcy.new(4,5)
+	yield fcy if block_given?
+	puts fcy.inspect
+end
+fcy=Fcy.new(4,5)
+call {|x| x.x=123;fcy.y=123;}
+
+输出:
+
+```
+
+
+
 
 
 Hello.class.ancestors
@@ -273,3 +295,40 @@ test
 > > https://en.wikipedia.org/wiki/Scope_resolution_operator#Ruby
 
 >>>>>>> 
+
+
+## ruby array regex
+```
+["index","ind"].grep /in\w*/
+```
+
+
+
+# why need freeze in ruby
+
++ Creating immutable constants
++ Reducing object allocations
+	freeze string for avoiding create string object
++ value object & functional programing
+```
+class Point
+  attr_accessor :x, :y
+  def initialize(x, y)
+    @x = x
+    @y = y
+    freeze
+  end
+
+  def change
+    @x = 3
+  end
+end
+```
+>https://www.honeybadger.io/blog/when-to-use-freeze-and-frozen-in-ruby/
+#  联合运算符
+```
+// <=> 联合比较运算符
+// 1 <=> 1  0
+// 1 <=> 8   -1
+// 3 <=> 1   1
+```
