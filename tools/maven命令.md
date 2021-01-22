@@ -198,6 +198,13 @@ Maven中的仓库分为两种，Snapshot快照仓库和Release发布仓库。Sna
             </plugin>
 ```
 
+# 构建java项目
+
+```
+mvn archetype:generate "-DgroupId=com.fcy" "-DartifactId=image" "-DarchetypeArtifactId=maven-archetype-quickstart" "-DinteractiveMode=false"
+
+```
+
 
 
 
