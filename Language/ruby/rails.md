@@ -354,7 +354,7 @@ def source_for(object, method)
   `# sed -n '9p;15p' passwd `
   `sed -n '9
   ,15p' passwd `
-  `vim #{location[0]}:#{location[1]}` if location && location[0] != '(eval)'
+  `code #{location[0]}:#{location[1]}` if location && location[0] != '(eval)'
   location
 end
 
@@ -381,4 +381,21 @@ Shell command in path
 ## ruby执行Linux命令
 
 `ls`
+
+# rails
+
+```
+ActionController::Parameters.permit_all_parameters = true
+cd /www/k8s/apps/logs/mozhou-api-uat
+```
+
+# eager_load,includes,joins
+
+```
+Rails has 2 ways of avoiding the n+1 problem. One involves creating a big join based query to pull in your associations, the other involves making a separate query per association.
+
+When you do includes rails decides which strategy to use for you. It defaults to the separate query approach (preloading) unless it thinks you are using the columns from the associations in you conditions or order. Since that only works with the joins approach it uses that instead.
+
+Rails' heuristics sometimes get it wrong or you may have a specific reason for preferring one approach over the other. preload ( and its companion method eager_load) allow you to specify which strategy you want rails to use.
+```
 

@@ -325,10 +325,23 @@ class Point
 end
 ```
 >https://www.honeybadger.io/blog/when-to-use-freeze-and-frozen-in-ruby/
-#  联合运算符
+>
+>#  联合运算符
 ```
 // <=> 联合比较运算符
 // 1 <=> 1  0
 // 1 <=> 8   -1
 // 3 <=> 1   1
 ```
+
+# =~ 匹配
+
+
+
+# ruby中的boolean
+
+> In ruby, if exists, it's true. If not, it's false.
+
+>I'm guessing that Matz wanted conceptual simplicity of "truthiness" as such - the only "false" values are `false` and `nil`. Period.
+
+> Using just `false` would be the cleanest but there is understandable need for including `nil`. To include the integer zero as a special case might open the mental floodgates of questioning truthiness of other types. What about strings, is `""` false? And arrays, is `[]` false? And hashes, is `{}` false? Ad insanitum (see JavaScript)...
