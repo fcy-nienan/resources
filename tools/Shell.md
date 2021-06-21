@@ -4,6 +4,13 @@
     vim清空所有内容 dg   Esc+Shift+:+%d
     vim全局替换     :%s#ttt#kkk     将所有的ttt替换为kkk      #作为分隔符 %代表全局替换 s代表替换
     :set ff=unix
+# shell输出带颜色
+```
+red=`tput setaf 1`
+green=`tput setaf 2`
+reset=`tput sgr0`
+echo "${red}red text ${green}green text${reset}"
+```
 # 查看占用端口
 
 lsof -i:3000
@@ -474,6 +481,8 @@ ps命令显示实际的内存
 # 压缩文件和目录
     zip 123.zip 123.txt压缩文件
     zip -r 123.zip 123压缩目录
+# 显示指定命令的类型
+	type -a ruby    在path中查找并显示可执行文件的路径
 # 查看当前环境变量
 
     env

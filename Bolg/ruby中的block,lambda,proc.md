@@ -194,78 +194,9 @@ block和proc更像是往某个地方插入一段代码,一段代码的参数并�
 词法作用域:去定义的地方查找这个变量(静态的,编译时就确定了的)
 动态作用域:去调用的地方查找这个变量(动态的,运行时才能确定下来)
 
-## ruby中的作用域门
-
-当使用下列关键字的时候会创建一个新的作用域
-+ class
-+ module
-+ def
-```
-x1 = 1
-p local_variables  # [:x1]
-module Fcy
-  x2 = 2
-  p local_variables  # [:x2]
-  class FcyClass
-    x3 = 3
-    p local_variables  # [:x3]
-    def fcy_method
-      x4 = 4
-      p local_variables  # [:x4]
-    end
-  end
-end
-fcy = Fcy::FcyClass.new
-fcy.fcy_method
-
-就像打开一扇一扇层层递进的门,进了门就看不到门外的东西了
-```
-## 存在相应的规则那肯定也有打破这种规则的方法
-+ Class.new
-+ Module.new
-+ define_method
-```
-x1 = 1
-p local_variables  # [:x1]
-FcyModule = Module.new do 
-  x2 = 2
-  p local_variables  # [:x2,:x1]
-  FcyClass = Class.new do 
-    x3 = 3
-    p local_variables  # [:x3,:x2,:x1]
-    define_method(:fcy_method) do 
-      x4 = 4
-      p local_variables   # [:x4,:x3,:x2,:x1]
-    end
-  end
-end
-fcy_class = FcyClass.new
-fcy_class.fcy_method
-调用方法发现外层定义的变量在里面也能看到
-```
-block也可以捕获当前环境的变量,
-```
-hello = "Hello World"
-def call
-	yield
-end
-call { p hello }       # Hello World
-```
-如果想隔离这份可见性,可以加指定的形参
-```
-hello ='Hello World'
-2.times do |i; hello|
-  p i
-  hello = '456'
-end
-p hello  # Hello World
-输出:
-"Hello World"
-```
-
 ruby是词法作用域
 ### ruby
-```
+```ruby
 静态作用域
 def foo
   x = 1
@@ -277,7 +208,7 @@ foo{ p x}  # 2
 如果是动态作用域,相同的代码应该输出1
 ```
 ### JavaScript也是词法作用域
-```
+```javascript
 动态作用域(如果是动态作用域的话,应该是输出inner)
 var testValue = 'outer';
 function foo() {

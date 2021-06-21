@@ -333,3 +333,53 @@ end
 // 1 <=> 8   -1
 // 3 <=> 1   1
 ```
+
+# =~ 匹配
+
+
+
+# ruby中的boolean
+
+> In ruby, if exists, it's true. If not, it's false.
+
+>I'm guessing that Matz wanted conceptual simplicity of "truthiness" as such - the only "false" values are `false` and `nil`. Period.
+
+> Using just `false` would be the cleanest but there is understandable need for including `nil`. To include the integer zero as a special case might open the mental floodgates of questioning truthiness of other types. What about strings, is `""` false? And arrays, is `[]` false? And hashes, is `{}` false? Ad insanitum (see JavaScript)...
+
+# require和include
+Ruby require is more like "include" in other languages (such as C). It tells Ruby that you want to bring in the contents of another file. Similar mechanisms in other languages are:
+
+using <namespace> directive in C#.
+import <package> in Java.
+Ruby include is an object-oriented inheritance mechanism used for mixins.
+
+The load method is almost like the require method except it doesn’t keep track of whether or not that library has been loaded. So it’s possible to load a library multiple times and also when using the load method you must specify the “.rb” extension of the library file name.
+
+When using the extend method instead of include, you are adding the module’s methods as class methods instead of as instance methods.
+
+
+require导入其他模块
+load也是导入其他模块，不过load每次调用都会执行一次
+include是ruby的对象继承机制
+extend是扩展类方法而不是实例方法
+
+
+Use require for installed gems
+Use require_relative for local files
+require uses your $LOAD_PATH to find the files.
+require_relative uses the current location of the file using the statement
+
+
+
+```
+x = 2 if defined? x  # => 2
+
+if defined? x
+    x = 2
+end
+
+上面两段代码运行起来是不一样的
+ruby是解释性语言
+```
+
+

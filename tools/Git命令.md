@@ -28,6 +28,7 @@
     git add .                               将本地所有代码加入到暂存区  
     git checkout .                          取消所有本地变更  
     git commit -m 'msg'                     提交到本地  
+    git pull --rebase      拉取远程分支，避免出现‘merge xxxx'等commit日志
     git push origin localName:remoteName	提交本地分支到原创分支  
     git fetch origin master:br3				将远程的master分支拉下来并在本地创建br3分支 
     git push origin --delete test     删除远程test分支
@@ -164,12 +165,13 @@ git push
 
 # git保存当前操作
 
-git stash save
+stash相当于一个堆栈，save的时候压栈,pop的时候弹出
 
-git stash save -u "message"  # 不加-u新增的文件不会暂存，加了会，另外别用-a参数
+git stash save -u "message"  # 不加-u新增的文件不会暂存，加了会      
 
-git stash list
+git stash list    # 查看所有
 
-git stash apply stash@{0}
+git stash apply stash@{0}  # 将某一个stash应用到当前分支
 
-git stash pop
+git stash pop    # 把栈顶的stash应用到当前分支
+

@@ -354,7 +354,7 @@ def source_for(object, method)
   `# sed -n '9p;15p' passwd `
   `sed -n '9
   ,15p' passwd `
-  `vim #{location[0]}:#{location[1]}` if location && location[0] != '(eval)'
+  `code #{location[0]}:#{location[1]}` if location && location[0] != '(eval)'
   location
 end
 
@@ -382,3 +382,71 @@ Shell command in path
 
 `ls`
 
+# rails
+
+```
+ActionController::Parameters.permit_all_parameters = true
+cd /www/k8s/apps/logs/mozhou-api-uat
+```
+
+# eager_load,includes,joins
+
+```
+Rails has 2 ways of avoiding the n+1 problem. One involves creating a big join based query to pull in your associations, the other involves making a separate query per association.
+
+When you do includes rails decides which strategy to use for you. It defaults to the separate query approach (preloading) unless it thinks you are using the columns from the associations in you conditions or order. Since that only works with the joins approach it uses that instead.
+
+Rails' heuristics sometimes get it wrong or you may have a specific reason for preferring one approach over the other. preload ( and its companion method eager_load) allow you to specify which strategy you want rails to use.
+```
+
+# around_create and before_create
+Had this question, too, and have now found the answer: around_create allows you to basically do both a before_create and an after_create in one method. You have to use yield to execute the save in between.
+```
+class MyModel < ActiveRecord::Base
+  around_create :my_callback_method
+
+  private
+    def my_call_back_method
+      # do some "before_create" stuff here
+
+      yield  # this makes the save happen
+
+      # do some "after_create" stuff here
+    end
+end
+```
+
+# 回调顺序
+3.1 创建对象
+before_validation
+after_validation
+before_save
+around_save
+before_create
+around_create
+after_create
+after_save
+after_commit/after_rollback
+
+3.2 更新对象
+before_validation
+after_validation
+before_save
+around_save
+before_update
+around_update
+after_update
+after_save
+after_commit/after_rollback
+
+3.3 删除对象
+before_destroy
+around_destroy
+after_destroy
+after_commit/after_rollback
+
+
+# 查看修改之前的值
+user.real_name # ttt
+user.real_name = 'fcy'
+user.real_name_was # ttt
