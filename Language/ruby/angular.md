@@ -100,3 +100,10 @@ childPrint() {
   alert("来自子组件的打印");
 }
 ```
+# angular数据绑定的三种写法
+<app-custom-input ngModel="inputOne"></app-custom-input>
+这里inputOne是字符串，传入的是inputOne这个字符串
+<app-custom-input [ngModel]="inputOne"></app-custom-input>
+这里inputOne是变量，单项绑定，传入的是inputOne的值，控件里面值得变更不会影响外面的inputOne变量
+<app-custom-input [(ngModel)]="inputOne"></app-custom-input>、
+这里inputOne是变量，双向绑定，传入逇是inputOne的值，控件里面值得变更会同步到外面inputOne变量

@@ -383,7 +383,3 @@ ruby是解释性语言
 ```
 
 
-# 查看修改之前的值
-user.real_name # ttt
-user.real_name = 'fcy'
-user.real_name_was # ttt
