@@ -5,7 +5,10 @@
     set timestamp=%date:~0,4%%date:~5,2%%date:~8,2%%time:~0,2%%time:~3,2%%time:~6,2%
     echo %timestamp%
     echo %timestamp% > D:\%timestamp%
-
+# 打开当前文件夹
+```
+	explorer .
+```
 # bat不显示窗口
 	CreateObject("WScript.Shell").Run "cmd /c D:\ScheduledTask\shieldWIndows.bat",0
 

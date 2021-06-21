@@ -70,3 +70,63 @@
 
 --volume , -v: 绑定一个卷
 
+# docker
+
+workdir    设置工作目录并切换到该目录
+
+
+
+
+
+启动gitrunner
+
+```
+docker run -d --name gitlab-runner --restart always \
+  -v /data/gitlab-runner/config:/etc/gitlab-runner \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v /workspace/docker/railsDemo:/workspace/docker/railsDemo \
+  gitlab/gitlab-runner:latest
+  
+  
+  
+  docker exec gitlab-runner gitlab-runner register -n \
+       --url http://192.168.204.130/ \
+       --registration-token MsAAHiGM1xU2sF8qPBEq \
+       --tag-list build,deploy \
+       --executor docker \
+       --docker-image docker \
+       --docker-volumes /root/.m2:/root/.m2 \
+       --docker-volumes /root/.npm:/root/.npm \
+       --docker-volumes /var/run/docker.sock:/var/run/docker.sock \
+       --description "runInDk"
+```
+
+
+
+docker   单机部署
+
+docker-compose 单机部署多容器
+
+k8s  集群部署高可用
+
+
+
+ docker run --rm -t -i -v /data/gitlab-runner/config:/etc/gitlab-runner gitlab/gitlab-runner register
+
+
+
+curl -XGET 120.79.158.25:5000/v2/ruby/rails_demo/tags/list
+
+
+
+```
+    docker login http://xxx.docker-mirror.com -u  username -p password
+    docker push http://xxx.docker-mirror.com/dockerHome/project-front:20190826
+    docker tag project-front:20190826  http://xxx.docker-mirror.com/dockerHome/project-front:20190826
+
+docker pull 111.111.111.111:5000/sunhengzhe/express-app:v1
+
+ curl -XGET 120.79.158.25:5000/v2/ruby/fcy/tags/list
+docker run -itd --rm  postgres -e POSTGRES_PASSWORD=7881865200934235
+```
+

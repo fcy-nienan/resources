@@ -28,3 +28,22 @@ ng g directive directive/hello --module directive
 
 ### 组件
 
+
+
+
+
+```
+ng g module --routing
+
+```
+
+# [Difference between [(ngModel)\] and [ngModel] for binding state to property?](https://stackoverflow.com/questions/42504918/difference-between-ngmodel-and-ngmodel-for-binding-state-to-property)
+
+```
+[(ngModel)]="overRideRate" is the short form of [ngModel]="overRideRate"
+ (ngModelChange)="overRideRate = $event"
+
+[ngModel]="overRideRate" is to bind overRideRate to the input.value
+(ngModelChange)="overRideRate = $event" is to update overRideRate with the value of input.value when the change event was emitted.
+```
+

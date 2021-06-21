@@ -10,16 +10,16 @@ https://docs.oracle.com/javase/8/docs/technotes/tools/unix/index.html
 
 + jinfo 打印Java运行时的相关环境信息Generates configuration information
 
-+ javah和jni有关,生成想要的jni头文件
++ javah	和jni有关,生成想要的jni头文件
 + jmap Prints shared object memory maps or heap memory details for a process, core file, or remote debug server
 
 + jdb通过控制台调试程序
 
 + jhat从一个dump文件获取信息并分析并可以通过web访问http://localhost:7000/oqlhelp/
 
-+ jstack查看线程状态
++ jstack   查看线程状态
 
-+ jps查看运行的进程信息
++ jps   查看运行的进程信息
 
 + 生成JitWatch分析日志
   -XX:+UnlockDiagnosticVMOptions -XX:+PrintAssembly -XX:+LogCompilation -XX:LogFile=jit.log

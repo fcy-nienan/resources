@@ -90,6 +90,7 @@ The method **self.up** is used when migrating to a new version, **self.down** is
   Ruby的类名必须大写
 
 # 异常处理
+
 	begin
 		rescue
 	
@@ -217,6 +218,7 @@ ORM中的Active Record和Data Mapper
  $user = new User;
 $user->username = 'philipbrown';
 $user->save();
+
 # 再来看使用Data Mapper的ORM是怎样的：
 $user = new User;
 $user->username = 'philipbrown';
