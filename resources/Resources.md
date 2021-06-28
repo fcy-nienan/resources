@@ -43,7 +43,7 @@ CentOS-7-x86_64-LiveGNOME-1708.iso         GNOME桌面版
 CentOS-7-x86_64-LiveKDE-1708.iso           KDE桌面版  
 CentOS-7-x86_64-Minimal-1708.iso           精简版，自带的软件最少
 
-
+00:0c:29:da:0b:0a
 
 更新yum源
 CentOS 5

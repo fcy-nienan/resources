@@ -44,7 +44,7 @@
     
     /* 延迟30秒执行，防止锁释放 */
     SELECT SLEEP(30);
-    
+
 # mysql的事务
     默认是自动提交
     如果要手动提交的话需要 start transaction
@@ -258,3 +258,12 @@ order by convert(if(orgName='重庆分公司'),'冲庆分公司',orgName) using 
 ##转换后的数据
 
 ![mysql行转列结果](../resources/photo/mysql/mysql-row-to-column-two.png)
+
+# mysql导入导出
+
+```
+导出数据
+mysqldump -h 120.79.158.25 -uroot -p solo > ~/solo.sql
+导入数据
+```
+

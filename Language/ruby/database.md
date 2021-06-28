@@ -16,7 +16,7 @@ brew services start postgresql //如果用Homebrew安装了postgresql：
 
 新建一个数据库用户
 
-createuser weixinadmin -P
+createuser fcy -P
 为这个用户新建一个数据库
 
 createdb weixindb -O weixinadmin -E UTF8 -e

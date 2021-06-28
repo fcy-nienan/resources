@@ -46,6 +46,7 @@ lsof -i:3000
     LC_PAPER        纸张尺寸大小
     LC_ALL
 # 基础语法
+
     判断上一条命令是否执行成功 $?
     获取上一条命令执行结果 dir=`pwd` 或者dir=$(pwd)
     清空文件
@@ -83,7 +84,8 @@ lsof -i:3000
     如果写成了
     ls a.txt b.txt 2>&1 2>success.txt   则会将标准错误输出到控制台上
     也就是从最靠近最终输入的写起
-# df命令  
+# df命令
+
     df -h
     df -T 显示文件系统类型
     查看当前目录空间占用空间大小 du -h --max-depth=0
@@ -133,8 +135,10 @@ lsof -i:3000
     a=`echo ${a}+${b} | bc`
     done
 # Linux输出结果逆序
+
     ll -t | tac
 # tail当前目录最新文件
+
     tail -f `ll -t | awk "NR==2" | tr -s ' ' | cut -d ' ' -f 9`
     awk "NR==2"输出第二行数据
     ll -t 按日期排序
@@ -176,10 +180,24 @@ ps命令显示实际的内存
 >top includes what's cached in buffers and whatnot. PS does not. If you want your actual usage by the application, use ps. If you want the total used by the application including what the system reserves for it .. use top
 >
 
-1. VIRT is the virtual size of a process, which is the sum of the memory it is actually using, memory it has mapped into itself (for instance a video cards’s RAM for the X server), files on disk that have been mapped into it (most notably shared libraries), and memory shared with other processes. VIRT represents how much memory the process is able to access at the present moment.
+1. VIRT is the virtual size of a process, which is the sum of the memory it is actually using, memory it has mapped into itself (for instance a video cards’s RAM for the X server), files on disk that have been mapped into it (most notably shared libraries), and memory shared with other processes. VIRT represents how much memory the process is able to access at the present moment
+
+   虚拟内存空间总和.
+
+   首先要知道每个进程都有一个虚拟内存空间,这是一个逻辑空间.
+
+   这个virtual就代表占用这个空间的总大小,heap,文件映射(mmap)等等
+
 2. RES is the resident size, which is an accurate representation of how much actual physical memory a process is consuming. (This number corresponds directly to top‘s %MEM column.) This amount will virtually always be less than the VIRT size, since most programs depend on the C library.
+
+   这个才是实际占用的的物理内存
+
 3. SHR indicates how much of the VIRT size is actually sharable, so it includes memory and libraries that could be shared with other processes. In the case of libraries, it does not necessarily mean that the entire library is resident. For example, if a program only uses a few functions in a library, the whole library is mapped and counted in VIRT and SHR, but only the parts of the library file that contain the functions being used are actually loaded in and counted under RES.
+
+   这个是共享内存,和其他进程.dll
+
 # 终端类型
+
     1.串行端口终端（/dev/ttySn）
     2.伪终端（/dev/pty/）
     3.控制终端（/dev/tty）
@@ -187,8 +205,15 @@ ps命令显示实际的内存
 # ldd
     打印程序以来的共享库
 # netstat命令
+
     netstat -ntlp
+# ssh-keygen
+
+	指定生成目录
+	ssh-keygen -t rsa -b 4096 -C "your_email@example.com" -f $HOME/.ssh/id_rsa
+
 # strings命令
+
     在要给二进制文件中查找指定字符串
 # strace命令    跟踪程序运行时的系统调用
     strace常用来跟踪进程执行时的系统调用和所接收的信号。
@@ -250,6 +275,7 @@ ps命令显示实际的内存
     /proc/PID/status
     Process status in human readable form.
 # linux中shell相关
+
     查看所有shell   cat /etc/shells
     查看当前使用的  sehll echo $SHELL
     更换当前shell       chsh
@@ -299,6 +325,7 @@ ps命令显示实际的内存
     
     输出所有变量  sysctl -a
 # iostat命令
+
     iostat -d 2 6    每隔两秒输出io信息,总共输出6次
 # vmstat命令
     vmstat -d 2 6    每隔两秒输出cpu信息,总共输出6此
@@ -457,6 +484,7 @@ ps命令显示实际的内存
 # 显示指定命令的类型
 	type -a ruby    在path中查找并显示可执行文件的路径
 # 查看当前环境变量
+
     env
 # 查找特定文件并删除
     格式:find   path   -option   [   -print ]   [ -exec   -ok   command ]   {} \;
@@ -522,6 +550,7 @@ ps命令显示实际的内存
         buff是缓冲,还未写入到磁盘的脏数据
         cache是方便读取
 # id显示当前用户的一些信息
+
     当前用户名,用户id,组名,组id,加入的所有组,所有组id
 # 查看进程端口信息
       ss -tnlp  
@@ -585,6 +614,7 @@ ps命令显示实际的内存
 # 开机自启动
 	将shell脚本的路径添加到/etc/rc.local文件中
 # 服务相关目录
+
     /etc/init.d/   chkconfig命令就是对其进行增删改查
     chkconfig --list
     chkconfig --add
@@ -686,6 +716,7 @@ ps命令显示实际的内存
 	配置文件目录 /etc/vsftpd
 	文件目录  /var/ftp
 # netstat 命令显示的:::*
+
 	::: 这三个: 的前两个”::“，是“0:0:0:0:0:0:0:0”的缩写，相当于IPv6的“0.0.0.0”，就是本机的所有IPv6地址，第三个:是IP和端口的分隔符
 
 # crontab
