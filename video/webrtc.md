@@ -13,6 +13,24 @@ WebRTC 它主要使用一個名為ICE ( Interactive Connectivity Establishment )
 sdp: 会话描述协议，描述多媒体链接内容的协议，分辨率，支持的编码格式等等，确切的说这是一种数据格式
 nat: 网络地址转换。有多重类型，锥形，对称型等等
 
+## webrtc通信模式
+![通信模式](../resources/phonto/../photo/webrtc/webrtc_structure.png)
+### Mesh架构
+优点是逻辑简单，容易使下
+缺点是没新增一个客户端，所有客户端都要增加一条通道，人越多，浏览器端压力越大，效果越差，另外没有服务器端，无法对视频做额外处理
+需要的连接: (5-1)?=1+2+3+4
+### MCU架构
+服务器端负责视频编码解码等工作，连接少，浏览器端的压力小，5个连接
+适合多人视频会议
+### SFU架构
+看起来和MCU一样，但SFU服务器只负责转发，不做编码解码等工作，但需要下载其他参与方的视频信息，5*5个连接
+典型场景是1对N的视频互动
+### 开源方案
++ Jitsi ```https://github.com/jitsi/jitsi```
++ Kurento ```https://github.com/Kurento/kurento-media-server```
++ Licode ```https://github.com/lynckia/licode```
++ Janus ```https://github.com/meetecho/janus-gateway```
++ Mediasoup ```https://github.com/versatica/mediasoup```
 # 四种nat类型
 依次为nat1,nat2,nat3,nat4
 ## Full Cone NAT(允许任意IP+任意端口)
