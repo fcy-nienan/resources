@@ -450,3 +450,7 @@ after_commit/after_rollback
 user.real_name # ttt
 user.real_name = 'fcy'
 user.real_name_was # ttt
+
+# rails c获取上一条命令的输出
+"_"保存着上一条命令返回的结果
+

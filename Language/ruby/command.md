@@ -126,6 +126,16 @@ The method **self.up** is used when migrating to a new version, **self.down** is
 	模块
 	require,load,include,extend等的区别
 	load 和 require 是 Kernel 提供的类加载接口，extend 和 include 是互相引用的接口，有本质区别
+# hook
+	include
+	extend
+	prepend
+	继承
+	这些方法都有相应的钩子方法
+	include=>included
+	extend=>extended
+	prepend=>prepended
+	继承=>inherited
 ## extend
 
 	extend - adds the specified module's methods and constants to the target's metaclass (i.e. the singleton class) e.g.
@@ -294,3 +304,41 @@ psql -d fcy  -f fcy.sql fcydb
 # # brew
 
 ​	brew info redis查看redis信息
+# bundle
+bundle update cucumber-rails
+... you might think this will only update cucumber-rails. But it actually updates cucumber-rails and all of its dependencies. This will explode in your face when one of these dependencies release a new version with breaking API changes. Which is all the time.
+Bundler >= 1.14 has a --conservative flag. Using the conservative flag allows bundle update GEM to update the version of GEM, but prevents Bundler from updating the versions of any of the gems that GEM depends on.
+bundle update cucumber-rails --conservative 不更新他的依赖
+# bundle的来龙去脉
+https://ruby-china.org/topics/28453
+# bundle和gem的区别
+
+I'd say: by default on your local machine, no particular difference but...
+
+The purpose of bundle install is to setup everything for the application containing the Gemfile. You can even pass arguments to make needed gems installed in whatever folder you want.
+
+This way in production, you have clearly separated apps with their own gems.
+
+On the other side, gem install gmaps4rails (easy advertisement) gets the gem installed for your whole environment.
+
+# Ripper
+分析ruby的程序，词法解析，语法解析，生成字节码
+# 实现像rails c那样的控制台
+https://huacnlee.com/blog/how-to-create-your-owner-rails-console/
+# ruby中的struct
+Person = Struct.new(:age, :name, :sex)
+# 单个对象和数组对象
+有时你可能会先给出一个选项去接受单个对象或者一个数组对象，而不是最后去检查你接受到对象的类型，这时你可以用 [*type]或者 Array(type)
+
+我们先设置两个变量，第一个是单对象，第二个是数字数组：
+
+obj  = 1
+obj_arr = [1, 2, 3]
+在下面的例子，通过任何被给定的对象用 [*...] 去循环：
+
+[*obj].each { |s| s }  # => [1]
+[*obj_arr].each { |s| s } # => [1, 2, 3]
+和上面效果一样，这次用 Array(...)：
+
+Array(stuff).each { |s| s } # => [1]
+Array(stuff_arr).each { |s| s } # => [1, 2, 3]
