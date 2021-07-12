@@ -76,3 +76,6 @@ npm ls jquery -g    (查看全局安装的jquery)
 ‘^16.8.0’ 表示安装16.x.x的最新版本，安装时不改变大版本号。
 ‘~16.8.0’ 表示安装16.8.x的最新版本，安装时不改变大版本号和次要版本号。
 ‘16.8.0’ 表示安装指定的版本号，也就是安装16.8.0版本。
+
+It's not possible to disable only postinstall scripts. However, you can disable all scripts using
+npm install --ignore-scripts  
